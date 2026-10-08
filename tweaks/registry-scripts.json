@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-08T19:30:34.814Z",
+  "version": "2026-10-08T19:32:15.855Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -40,8 +40,7 @@
       "title": "Disable CPU Idle States",
       "description": "Disables CPU idle states in the power plan to cut latency and micro-stutters in games",
       "category": [
-        "BIOS",
-        "Performance"
+        "BIOS"
       ],
       "recommended": false,
       "reversible": true,
@@ -894,8 +893,7 @@
       "title": "Disable Virtualization Security",
       "description": "Turns off VBS and HVCI virtualization security to free CPU for games",
       "category": [
-        "BIOS",
-        "Performance"
+        "BIOS"
       ],
       "recommended": false,
       "reversible": true,
@@ -911,7 +909,6 @@
       "title": "Disable Windows Platform Binary Table",
       "description": "Prevents your computer vendor from executing programs at boot, reducing potential security risks.",
       "category": [
-        "Privacy",
         "BIOS"
       ],
       "recommended": false,

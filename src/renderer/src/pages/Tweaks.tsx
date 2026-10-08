@@ -53,6 +53,7 @@ function Tweaks() {
   const [modalContent, setModalContent] = useState<string | boolean | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedTweak, setSelectedTweak] = useState<Tweak | null>(null)
+  const [biosAccepted, setBiosAccepted] = useState(false)
   const [isRecommendedModalOpen, setIsRecommendedModalOpen] = useState(false)
   const [recommendedTweaksToApply, setRecommendedTweaksToApply] = useState<Tweak[]>([])
   const [selectedRecommendedTweaks, setSelectedRecommendedTweaks] = useState<Set<string>>(new Set())
@@ -294,6 +295,7 @@ function Tweaks() {
     if (tweak.modal && !toggleStates[tweak.name]) {
       setSelectedTweak(tweak)
       setModalContent(tweak.modal)
+      setBiosAccepted(false)
       setIsModalOpen(true)
       return
     }
@@ -443,7 +445,7 @@ function Tweaks() {
     Appearance: <Paintbrush className="w-4 h-4 text-k3d-primary" />,
     Gaming: <Gamepad className="w-4 h-4 text-k3d-primary" />,
     General: <Wrench className="w-4 h-4 text-k3d-primary" />,
-    BIOS: <HardDrive className="w-4 h-4 text-red-500" />,
+    BIOS: <HardDrive className="w-4 h-4 text-k3d-primary" />,
   }
 
   const presets = [
@@ -544,6 +546,15 @@ function Tweaks() {
           <div className="text-k3d-text-secondary text-sm leading-6 max-h-64 overflow-y-auto custom-scrollbar mb-6 prose prose-green marker:text-k3d-secondary">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{String(modalContent)}</ReactMarkdown>
           </div>
+          {selectedTweak && tweakCategories(selectedTweak).includes("BIOS") && (
+            <div className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 p-3">
+              <Checkbox
+                label="I understand the risks of changing BIOS-related settings"
+                checked={biosAccepted}
+                onChange={setBiosAccepted}
+              />
+            </div>
+          )}
           <div className="flex justify-end gap-3">
             <Button
               variant="secondary"
@@ -555,6 +566,9 @@ function Tweaks() {
             </Button>
             {selectedTweak && (
               <Button
+                disabled={
+                  tweakCategories(selectedTweak).includes("BIOS") && !biosAccepted
+                }
                 onClick={async () => {
                   const newState = true
                   const newStates = {

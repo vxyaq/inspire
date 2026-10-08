@@ -6,7 +6,6 @@
   "reversible": true,
   "modal": "Disabling WPBT prevents vendors from running programs on boot. Confirm you want to apply this tweak?",
   "category": [
-    "Privacy",
     "BIOS"
   ],
   "warning": "Some vendor software may not run at startup.",
