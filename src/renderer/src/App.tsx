@@ -1,17 +1,18 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, lazy, Suspense } from "react"
 import { Routes, Route, Navigate } from "react-router-dom"
 import TitleBar from "./components/titlebar"
 import Nav from "./components/nav"
 import "./App.css"
 import { ToastContainer, Slide } from "react-toastify"
 import Home from "./pages/Home"
-import Tweaks from "./pages/Tweaks"
-import Clean from "./pages/Clean"
-import Games from "./pages/Games"
-import Settings from "./pages/Settings"
-import Account from "./pages/Account"
-import Backup from "./pages/Backup"
 import FirstTime from "./components/firsttime"
+
+const Tweaks = lazy(() => import("./pages/Tweaks"))
+const Clean = lazy(() => import("./pages/Clean"))
+const Games = lazy(() => import("./pages/Games"))
+const Settings = lazy(() => import("./pages/Settings"))
+const Account = lazy(() => import("./pages/Account"))
+const Backup = lazy(() => import("./pages/Backup"))
 import UpdateManager from "./components/updatemanager"
 import ChangelogModal from "./components/changelogModal"
 import useOnlineStore from "./store/online"
@@ -145,21 +146,29 @@ function App() {
             <main
               className={`min-h-0 flex-1 rounded-tl-2xl border-l border-t border-k3d-border p-6 ${sidebarCollapsed ? "ml-16" : "ml-52"}`}
             >
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/tweaks" element={<Tweaks />} />
-                <Route path="/clean" element={<Clean />} />
-                <Route
-                  path="/games"
-                  element={
-                    account?.plan === "pro" ? <Games /> : <Navigate to="/" replace />
-                  }
-                />
-                <Route path="/backup" element={<Backup />} />
-                <Route path="/account" element={<Account />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
+              <Suspense
+                fallback={
+                  <div className="flex min-h-64 items-center justify-center">
+                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-k3d-border border-t-k3d-primary" />
+                  </div>
+                }
+              >
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/tweaks" element={<Tweaks />} />
+                  <Route path="/clean" element={<Clean />} />
+                  <Route
+                    path="/games"
+                    element={
+                      account?.plan === "pro" ? <Games /> : <Navigate to="/" replace />
+                    }
+                  />
+                  <Route path="/backup" element={<Backup />} />
+                  <Route path="/account" element={<Account />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+              </Suspense>
             </main>
           </div>
           <UpdateManager />

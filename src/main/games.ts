@@ -25,7 +25,10 @@ interface GameEntry {
   psunapply: string
 }
 
+let gamesCache: GameEntry[] | null = null
+
 async function loadGames(): Promise<GameEntry[]> {
+  if (gamesCache) return gamesCache
   const entries = await fs.readdir(gamesDir, { withFileTypes: true })
   const games: GameEntry[] = []
   for (const dir of entries) {
@@ -64,6 +67,7 @@ async function loadGames(): Promise<GameEntry[]> {
       psunapply,
     })
   }
+  gamesCache = games
   return games
 }
 

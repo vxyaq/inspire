@@ -34,7 +34,10 @@ const getExePath = (exeName: string): string => {
   return path.join(process.resourcesPath, exeName)
 }
 
+let tweaksCache: Tweak[] | null = null
+
 async function loadTweaks(): Promise<Tweak[]> {
+  if (tweaksCache) return tweaksCache
   const entries = await fs.readdir(tweaksDir, { withFileTypes: true })
   const tweaks: Tweak[] = []
   for (const dir of entries) {
@@ -90,6 +93,7 @@ async function loadTweaks(): Promise<Tweak[]> {
       ...meta,
     })
   }
+  tweaksCache = tweaks
   return tweaks
 }
 

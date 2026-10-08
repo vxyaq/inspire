@@ -73,9 +73,6 @@ export async function executePowerShell(
 }
 
 export const setupPowerShellHandlers = (): void => {
-  ipcMain.handle("run-powershell", (_event, props: ExecutePowerShellOptions) =>
-    executePowerShell(props),
-  )
   console.log("[K3d Tweaks main/powershell.ts]: PowerShell handlers setup complete")
 }
 

@@ -3,7 +3,6 @@ import Modal from "@/components/ui/modal"
 import Button from "@/components/ui/button"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
-import rehypeRaw from "rehype-raw"
 
 interface Release {
   tag_name: string
@@ -27,7 +26,6 @@ function ChangelogContent({ body }: { body: string }) {
     <div className="prose prose-sm prose-green marker:text-k3d-secondary max-w-none text-k3d-text prose-headings:text-k3d-text prose-code:bg-k3d-border prose-code:text-k3d-text prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-sm prose-code:font-normal prose-code:before:content-none prose-code:after:content-none prose-pre:bg-k3d-card prose-pre:border prose-pre:border-k3d-border prose-img:rounded-lg prose-img:border prose-img:border-k3d-border">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
         components={{
           a: ({ href, children, ...props }) => (
             <a

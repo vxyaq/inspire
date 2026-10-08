@@ -84,6 +84,9 @@ async function loginWithDiscord(): Promise<AuthResponse> {
   const authorizationUrl = new URL(`${AUTH_SERVER_URL}/auth/discord`)
   authorizationUrl.searchParams.set("state", state)
   const callback = waitForDiscordCallback(state)
+  if (!authorizationUrl.protocol.startsWith("https")) {
+    throw new Error("Refusing to open a non-HTTPS authorization URL.")
+  }
   await shell.openExternal(authorizationUrl.toString())
   const ticket = await callback
   let hwid = ""
