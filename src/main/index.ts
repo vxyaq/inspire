@@ -181,10 +181,18 @@ app
     })
 
     ipcMain.handle("open-devtools", () => {
-      if (mainWindow) {
+      if (mainWindow && !app.isPackaged) {
         mainWindow.webContents.openDevTools()
       }
     })
+
+    if (mainWindow) {
+      mainWindow.webContents.on("will-navigate", (event, url) => {
+        if (!url.startsWith("http://localhost:") && !url.startsWith("file://")) {
+          event.preventDefault()
+        }
+      })
+    }
 
     app.on("activate", function () {
       if (BrowserWindow.getAllWindows().length === 0) createWindow()

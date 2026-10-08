@@ -5,24 +5,17 @@ function Greeting() {
   const [name, setName] = useState("")
 
   useEffect(() => {
+    localStorage.removeItem("inspire:user")
     const loadName = () => {
       invoke({ channel: "auth:get-session" })
         .then((account) => {
-          const displayName = account?.displayName
-          if (displayName) {
-            setName(displayName)
-            localStorage.setItem("inspire:user", displayName)
-          }
+          setName(account?.displayName || "")
         })
         .catch((err) => {
           console.error("Error fetching account name:", err)
         })
     }
 
-    const cached = localStorage.getItem("inspire:user")
-    if (cached) {
-      setName(cached)
-    }
     loadName()
     window.addEventListener("auth:changed", loadName)
     return () => window.removeEventListener("auth:changed", loadName)

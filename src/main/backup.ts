@@ -41,31 +41,44 @@ interface BackupResult {
   points?: any[]
 }
 
-export const setupBackupHandlers = (): void => {
-  ipcMain.handle("create-inspire-restore-point", async (): Promise<BackupResult> => {
-    const label = `InspireBackup-${getTimestamp()}`
+let createInProgress: Promise<BackupResult> | null = null
+let lastCreatedAt = 0
+const CREATE_DEDUPE_MS = 60 * 1000
+
+async function createPoint(label: string): Promise<BackupResult> {
+  if (createInProgress) return createInProgress
+  if (Date.now() - lastCreatedAt < CREATE_DEDUPE_MS) {
+    return { success: true, label, message: "Restore point already created moments ago." }
+  }
+  createInProgress = (async (): Promise<BackupResult> => {
     try {
+      await runPowerShell(
+        `Set-ItemProperty -Path "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Value 0 -Type DWord -Force`,
+      ).catch(() => "")
       await runPowerShell(`Checkpoint-Computer -Description '${label}'`)
+      lastCreatedAt = Date.now()
       return { success: true, label }
     } catch (error: any) {
       console.error(error)
-      return { success: false, error: error.message }
+      return { success: false, error: error.message || String(error) }
+    } finally {
+      createInProgress = null
     }
+  })()
+  return createInProgress
+}
+
+export const setupBackupHandlers = (): void => {
+  ipcMain.handle("create-inspire-restore-point", async (): Promise<BackupResult> => {
+    return createPoint(`InspireBackup-${getTimestamp()}`)
   })
 
   ipcMain.handle(
     "create-restore-point",
     async (_event: IpcMainInvokeEvent, name?: string): Promise<BackupResult> => {
-      try {
-        const safeName = name ? sanitizeRestorePointName(name) : ""
-        const label = safeName ? `${safeName}-${getTimestamp()}` : `ManualRestore-${getTimestamp()}`
-
-        await runPowerShell(`Checkpoint-Computer -Description '${label}'`)
-        return { success: true, label }
-      } catch (error: any) {
-        console.error(error)
-        return { success: false, error: error.message }
-      }
+      const safeName = name ? sanitizeRestorePointName(name) : ""
+      const label = safeName ? `${safeName}-${getTimestamp()}` : `ManualRestore-${getTimestamp()}`
+      return createPoint(label)
     },
   )
 

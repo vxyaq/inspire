@@ -6,6 +6,7 @@ import { invoke } from "@/lib/electron"
 
 export default function FirstTime(): React.ReactElement {
   const [open, setOpen] = useState(false)
+  const [busy, setBusy] = useState(false)
 
   useEffect(() => {
     const firstTime = localStorage.getItem("firstTime")
@@ -17,6 +18,8 @@ export default function FirstTime(): React.ReactElement {
   }, [])
 
   const handleGetStarted = async () => {
+    if (busy) return
+    setBusy(true)
     localStorage.setItem("firstTime", "false")
     setOpen(false)
 
@@ -44,6 +47,8 @@ export default function FirstTime(): React.ReactElement {
         autoClose: 4000,
       })
       console.error("Error creating restore point:", err)
+    } finally {
+      setBusy(false)
     }
   }
 
@@ -75,8 +80,10 @@ export default function FirstTime(): React.ReactElement {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
-          <Button onClick={handleGetStarted}>Yes (Recommended)</Button>
-          <Button onClick={handleSkipRestorePoint} variant="danger">
+          <Button onClick={handleGetStarted} disabled={busy}>
+            {busy ? "Creating..." : "Yes (Recommended)"}
+          </Button>
+          <Button onClick={handleSkipRestorePoint} variant="danger" disabled={busy}>
             No (Not Recommended)
           </Button>
         </div>

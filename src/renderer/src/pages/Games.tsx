@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { LoaderCircle } from "lucide-react"
 import { toast } from "react-toastify"
 import { invoke } from "@/lib/electron"
@@ -48,16 +48,33 @@ New-ItemProperty -Path $gameBarPath -Name "AppCaptureEnabled" -PropertyType DWor
 Write-Output "CS2_OPTIMIZED:$gpuVendor"
 `
 
+const OPTIMIZE_TIMEOUT_MS = 90000
+
 export default function Games(): React.ReactElement {
   const [optimizing, setOptimizing] = useState(false)
+  const [cs2Installed, setCs2Installed] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    invoke({ channel: "games:detect" })
+      .then((games) => {
+        const cs2 = Array.isArray(games) ? games.find((g) => g.id === "cs2") : null
+        setCs2Installed(cs2 ? !!cs2.installed : false)
+      })
+      .catch(() => setCs2Installed(false))
+  }, [])
 
   const optimizeCS2 = async () => {
     setOptimizing(true)
     try {
-      const result = await invoke({
-        channel: "run-powershell",
-        payload: { script: CS2_OPTIMIZATION_SCRIPT, name: "cs2-optimization", output: false },
-      })
+      const result = await Promise.race([
+        invoke({
+          channel: "run-powershell",
+          payload: { script: CS2_OPTIMIZATION_SCRIPT, name: "cs2-optimization", output: false },
+        }),
+        new Promise<never>((_, reject) => {
+          setTimeout(() => reject(new Error("Optimization timed out. Try again.")), OPTIMIZE_TIMEOUT_MS)
+        }),
+      ])
 
       if (!result?.success) {
         throw new Error(result?.error || "Failed to apply the optimization.")
@@ -91,14 +108,24 @@ export default function Games(): React.ReactElement {
                 Sets High process priority, disables Game DVR capture, and applies a GPU-aware
                 high-performance profile for NVIDIA, AMD, or Intel graphics.
               </div>
-              <Button
-                onClick={optimizeCS2}
-                disabled={optimizing}
-                variant=""
-                className="absolute bottom-4 right-4 h-7 border border-white bg-white px-2.5 text-[11px] font-semibold text-black shadow-lg shadow-black/40 hover:bg-gray-200 hover:border-gray-200"
-              >
-                {optimizing ? <LoaderCircle size={13} className="animate-spin" /> : "Optimize"}
-              </Button>
+              {cs2Installed === false ? (
+                <span className="absolute bottom-4 right-4 h-7 px-2.5 text-[11px] font-semibold text-white/70">
+                  Not installed
+                </span>
+              ) : (
+                <Button
+                  onClick={optimizeCS2}
+                  disabled={optimizing || cs2Installed === null}
+                  variant=""
+                  className="absolute bottom-4 right-4 h-7 border border-white bg-white px-2.5 text-[11px] font-semibold text-black shadow-lg shadow-black/40 hover:bg-gray-200 hover:border-gray-200"
+                >
+                  {optimizing || cs2Installed === null ? (
+                    <LoaderCircle size={13} className="animate-spin" />
+                  ) : (
+                    "Optimize"
+                  )}
+                </Button>
+              )}
             </div>
           </Card>
         </div>

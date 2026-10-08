@@ -171,6 +171,64 @@ function getUserName(): string {
   return os.userInfo().username
 }
 
+async function getSteamLibraries(): Promise<string[]> {
+  const libraries: string[] = []
+  const defaultLib = "C:\\Program Files (x86)\\Steam"
+  libraries.push(defaultLib)
+  try {
+    const { stdout } = await execFilePromise("reg", [
+      "query",
+      "HKCU\\Software\\Valve\\Steam",
+      "/v",
+      "SteamPath",
+    ])
+    const match = stdout.match(/SteamPath\s+REG_SZ\s+(.+)/)
+    if (match && match[1].trim() && !libraries.includes(match[1].trim())) {
+      libraries.push(match[1].trim())
+    }
+  } catch {
+    return libraries
+  }
+  try {
+    const vdf = path.join(libraries[libraries.length - 1], "steamapps", "libraryfolders.vdf")
+    const content = await fs.promises.readFile(vdf, "utf8")
+    const matches = content.matchAll(/"path"\s+"([^"]+)"/g)
+    for (const m of matches) {
+      const lib = m[1].replace(/\\\\/g, "\\")
+      if (lib && !libraries.includes(lib)) libraries.push(lib)
+    }
+  } catch {
+    return libraries
+  }
+  return libraries
+}
+
+async function detectGames(): Promise<{ id: string; installed: boolean }[]> {
+  if (!platform.windows) return [{ id: "cs2", installed: false }]
+  const libraries = await getSteamLibraries()
+  let installed = false
+  for (const lib of libraries) {
+    const cs2 = path.join(
+      lib,
+      "steamapps",
+      "common",
+      "Counter-Strike Global Offensive",
+      "game",
+      "bin",
+      "win64",
+      "cs2.exe",
+    )
+    try {
+      await fs.promises.access(cs2)
+      installed = true
+      break
+    } catch {
+      continue
+    }
+  }
+  return [{ id: "cs2", installed }]
+}
+
 async function getSystemUuid(): Promise<string> {
   try {
     const uuidData = await si.uuid()
@@ -563,6 +621,7 @@ export const setupSystemHandlers = (): void => {
   ipcMain.handle("get-admin-status", async () => getAdminStatus())
   ipcMain.handle("get-platform", () => process.platform)
   ipcMain.handle("get-system-uuid", getSystemUuid)
+  ipcMain.handle("games:detect", detectGames)
   ipcMain.handle("install-winget", ensureWinget)
   console.log("[Inspire main/system.ts]: System handlers setup complete")
 }
@@ -577,5 +636,6 @@ export const cleanupSystemHandlers = (): void => {
   ipcMain.removeHandler("restart-explorer")
   ipcMain.removeHandler("check-winget")
   ipcMain.removeHandler("get-system-uuid")
+  ipcMain.removeHandler("games:detect")
   ipcMain.removeHandler("install-winget")
 }

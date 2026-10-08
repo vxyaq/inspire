@@ -115,7 +115,7 @@ function App() {
 
   return (
     <div className="flex flex-col h-screen bg-inspire-bg text-inspire-text overflow-hidden">
-      <FirstTime />
+      {!authLoading && account && <FirstTime />}
       {authLoading ? (
         <main className="flex min-h-0 flex-1 items-center justify-center pt-[50px]">
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-inspire-border border-t-inspire-primary" />
