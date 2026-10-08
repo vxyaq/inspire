@@ -79,6 +79,12 @@ function ChangelogContent({ body }: { body: string }) {
 
 const LOCAL_CHANGELOG: Release[] = [
   {
+    tag_name: "v1.2.0",
+    name: "K3d Tweaks v1.2.0",
+    body: "## What's New\n\n- Full rebrand to K3d Tweaks with a new logo\n- New BIOS tab with hardware detection (XMP, Resizable BAR, PBO, MCE, UEFI, C-States, virtualization)\n- Games folder with per-game optimizations (CS2 mega FPS boost, FiveM)\n- New Discord, Medal and OBS optimization tweaks\n- HWID license plans (Free and Pro) with Pro-only Games and BIOS tabs\n- Real NVIDIA, AMD and Intel driver optimization scripts\n\n## Improvements\n\n- Faster Home loading and a 15-second update check timeout\n- Restore points can no longer be created twice\n- Darker background behind popups for readability\n- Smaller download size and everything in English\n",
+    published_at: new Date().toISOString(),
+  },
+  {
     tag_name: "v1.1.0",
     name: "K3d Tweaks v1.1.0",
     body: "## What's New\n\n- Login screen now uses your custom background.png\n- Login screen is clean: no search bar and no sidebar\n- Account page shows your real hardware UUID (HWID)\n- New minimize, maximize and close icons in the title bar\n- Full rebrand to K3d Tweaks\n\n## Improvements\n\n- Title bar only appears after sign-in\n- Removed leftover purple glow from the login screen\n",
