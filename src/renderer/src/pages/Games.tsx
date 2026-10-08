@@ -109,7 +109,7 @@ export default function Games(): React.ReactElement {
                 high-performance profile for NVIDIA, AMD, or Intel graphics.
               </div>
               {cs2Installed === false ? (
-                <span className="absolute bottom-4 right-4 h-7 px-2.5 text-[11px] font-semibold text-white/70">
+                <span className="absolute bottom-1.5 right-2.5 h-7 px-1 text-[11px] font-semibold text-white/70">
                   Not installed
                 </span>
               ) : (
