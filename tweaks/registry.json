@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-08T18:55:14.996Z",
+  "version": "2026-10-08T19:20:09.894Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -271,7 +271,6 @@
       "description": "Disables Wifi Sense to prevent sharing of Wi-Fi networks with contacts",
       "category": [
         "Privacy",
-        "Network",
         "General"
       ],
       "recommended": false,
@@ -431,7 +430,7 @@
       "title": "Optimize Network Settings",
       "description": "Changes various Windows settings to improve network latency and speeds.",
       "category": [
-        "Network",
+        "Performance",
         "Gaming"
       ],
       "recommended": false,
@@ -614,7 +613,8 @@
       "title": "Disable Windows Platform Binary Table",
       "description": "Prevents your computer vendor from executing programs at boot, reducing potential security risks.",
       "category": [
-        "Privacy"
+        "Privacy",
+        "BIOS"
       ],
       "recommended": false,
       "reversible": true,

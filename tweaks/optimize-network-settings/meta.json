@@ -2,7 +2,10 @@
   "title": "Optimize Network Settings",
   "name": "optimize-network-settings",
   "risk": "safe",
-  "category": ["Network", "Gaming"],
+  "category": [
+    "Performance",
+    "Gaming"
+  ],
   "restart": true,
   "updatedversion": "2.9.0",
   "description": "Changes various Windows settings to improve network latency and speeds.",
