@@ -7,6 +7,7 @@ import { createTray } from "@main/tray"
 import { setupPowerShellHandlers } from "@main/powershell"
 import { setupSystemHandlers } from "@main/system"
 import { setupTweaksHandlers } from "@main/tweakHandler"
+import { setupGamesHandlers } from "@main/games"
 import { setupBackupHandlers } from "@main/backup"
 import { setupCleanerHandlers } from "@main/cleaner"
 import { initAutoUpdater } from "@main/updates"
@@ -148,6 +149,7 @@ app
     setupPowerShellHandlers()
     setupSystemHandlers()
     setupTweaksHandlers()
+    setupGamesHandlers()
     setupBackupHandlers()
     setupCleanerHandlers()
     registerBackgroundIpc()

@@ -1,0 +1,11 @@
+{
+  "id": "cs2",
+  "title": "Counter-Strike 2",
+  "background": "cs2-background.webp",
+  "description": "Mega FPS boost: 1280x960 fullscreen, no V-Sync, no MSAA, all details low, HDR performance, Reflex on, plus High process priority and no Game DVR capture.",
+  "notRunningMarker": "CS2_NOT_RUNNING",
+  "notRunningText": "Launch CS2 and click the button again.",
+  "missingMarker": "CS2_VIDEO_MISSING",
+  "missingText": "CS2 optimization applied. Video settings skipped (config not found).",
+  "successText": "CS2 mega FPS boost applied successfully."
+}
