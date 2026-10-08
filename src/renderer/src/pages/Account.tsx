@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
-import { CircleUserRound, CreditCard, Fingerprint, LogIn, ShieldCheck } from "lucide-react"
+import { useNavigate } from "react-router-dom"
+import { CircleUserRound, CreditCard, Fingerprint, LogIn, LogOut, ShieldCheck } from "lucide-react"
 import RootDiv from "@/components/rootdiv"
+import Button from "@/components/ui/button"
 import Card from "@/components/ui/Card"
 import { invoke } from "@/lib/electron"
 
@@ -14,9 +16,21 @@ type AccountProfile = {
 }
 
 function Account() {
+  const navigate = useNavigate()
   const [account, setAccount] = useState<AccountProfile | null>(null)
   const [systemUuid, setSystemUuid] = useState<string>("")
   const [loading, setLoading] = useState(true)
+
+  const signOut = async () => {
+    try {
+      await invoke({ channel: "auth:logout" })
+    } catch {
+      return
+    }
+    setAccount(null)
+    navigate("/")
+    window.dispatchEvent(new Event("auth:changed"))
+  }
 
   useEffect(() => {
     const loadAccount = () => {
@@ -117,6 +131,10 @@ function Account() {
           />
           <InfoCard icon={<ShieldCheck />} label="Signed in with" value={providerName} />
         </div>
+
+        <Button variant="danger" onClick={signOut} className="w-fit">
+          <LogOut size={16} /> Sign out
+        </Button>
       </div>
     </RootDiv>
   )
