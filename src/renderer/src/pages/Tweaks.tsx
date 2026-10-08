@@ -9,6 +9,7 @@ import {
   Network,
   Zap,
   Paintbrush,
+  HardDrive,
 } from "lucide-react"
 import { toast } from "react-toastify"
 import RootDiv from "@/components/rootdiv"
@@ -396,7 +397,7 @@ function Tweaks() {
     Appearance: <Paintbrush className="w-4 h-4 text-k3d-primary" />,
     Gaming: <Gamepad className="w-4 h-4 text-k3d-primary" />,
     General: <Wrench className="w-4 h-4 text-k3d-primary" />,
-    BIOS: <span className="text-base leading-none">⚙️</span>,
+    BIOS: <HardDrive className="w-4 h-4 text-k3d-primary" />,
   }
 
   const presets = [
