@@ -2,7 +2,7 @@
   "id": "cs2",
   "title": "Counter-Strike 2",
   "background": "cs2-background.webp",
-  "description": "Mega FPS boost: 1280x960 fullscreen, no V-Sync, no MSAA, all details low, HDR performance, Reflex on, plus High process priority and no Game DVR capture.",
+  "description": "Optimization specifically designed for Counter-Strike 2, focused on maximizing FPS, reducing input delay, improving system responsiveness, and optimizing network performance for a smoother, more stable, and consistent gaming experience.",
   "notRunningMarker": "CS2_NOT_RUNNING",
   "notRunningText": "Launch CS2 and click the button again.",
   "missingMarker": "CS2_VIDEO_MISSING",

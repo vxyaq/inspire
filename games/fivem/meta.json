@@ -2,7 +2,7 @@
   "id": "fivem",
   "title": "FiveM",
   "background": "fivem-background.webp",
-  "description": "Sets High process priority, clears FiveM cache, disables Game DVR capture, and applies a high-performance GPU profile.",
+  "description": "Optimization specifically created for FiveM, focused on maximizing game performance, improving visual smoothness, and maintaining more stable FPS. The profile helps reduce stuttering, FPS drops, unnecessary system load, and texture pop-in, minimizing the “plasticine” effect where textures and objects appear blurry or load in at low quality.",
   "notRunningMarker": "FIVEM_NOT_RUNNING",
   "notRunningText": "FiveM cache cleared. Launch FiveM and click again for full optimization.",
   "missingMarker": "",
