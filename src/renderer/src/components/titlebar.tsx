@@ -26,7 +26,7 @@ function TitleBar({
       style={{ WebkitAppRegion: "drag" } as any}
       className="h-[50px] fixed top-0 left-0 right-0 flex justify-between items-center pl-3 pr-2 bg-k3d-bg border-b border-k3d-border z-50"
     >
-      <div className="flex items-center gap-2.5 h-full pr-4">
+      <div className="flex flex-1 items-center gap-2.5 h-full pr-4">
         <button
           onClick={onToggleSidebar}
           title="Toggle sidebar"
@@ -64,7 +64,7 @@ function TitleBar({
       </div>
 
       <div
-        className="flex h-full items-center gap-1 pl-3 pr-1"
+        className="flex flex-1 h-full items-center justify-end gap-1 pl-3 pr-1"
         style={{ WebkitAppRegion: "no-drag" } as any}
       >
         <button
