@@ -24,8 +24,9 @@ export default function AuthScreen({ onAuthenticated }: AuthScreenProps): React.
   const [loadingProvider, setLoadingProvider] = useState<AccountProfile["provider"] | null>(null)
 
   useEffect(() => {
-    if (getBackgroundStyle() === "image") {
-      void applyBackgroundImage()
+    const style = getBackgroundStyle()
+    if (style === "image" || style === "image2") {
+      void applyBackgroundImage(style)
     }
   }, [])
 

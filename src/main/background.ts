@@ -2,9 +2,10 @@ import { app, ipcMain } from "electron"
 import path from "path"
 import fs from "fs"
 
-const BG_FILENAME = "background.png"
+const BG_FILENAMES = ["background.webp", "background2.webp", "background.png"]
 
-export const getBackgroundPath = (): string | null => {
+export const getBackgroundPath = (index = 0): string | null => {
+  const fileName = BG_FILENAMES[index] || BG_FILENAMES[0]
   let userDataDir: string | null = null
   try {
     userDataDir = app.getPath("userData")
@@ -17,13 +18,13 @@ export const getBackgroundPath = (): string | null => {
   }
 
   if (userDataDir) {
-    const userBgPath = path.join(userDataDir, BG_FILENAME)
+    const userBgPath = path.join(userDataDir, fileName)
     if (fs.existsSync(userBgPath)) {
       return userBgPath
     }
   }
 
-  const rootBgPath = path.resolve(__dirname, "../..", BG_FILENAME)
+  const rootBgPath = path.resolve(__dirname, "../..", fileName)
   if (fs.existsSync(rootBgPath)) {
     return rootBgPath
   }
@@ -32,12 +33,12 @@ export const getBackgroundPath = (): string | null => {
 }
 
 export const registerBackgroundIpc = () => {
-  ipcMain.handle("background:get-path", () => {
-    return getBackgroundPath()
+  ipcMain.handle("background:get-path", (_event, index?: number) => {
+    return getBackgroundPath(typeof index === "number" ? index : 0)
   })
 
-  ipcMain.handle("background:get-data-url", () => {
-    const bgPath = getBackgroundPath()
+  ipcMain.handle("background:get-data-url", (_event, index?: number) => {
+    const bgPath = getBackgroundPath(typeof index === "number" ? index : 0)
     if (!bgPath) return null
     try {
       const data = fs.readFileSync(bgPath)

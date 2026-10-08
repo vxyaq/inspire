@@ -4,8 +4,10 @@ import { electronAPI } from "@electron-toolkit/preload"
 const api = {}
 
 const background = {
-  getPath: (): Promise<string | null> => ipcRenderer.invoke("background:get-path"),
-  getDataUrl: (): Promise<string | null> => ipcRenderer.invoke("background:get-data-url"),
+  getPath: (index?: number): Promise<string | null> =>
+    ipcRenderer.invoke("background:get-path", index),
+  getDataUrl: (index?: number): Promise<string | null> =>
+    ipcRenderer.invoke("background:get-data-url", index),
 }
 
 if (process.contextIsolated) {

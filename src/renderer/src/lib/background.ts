@@ -1,12 +1,12 @@
 import { invoke } from "./electron"
 
-export type BackgroundStyle = "image" | "gray"
+export type BackgroundStyle = "image" | "image2" | "gray"
 
 declare global {
   interface Window {
     background?: {
-      getPath: () => Promise<string | null>
-      getDataUrl: () => Promise<string | null>
+      getPath: (index?: number) => Promise<string | null>
+      getDataUrl: (index?: number) => Promise<string | null>
     }
   }
 }
@@ -19,7 +19,8 @@ export const getBackgroundStyle = (): BackgroundStyle => {
     localStorage.setItem(STYLE_KEY, "image")
     localStorage.setItem(STYLE_V2_KEY, "1")
   }
-  return localStorage.getItem(STYLE_KEY) === "gray" ? "gray" : "image"
+  const saved = localStorage.getItem(STYLE_KEY)
+  return saved === "gray" ? "gray" : saved === "image2" ? "image2" : "image"
 }
 
 export const setBackgroundStyle = (style: BackgroundStyle): void => {
@@ -38,18 +39,20 @@ export const applyPlainGray = (): void => {
   document.body.classList.remove("bg-image", "bg-none")
 }
 
-export const applyBackgroundImage = async (): Promise<boolean> => {
+export const applyBackgroundImage = async (style: "image" | "image2" = "image"): Promise<boolean> => {
+  const index = style === "image2" ? 1 : 0
   try {
     let image: string | null = null
     try {
-      image = (await window.background?.getDataUrl?.()) ?? null
+      image = (await window.background?.getDataUrl?.(index)) ?? null
     } catch {
       image = null
     }
 
     if (!image) {
       const bgPath =
-        (await window.background?.getPath?.()) ?? (await invoke({ channel: "background:get-path" }))
+        (await window.background?.getPath?.(index)) ??
+        (await invoke({ channel: "background:get-path", payload: index }))
       if (typeof bgPath === "string" && bgPath) {
         image = toFileUrl(bgPath)
       }
@@ -71,8 +74,9 @@ export const applyBackgroundImage = async (): Promise<boolean> => {
 }
 
 export const loadSavedBackground = async (): Promise<void> => {
-  if (getBackgroundStyle() === "image") {
-    await applyBackgroundImage()
+  const style = getBackgroundStyle()
+  if (style === "image" || style === "image2") {
+    await applyBackgroundImage(style)
   } else {
     applyPlainGray()
   }

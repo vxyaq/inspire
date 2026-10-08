@@ -52,14 +52,18 @@ function Settings() {
     getBackgroundStyle(),
   )
 
+  const backgroundLabel = (style: BackgroundStyle): string =>
+    style === "image2" ? "Second image" : style === "gray" ? "Plain gray" : "Blurred image"
+
   const handleBackgroundChange = (value: string) => {
-    const style: BackgroundStyle = value === "Blurred image" ? "image" : "gray"
+    const style: BackgroundStyle =
+      value === "Second image" ? "image2" : value === "Plain gray" ? "gray" : "image"
     setBackgroundStyleState(style)
     persistBackgroundStyle(style)
-    if (style === "image") {
-      void applyBackgroundImage()
-    } else {
+    if (style === "gray") {
       applyPlainGray()
+    } else {
+      void applyBackgroundImage(style)
     }
   }
 
@@ -127,8 +131,8 @@ function Settings() {
                     </p>
                   </div>
                   <Dropdown
-                    value={backgroundStyle === "image" ? "Blurred image" : "Plain gray"}
-                    options={["Blurred image", "Plain gray"]}
+                    value={backgroundLabel(backgroundStyle)}
+                    options={["Blurred image", "Second image", "Plain gray"]}
                     onChange={handleBackgroundChange}
                   />
                 </div>
