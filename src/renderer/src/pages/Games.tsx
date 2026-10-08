@@ -110,11 +110,6 @@ export default function Games(): React.ReactElement {
                 <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-black/10" />
                 <div className="relative flex h-full flex-col p-4">
                   <h2 className="text-sm font-semibold leading-tight text-white">{game.title}</h2>
-                  {isInstalled === false && (
-                    <span className="absolute top-3 right-3 text-[11px] font-semibold text-white/70">
-                      Not installed
-                    </span>
-                  )}
                   <div className="pointer-events-none absolute inset-0 flex items-center bg-black/75 p-4 text-xs leading-relaxed text-white/85 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                     {game.description}
                   </div>
