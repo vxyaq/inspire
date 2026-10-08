@@ -38,7 +38,7 @@ function buildActivity() {
     .setDetails("Optimizing your PC")
     .setState(`Running K3d Tweaks v${jsonData.version ?? "2"}`)
     .setStartTimestamp(Date.now())
-    .addButton("Download K3d Tweaks", "https://parcoil.com/k3d")
+    .addButton("Download K3d Tweaks", "https://github.com/vxyaq/k3d-tweaks")
     .addButton("Join Discord", "https://discord.com/invite/En5YJYWj3Z")
     .build()
 }
