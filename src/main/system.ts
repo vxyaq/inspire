@@ -204,9 +204,14 @@ async function getSteamLibraries(): Promise<string[]> {
 }
 
 async function detectGames(): Promise<{ id: string; installed: boolean }[]> {
-  if (!platform.windows) return [{ id: "cs2", installed: false }]
+  if (!platform.windows) {
+    return [
+      { id: "cs2", installed: false },
+      { id: "fivem", installed: false },
+    ]
+  }
   const libraries = await getSteamLibraries()
-  let installed = false
+  let cs2Installed = false
   for (const lib of libraries) {
     const cs2 = path.join(
       lib,
@@ -220,13 +225,26 @@ async function detectGames(): Promise<{ id: string; installed: boolean }[]> {
     )
     try {
       await fs.promises.access(cs2)
-      installed = true
+      cs2Installed = true
       break
     } catch {
       continue
     }
   }
-  return [{ id: "cs2", installed }]
+  let fivemInstalled = false
+  const localAppData = process.env.LOCALAPPDATA || ""
+  if (localAppData) {
+    try {
+      await fs.promises.access(path.join(localAppData, "FiveM", "FiveM.exe"))
+      fivemInstalled = true
+    } catch {
+      fivemInstalled = false
+    }
+  }
+  return [
+    { id: "cs2", installed: cs2Installed },
+    { id: "fivem", installed: fivemInstalled },
+  ]
 }
 
 async function getSystemUuid(): Promise<string> {
