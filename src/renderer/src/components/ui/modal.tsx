@@ -27,7 +27,7 @@ export default function Modal({ open, onClose, onOpenChange, children }: ModalPr
       onClick={handleClose}
       className={`
         fixed inset-0 flex justify-center items-center z-[9999] transition-all
-        ${open ? "visible bg-black/60" : "invisible bg-black/0"}
+        ${open ? "visible bg-black/80 backdrop-blur-sm" : "invisible bg-black/0"}
       `}
     >
       <div
