@@ -113,18 +113,20 @@ export default function Games(): React.ReactElement {
                 Sets High process priority, disables Game DVR capture, and applies a GPU-aware
                 high-performance profile for NVIDIA, AMD, or Intel graphics.
               </div>
-              <Button
-                onClick={optimizeCS2}
-                disabled={optimizing || cs2Installed === null || cs2Installed === false}
-                variant=""
-                className="absolute bottom-4 right-4 h-7 border border-white bg-white px-2.5 text-[11px] font-semibold text-black shadow-lg shadow-black/40 hover:bg-gray-200 hover:border-gray-200"
-              >
-                {optimizing || cs2Installed === null ? (
-                  <LoaderCircle size={13} className="animate-spin" />
-                ) : (
-                  "Optimize"
-                )}
-              </Button>
+              {cs2Installed !== false && (
+                <Button
+                  onClick={optimizeCS2}
+                  disabled={optimizing || cs2Installed === null}
+                  variant=""
+                  className="absolute bottom-4 right-4 h-7 border border-white bg-white px-2.5 text-[11px] font-semibold text-black shadow-lg shadow-black/40 hover:bg-gray-200 hover:border-gray-200"
+                >
+                  {optimizing || cs2Installed === null ? (
+                    <LoaderCircle size={13} className="animate-spin" />
+                  ) : (
+                    "Optimize"
+                  )}
+                </Button>
+              )}
             </div>
           </Card>
         </div>
