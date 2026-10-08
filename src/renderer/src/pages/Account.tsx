@@ -110,7 +110,7 @@ function Account() {
               {account.displayName}
             </h2>
             <p className="truncate text-sm text-k3d-text-secondary">
-              {account.email ?? `Połączono przez ${providerName}`}
+              {account.email ?? `Connected via ${providerName}`}
             </p>
           </div>
         </Card>

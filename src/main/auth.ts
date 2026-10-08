@@ -101,12 +101,12 @@ async function loginWithDiscord(): Promise<AuthResponse> {
     signal: AbortSignal.timeout(15_000),
   })
   if (!profileResponse.ok) {
-    throw new Error(`Serwer logowania odrzucił żądanie (${profileResponse.status}).`)
+    throw new Error(`Login server rejected the request (${profileResponse.status}).`)
   }
 
   const contentType = profileResponse.headers.get("content-type") ?? ""
   if (!contentType.includes("application/json")) {
-    throw new Error("Serwer logowania jest niedostępny. Spróbuj ponownie później.")
+    throw new Error("Login server is unavailable. Try again later.")
   }
 
   const payload = (await profileResponse.json()) as { account?: AccountProfile }
@@ -152,7 +152,7 @@ ipcMain.handle("auth:refresh-plan", refreshAccountPlan)
 
 ipcMain.handle("auth:login", async (_event, provider: AuthProvider): Promise<AuthResponse> => {
   if (provider !== "discord" && provider !== "google") {
-    return { ok: false, error: "Nieobsługiwany dostawca logowania." }
+    return { ok: false, error: "Unsupported login provider." }
   }
 
   if (provider === "discord") {
@@ -161,9 +161,9 @@ ipcMain.handle("auth:login", async (_event, provider: AuthProvider): Promise<Aut
         ok: false as const,
     error:
       error instanceof DOMException && error.name === "TimeoutError"
-        ? "Serwer logowania nie odpowiedział w wymaganym czasie."
+        ? "Login server did not respond in time."
         : error instanceof TypeError
-          ? "Nie można połączyć się z serwerem logowania."
+          ? "Could not connect to the login server."
           : error instanceof Error
             ? error.message
             : String(error),
