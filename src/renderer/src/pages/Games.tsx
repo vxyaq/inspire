@@ -47,6 +47,72 @@ New-ItemProperty -Path $gameConfigPath -Name "GameDVR_Enabled" -PropertyType DWo
 New-ItemProperty -Path $gameBarPath -Name "AppCaptureEnabled" -PropertyType DWord -Value 0 -Force | Out-Null
 
 Write-Output "CS2_OPTIMIZED:$gpuVendor"
+
+$videoSettings = @{
+    "setting.defaultres" = "1280"
+    "setting.defaultresheight" = "960"
+    "setting.aspectratiomode" = "0"
+    "setting.fullscreen" = "1"
+    "setting.nowindowborder" = "0"
+    "setting.coop_fullscreen" = "0"
+    "setting.fullscreen_min_on_focus_loss" = "1"
+    "setting.mat_vsync" = "0"
+    "setting.msaa_samples" = "0"
+    "setting.videocfg_shadow_quality" = "0"
+    "setting.videocfg_texture_detail" = "0"
+    "setting.shaderquality" = "0"
+    "setting.videocfg_particle_detail" = "0"
+    "setting.videocfg_ao_detail" = "0"
+    "setting.videocfg_hdr_detail" = "-1"
+    "setting.videocfg_fsr_detail" = "0"
+    "setting.r_low_latency" = "2"
+}
+
+$steamPath = "C:\Program Files (x86)\Steam"
+try {
+    $regSteam = (Get-ItemProperty -Path "HKCU:\Software\Valve\Steam" -Name "SteamPath" -ErrorAction Stop).SteamPath
+    if ($regSteam) { $steamPath = $regSteam }
+} catch { }
+
+$videoUpdated = $false
+$userdataDir = Join-Path $steamPath "userdata"
+if (Test-Path $userdataDir) {
+    Get-ChildItem -Path $userdataDir -Directory -ErrorAction SilentlyContinue | ForEach-Object {
+        $cfgDir = Join-Path $_.FullName "730\local\cfg"
+        $videoFile = Join-Path $cfgDir "cs2_video.txt"
+        if (Test-Path $videoFile) {
+            Copy-Item $videoFile "$videoFile.inspire.bak" -Force -ErrorAction SilentlyContinue
+            $content = [System.IO.File]::ReadAllText($videoFile)
+            foreach ($key in $videoSettings.Keys) {
+                $pattern = '(?m)^"' + $key + '"\s+"[^"]*"$'
+                $replacement = '"' + $key + '" "' + $videoSettings[$key] + '"'
+                if ($content -match $pattern) {
+                    $content = $content -replace $pattern, $replacement
+                } else {
+                    $content = $content -replace '(?m)^\}', $replacement + [Environment]::NewLine + "}"
+                }
+            }
+            [System.IO.File]::WriteAllText($videoFile, $content)
+            $videoUpdated = $true
+            $configFile = Join-Path $cfgDir "config.cfg"
+            if (Test-Path $configFile) {
+                $cfgContent = [System.IO.File]::ReadAllText($configFile)
+                if ($cfgContent -match '(?m)^r_player_visibility_mode\s+"[^"]*"$') {
+                    $cfgContent = $cfgContent -replace '(?m)^r_player_visibility_mode\s+"[^"]*"$', 'r_player_visibility_mode "1"'
+                } else {
+                    $cfgContent = $cfgContent + [Environment]::NewLine + 'r_player_visibility_mode "1"'
+                }
+                [System.IO.File]::WriteAllText($configFile, $cfgContent)
+            }
+        }
+    }
+}
+
+if ($videoUpdated) {
+    Write-Output "CS2_VIDEO_OK"
+} else {
+    Write-Output "CS2_VIDEO_MISSING"
+}
 `
 
 const FIVEM_OPTIMIZATION_SCRIPT = String.raw`
@@ -140,7 +206,12 @@ export default function Games(): React.ReactElement {
         return
       }
 
-      toast.success("CS2 optimization applied successfully.")
+      if (result.output?.includes("CS2_VIDEO_MISSING")) {
+        toast.success("CS2 optimization applied. Video settings skipped (config not found).")
+        return
+      }
+
+      toast.success("CS2 mega FPS boost applied successfully.")
     } catch (error) {
       toast.error(error instanceof Error ? error.message : String(error))
     } finally {
@@ -195,8 +266,8 @@ export default function Games(): React.ReactElement {
                 </span>
               )}
               <div className="pointer-events-none absolute inset-0 flex items-center bg-black/75 p-4 text-xs leading-relaxed text-white/85 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                Sets High process priority, disables Game DVR capture, and applies a GPU-aware
-                high-performance profile for NVIDIA, AMD, or Intel graphics.
+                Mega FPS boost: 1280x960 fullscreen, no V-Sync, no MSAA, all details low, HDR
+                performance, Reflex on, plus High process priority and no Game DVR capture.
               </div>
               {cs2Installed !== false && (
                 <Button
