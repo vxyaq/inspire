@@ -183,7 +183,4 @@ ipcMain.handle("auth:login", async (_event, provider: AuthProvider): Promise<Aut
   return { ok: false, error: "Google OAuth is not configured yet. Add a Google Client ID first." }
 })
 
-ipcMain.handle("auth:logout", (): { ok: true } => {
-  store.delete("account")
-  return { ok: true }
-})
+

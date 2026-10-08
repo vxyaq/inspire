@@ -167,10 +167,6 @@ export function restartExplorer(): { success: boolean; error?: string } {
   }
 }
 
-function getUserName(): string {
-  return os.userInfo().username
-}
-
 async function getSteamLibraries(): Promise<string[]> {
   const libraries: string[] = []
   const defaultLib = "C:\\Program Files (x86)\\Steam"
@@ -633,7 +629,6 @@ export const setupSystemHandlers = (): void => {
   ipcMain.handle("open-log-folder", openLogFolder)
   ipcMain.handle("clear-k3d-cache", clearK3dCache)
   ipcMain.handle("get-system-info", getSystemInfo)
-  ipcMain.handle("get-user-name", getUserName)
   ipcMain.handle("restart-explorer", restartExplorer)
   ipcMain.handle("check-winget", async () => checkWinget())
   ipcMain.handle("get-admin-status", async () => getAdminStatus())
@@ -650,7 +645,6 @@ export const cleanupSystemHandlers = (): void => {
   ipcMain.removeHandler("clear-k3d-cache")
   ipcMain.removeHandler("get-system-info")
   ipcMain.removeHandler("get-platform")
-  ipcMain.removeHandler("get-user-name")
   ipcMain.removeHandler("restart-explorer")
   ipcMain.removeHandler("check-winget")
   ipcMain.removeHandler("get-system-uuid")
