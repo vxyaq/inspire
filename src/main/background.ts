@@ -24,6 +24,19 @@ export const getBackgroundPath = (index = 0): string | null => {
     }
   }
 
+  const resourcesPath: string | undefined = (process as any).resourcesPath
+  if (resourcesPath) {
+    const resPath = path.join(resourcesPath, fileName)
+    if (fs.existsSync(resPath)) {
+      return resPath
+    }
+  }
+
+  const devPath = path.resolve(process.cwd(), "resources", fileName)
+  if (fs.existsSync(devPath)) {
+    return devPath
+  }
+
   const rootBgPath = path.resolve(__dirname, "../..", fileName)
   if (fs.existsSync(rootBgPath)) {
     return rootBgPath
