@@ -6,7 +6,7 @@ const TIMEOUT = 15_000
 const WAIT_BEFORE_CHECK = 8_000
 
 const unpackedDir = path.join(process.cwd(), "dist", "win-unpacked")
-const exe = path.join(unpackedDir, "inspire.exe")
+const exe = path.join(unpackedDir, "k3d.exe")
 
 if (!fs.existsSync(exe)) {
   console.error(`Executable not found: ${exe}`)

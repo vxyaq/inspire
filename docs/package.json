@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "description": "inspire docs is made using mkdocs",
+  "description": "k3d docs is made using mkdocs",
   "main": "index.js",
   "type": "module",
   "directories": {

@@ -24,7 +24,7 @@ function trimChecksums(body: string): string {
 function ChangelogContent({ body }: { body: string }) {
   const trimmedBody = trimChecksums(body)
   return (
-    <div className="prose prose-sm prose-green marker:text-inspire-secondary max-w-none text-inspire-text prose-headings:text-inspire-text prose-code:bg-inspire-border prose-code:text-inspire-text prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-sm prose-code:font-normal prose-code:before:content-none prose-code:after:content-none prose-pre:bg-inspire-card prose-pre:border prose-pre:border-inspire-border prose-img:rounded-lg prose-img:border prose-img:border-inspire-border">
+    <div className="prose prose-sm prose-green marker:text-k3d-secondary max-w-none text-k3d-text prose-headings:text-k3d-text prose-code:bg-k3d-border prose-code:text-k3d-text prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-sm prose-code:font-normal prose-code:before:content-none prose-code:after:content-none prose-pre:bg-k3d-card prose-pre:border prose-pre:border-k3d-border prose-img:rounded-lg prose-img:border prose-img:border-k3d-border">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
@@ -48,7 +48,7 @@ function ChangelogContent({ body }: { body: string }) {
           img: ({ ...props }) => (
             <img
               {...props}
-              className="max-w-full h-auto rounded-lg border border-inspire-border"
+              className="max-w-full h-auto rounded-lg border border-k3d-border"
               loading="lazy"
             />
           ),
@@ -56,7 +56,7 @@ function ChangelogContent({ body }: { body: string }) {
             if (inline) {
               return (
                 <code
-                  className="bg-inspire-primary px-1.5 py-0.5 rounded-md text-sm font-normal"
+                  className="bg-k3d-primary px-1.5 py-0.5 rounded-md text-sm font-normal"
                   {...props}
                 >
                   {children}
@@ -80,8 +80,8 @@ function ChangelogContent({ body }: { body: string }) {
 const LOCAL_CHANGELOG: Release[] = [
   {
     tag_name: "v1.1.0",
-    name: "Inspire v1.1.0",
-    body: "## What's New\n\n- Login screen now uses your custom background.png\n- Login screen is clean: no search bar and no sidebar\n- Account page shows your real hardware UUID (HWID)\n- New minimize, maximize and close icons in the title bar\n- Full rebrand to Inspire\n\n## Improvements\n\n- Title bar only appears after sign-in\n- Removed leftover purple glow from the login screen\n",
+    name: "K3d Tweaks v1.1.0",
+    body: "## What's New\n\n- Login screen now uses your custom background.png\n- Login screen is clean: no search bar and no sidebar\n- Account page shows your real hardware UUID (HWID)\n- New minimize, maximize and close icons in the title bar\n- Full rebrand to K3d Tweaks\n\n## Improvements\n\n- Title bar only appears after sign-in\n- Removed leftover purple glow from the login screen\n",
     published_at: new Date().toISOString(),
   },
 ]
@@ -101,26 +101,26 @@ export default function ChangelogModal({ open, onClose }: { open: boolean; onClo
 
   return (
     <Modal open={open} onClose={onClose}>
-      <div className="bg-inspire-card border border-inspire-border rounded-2xl shadow-2xl max-w-2xl w-full mx-4 max-h-[80vh] flex flex-col">
-        <div className="flex items-center justify-between p-4 border-b border-inspire-border shrink-0">
-          <h2 className="text-xl font-semibold text-inspire-text">What's New</h2>
+      <div className="bg-k3d-card border border-k3d-border rounded-2xl shadow-2xl max-w-2xl w-full mx-4 max-h-[80vh] flex flex-col">
+        <div className="flex items-center justify-between p-4 border-b border-k3d-border shrink-0">
+          <h2 className="text-xl font-semibold text-k3d-text">What's New</h2>
           <Button variant="secondary" onClick={onClose}>
             Close
           </Button>
         </div>
         <div className="flex-1 overflow-y-auto p-4 space-y-6">
-          {loading && <p className="text-inspire-text-secondary">Loading changelog...</p>}
+          {loading && <p className="text-k3d-text-secondary">Loading changelog...</p>}
           {!loading &&
             releases.map((release) => (
               <div
                 key={release.tag_name}
-                className="border-b border-inspire-border pb-4 last:border-b-0 last:pb-0"
+                className="border-b border-k3d-border pb-4 last:border-b-0 last:pb-0"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-2xl font-semibold text-inspire-text">
+                  <h3 className="text-2xl font-semibold text-k3d-text">
                     {release.name || release.tag_name}
                   </h3>
-                  <span className="text-sm text-inspire-text-secondary">
+                  <span className="text-sm text-k3d-text-secondary">
                     {new Date(release.published_at).toLocaleDateString()}
                   </span>
                 </div>

@@ -1,10 +1,10 @@
 {
-  "name": "inspire",
+  "name": "k3d-tweaks",
   "version": "1.1.0",
-  "description": "Inspire",
+  "description": "K3d Tweaks",
   "main": "./out/main/index.js",
   "author": "Parcoil",
-  "homepage": "https://getinspire.net",
+  "homepage": "https://getk3d.net",
   "scripts": {
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -70,7 +70,7 @@
     "vitest": "^4.1.11",
     "zustand": "^5.0.15"
   },
-  "repository": "https://github.com/Parcoil/Inspire",
+  "repository": "https://github.com/vxyaq/k3d-tweaks Tweaks",
   "build": {
     "electronLanguages": [
       "en-US"
@@ -96,8 +96,8 @@
         ]
       }
     ],
-    "appId": "com.parcoil.inspire",
-    "productName": "inspire",
+    "appId": "com.vxyaq.k3dtweaks",
+    "productName": "K3d Tweaks",
     "directories": {
       "buildResources": "build"
     },
@@ -133,17 +133,17 @@
       "!chocolatey/**"
     ],
     "win": {
-      "executableName": "inspire",
+      "executableName": "k3dtweaks",
       "requestedExecutionLevel": "requireAdministrator",
-      "icon": "resources/inspire2.ico",
+      "icon": "resources/k3dtweaks.ico",
       "target": [
         "nsis"
       ]
     },
     "linux": {
-      "executableName": "inspire",
+      "executableName": "k3dtweaks",
       "syncDesktopName": true,
-      "icon": "resources/inspirelogo.png",
+      "icon": "resources/k3dtweaks-logo.png",
       "category": "Utility",
       "maintainer": "Parcoil <noreply@parcoil.com>",
       "synopsis": "Debloat and optimize your PC",
@@ -154,15 +154,15 @@
     },
     "nsis": {
       "artifactName": "${name}-${version}-setup.${ext}",
-      "shortcutName": "Inspire",
-      "uninstallDisplayName": "Inspire",
+      "shortcutName": "K3d Tweaks",
+      "uninstallDisplayName": "K3d Tweaks",
       "createDesktopShortcut": "always",
       "createStartMenuShortcut": true,
       "oneClick": true,
       "perMachine": false,
-      "installerSidebar": "build/inspireinstallerleftsidebar.bmp",
-      "uninstallerSidebar": "build/inspireinstallerleftsidebar.bmp",
-      "installerHeader": "build/inspireinstallerheader.bmp"
+      "installerSidebar": "build/k3dtweaks-installer-sidebar.bmp",
+      "uninstallerSidebar": "build/k3dtweaks-installer-sidebar.bmp",
+      "installerHeader": "build/k3dtweaks-installer-header.bmp"
     },
     "npmRebuild": false
   },

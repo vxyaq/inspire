@@ -11,13 +11,13 @@ declare global {
   }
 }
 
-const STYLE_KEY = "inspire:backgroundStyle"
-const STYLE_V2_KEY = "inspire:backgroundStyleV2"
+const STYLE_KEY = "k3d:backgroundStyle"
+const STYLE_V2_KEY = "k3d:backgroundStyleV2"
 
 /**
  * Returns the saved background style, migrating legacy state on first run.
  *
- * Older builds wrote `inspire:backgroundStyle` ("gray"/"none") even though no UI
+ * Older builds wrote `k3d:backgroundStyle` ("gray"/"none") even though no UI
  * ever existed to change it back, which left the background permanently off for
  * existing users. Such orphaned values are superseded once, and from then on the
  * value is a real user preference (written by Settings -> Appearance -> Background).
@@ -44,7 +44,7 @@ const toFileUrl = (filePath: string): string => {
 }
 
 export const applyPlainGray = (): void => {
-  document.body.style.removeProperty("--inspire-bg-image")
+  document.body.style.removeProperty("--k3d-bg-image")
   document.body.classList.add("bg-gray")
   document.body.classList.remove("bg-image", "bg-none")
 }
@@ -72,7 +72,7 @@ export const applyBackgroundImage = async (): Promise<boolean> => {
       return false
     }
 
-    document.body.style.setProperty("--inspire-bg-image", `url("${image}")`)
+    document.body.style.setProperty("--k3d-bg-image", `url("${image}")`)
     document.body.classList.add("bg-image")
     document.body.classList.remove("bg-gray", "bg-none")
     return true

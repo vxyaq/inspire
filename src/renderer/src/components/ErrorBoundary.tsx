@@ -42,15 +42,15 @@ class ErrorBoundary extends Component<Props, State> {
       const errorStack = this.state.error instanceof Error ? this.state.error.stack : undefined
 
       return (
-        <div className="flex flex-col h-screen bg-inspire-bg text-inspire-text items-center justify-center p-8">
+        <div className="flex flex-col h-screen bg-k3d-bg text-k3d-text items-center justify-center p-8">
           {/* @ts-expect-error */}
           <TitleBar />
-          <div className="max-w-xl w-full rounded-2xl border border-inspire-border bg-inspire-card p-8">
+          <div className="max-w-xl w-full rounded-2xl border border-k3d-border bg-k3d-card p-8">
             <h1 className="text-2xl font-semibold text-red-500 mb-2">Something went wrong</h1>
-            <p className="text-inspire-text-secondary mb-4">
-              Inspire encountered an unexpected error. The log folder has been opened for reference.
+            <p className="text-k3d-text-secondary mb-4">
+              K3d Tweaks encountered an unexpected error. The log folder has been opened for reference.
             </p>
-            <pre className="mb-6 p-4 rounded-lg bg-inspire-accent text-xs text-inspire-text overflow-x-auto overflow-y-auto max-h-40 border border-inspire-border select-all">
+            <pre className="mb-6 p-4 rounded-lg bg-k3d-accent text-xs text-k3d-text overflow-x-auto overflow-y-auto max-h-40 border border-k3d-border select-all">
               {errorMessage}
               {errorStack && `\n\n${errorStack}`}
             </pre>
@@ -62,7 +62,7 @@ class ErrorBoundary extends Component<Props, State> {
                 Try Again
               </Button>
             </div>
-            <p className="text-sm text-inspire-text-muted">
+            <p className="text-sm text-k3d-text-muted">
               Restart the application if the issue persists.
             </p>
           </div>

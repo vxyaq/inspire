@@ -257,5 +257,5 @@ rl.on("line", (line) => {
 })
 
 server.listen(port, "0.0.0.0", () => {
-  console.log(`Inspire auth server listening on port ${port}`)
+  console.log(`K3d Tweaks auth server listening on port ${port}`)
 })

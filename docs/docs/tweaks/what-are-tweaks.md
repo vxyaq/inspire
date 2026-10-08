@@ -4,7 +4,7 @@ title: "What Are Tweaks?"
 
 # What Are Tweaks?
 
-Tweaks are small, targeted changes to Windows settings, registry keys, or system services that modify how your PC behaves. In Inspire, each tweak is a self-contained PowerShell script that applies a specific optimization or customization.
+Tweaks are small, targeted changes to Windows settings, registry keys, or system services that modify how your PC behaves. In K3d Tweaks, each tweak is a self-contained PowerShell script that applies a specific optimization or customization.
 
 ---
 
@@ -16,7 +16,7 @@ Each tweak follows a simple structure:
 2. **An apply script** (`apply.ps1`) contains the PowerShell commands that make the change.
 3. **An optional unapply script** (`unapply.ps1`) reverses the change if the tweak is reversible.
 
-When you toggle a tweak on in Inspire, it runs the `apply.ps1` script. When you toggle it off, it runs `unapply.ps1`.
+When you toggle a tweak on in K3d Tweaks, it runs the `apply.ps1` script. When you toggle it off, it runs `unapply.ps1`.
 
 !!! note
 
@@ -40,7 +40,7 @@ Tweaks are grouped into categories so you can quickly find what you need:
 
 ---
 
-## Risk Levels <span style="color: #ff9800;">(Inspire 2.16.0+  Required)</span>
+## Risk Levels <span style="color: #ff9800;">(K3d Tweaks 2.16.0+  Required)</span>
 
 Every tweak has a risk level so you know what to expect:
 
@@ -54,16 +54,16 @@ Every tweak has a risk level so you know what to expect:
 
 ## Safety Features
 
-Inspire provides several safeguards when using tweaks:
+K3d Tweaks provides several safeguards when using tweaks:
 
-- **System Restore Points** - Always create a restore point before applying tweaks. Inspire supports this on the home page.
+- **System Restore Points** - Always create a restore point before applying tweaks. K3d Tweaks supports this on the home page.
 - **Reversible Changes** - Most tweaks can be toggled off to undo the change.
 - **Modal Warnings** - Some tweaks show a confirmation dialog before applying, explaining what will change.
 - **Warning Icons** - Tweaks with known side effects display a warning icon in the UI.
 
 ---
 
-## Reapplying Tweaks <span style="color: #ff9800;">(Inspire 2.18.0+  Required)</span>
+## Reapplying Tweaks <span style="color: #ff9800;">(K3d Tweaks 2.18.0+  Required)</span>
 
 After applying a tweak, you can force it to reapply at any time:
 
@@ -90,4 +90,4 @@ You can explore all available tweaks in two ways:
 
 ## Creating Your Own Tweaks
 
-Inspire's tweak system is open and extensible. If you want to create a custom tweak, see the [Creating Tweaks](/creating-tweaks) guide for the full specification and directory structure.
+K3d Tweaks's tweak system is open and extensible. If you want to create a custom tweak, see the [Creating Tweaks](/creating-tweaks) guide for the full specification and directory structure.

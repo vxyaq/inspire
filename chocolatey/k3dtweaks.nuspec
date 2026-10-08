@@ -22,22 +22,22 @@ This is a nuspec. It mostly adheres to https://docs.nuget.org/create/Nuspec-Refe
     <!-- This section is about this package, although id and version have ties back to the software -->
     <!-- id is lowercase and if you want a good separator for words, use '-', not '.'. Dots are only acceptable as suffixes for certain types of packages, e.g. .install, .portable, .extension, .template -->
     <!-- If the software is cross-platform, attempt to use the same id as the debian/rpm package(s) if possible. -->
-    <id>inspire</id>
+    <id>k3d</id>
     <version>2.13.0</version>
-    <packageSourceUrl>https://github.com/Parcoil/Inspire</packageSourceUrl>
+    <packageSourceUrl>https://github.com/vxyaq/k3d-tweaks Tweaks</packageSourceUrl>
 
-    <title>Inspire</title>
+    <title>K3d Tweaks</title>
     <authors>Parcoil</authors>
     <owners>Parcoil</owners>
-    <projectUrl>https://getinspire.net</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/parcoil/inspire/v2/resources/inspirelogo.png</iconUrl>
-    <projectSourceUrl>https://github.com/Parcoil/Inspire</projectSourceUrl>
-    <bugTrackerUrl>https://github.com/Parcoil/Inspire/issues</bugTrackerUrl>
-    <licenseUrl>https://github.com/Parcoil/Inspire/blob/main/LICENSE</licenseUrl>
+    <projectUrl>https://getk3d.net</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/parcoil/k3d/v2/resources/k3dtweaks-logo.png</iconUrl>
+    <projectSourceUrl>https://github.com/vxyaq/k3d-tweaks Tweaks</projectSourceUrl>
+    <bugTrackerUrl>https://github.com/vxyaq/k3d-tweaks Tweaks/issues</bugTrackerUrl>
+    <licenseUrl>https://github.com/vxyaq/k3d-tweaks Tweaks/blob/main/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <tags>inspire tweak windows optimization</tags>
+    <tags>k3d tweak windows optimization</tags>
     <summary>Windows debloat and optimization tool</summary>
-    <description>Inspire is a modern Windows debloat and optimization tool that allows you to apply and manage various system tweaks and improvements.</description>
+    <description>K3d Tweaks is a modern Windows debloat and optimization tool that allows you to apply and manage various system tweaks and improvements.</description>
     <!-- <releaseNotes>__REPLACE_OR_REMOVE__MarkDown_Okay</releaseNotes> -->
     <!-- =============================== -->
 

@@ -69,8 +69,8 @@ async function createPoint(label: string): Promise<BackupResult> {
 }
 
 export const setupBackupHandlers = (): void => {
-  ipcMain.handle("create-inspire-restore-point", async (): Promise<BackupResult> => {
-    return createPoint(`InspireBackup-${getTimestamp()}`)
+  ipcMain.handle("create-k3d-restore-point", async (): Promise<BackupResult> => {
+    return createPoint(`K3dTweaksBackup-${getTimestamp()}`)
   })
 
   ipcMain.handle(
@@ -134,27 +134,27 @@ export const setupBackupHandlers = (): void => {
     },
   )
 
-  ipcMain.handle("delete-old-inspire-backups", async (): Promise<BackupResult> => {
+  ipcMain.handle("delete-old-k3d-backups", async (): Promise<BackupResult> => {
     return new Promise((resolve, reject) => {
-      const inspireRoot = `C:\\Inspire`
-      if (!fs.existsSync(inspireRoot)) {
-        return resolve({ success: true, message: "Inspire folder does not exist" })
+      const k3dRoot = `C:\\K3d Tweaks`
+      if (!fs.existsSync(k3dRoot)) {
+        return resolve({ success: true, message: "K3d Tweaks folder does not exist" })
       }
 
-      fs.rm(inspireRoot, { recursive: true, force: true }, (err) => {
+      fs.rm(k3dRoot, { recursive: true, force: true }, (err) => {
         if (err) return reject(err)
-        resolve({ success: true, message: "Inspire folder deleted" })
+        resolve({ success: true, message: "K3d Tweaks folder deleted" })
       })
     })
   })
-  console.log("[Inspire main/backup.ts]: Backup handlers setup complete")
+  console.log("[K3d Tweaks main/backup.ts]: Backup handlers setup complete")
 }
 
 export const cleanupBackupHandlers = (): void => {
-  ipcMain.removeHandler("create-inspire-restore-point")
+  ipcMain.removeHandler("create-k3d-restore-point")
   ipcMain.removeHandler("create-restore-point")
   ipcMain.removeHandler("delete-all-restore-points")
   ipcMain.removeHandler("get-restore-points")
   ipcMain.removeHandler("restore-restore-point")
-  ipcMain.removeHandler("delete-old-inspire-backups")
+  ipcMain.removeHandler("delete-old-k3d-backups")
 }

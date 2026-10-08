@@ -258,23 +258,23 @@ async function getSystemUuid(): Promise<string> {
 }
 
 export async function getAdminStatus(): Promise<boolean> {
-  console.log("[Inspire]: Checking admin status...")
+  console.log("[K3d Tweaks]: Checking admin status...")
   try {
     if (!platform.windows) {
       const isRoot = typeof process.getuid === "function" && process.getuid() === 0
-      console.log(`[Inspire]: Admin status: ${isRoot}`)
+      console.log(`[K3d Tweaks]: Admin status: ${isRoot}`)
       return isRoot
     }
     const { execSync } = await import("child_process")
     execSync("net session", { stdio: "pipe" })
-    console.log("[Inspire]: Admin status: true")
+    console.log("[K3d Tweaks]: Admin status: true")
     return true
   } catch (error) {
-    console.log("[Inspire]: Not running as admin")
+    console.log("[K3d Tweaks]: Not running as admin")
     return false
   }
 }
-function clearInspireCache(): ClearCacheResult {
+function clearK3dCache(): ClearCacheResult {
   systemInfoCache.clear()
   clearGpuCache()
   try {
@@ -300,9 +300,9 @@ function clearInspireCache(): ClearCacheResult {
       }
 
       scriptsCleared = true
-      console.log("Inspire scripts directory files cleared successfully.")
+      console.log("K3d Tweaks scripts directory files cleared successfully.")
     } else {
-      console.warn("Inspire scripts directory does not exist.")
+      console.warn("K3d Tweaks scripts directory does not exist.")
       errors.push("Scripts directory does not exist.")
     }
 
@@ -319,9 +319,9 @@ function clearInspireCache(): ClearCacheResult {
         }
       }
       logsCleared = true
-      console.log("Inspire logs directory files cleared successfully.")
+      console.log("K3d Tweaks logs directory files cleared successfully.")
     } else {
-      console.warn("Inspire logs directory does not exist.")
+      console.warn("K3d Tweaks logs directory does not exist.")
       errors.push("Logs directory does not exist.")
     }
 
@@ -334,7 +334,7 @@ function clearInspireCache(): ClearCacheResult {
       }
     }
   } catch (error: any) {
-    console.error("Failed to clear Inspire scripts or logs directory:", error)
+    console.error("Failed to clear K3d Tweaks scripts or logs directory:", error)
     return { success: false, error: error.message }
   }
 }
@@ -345,7 +345,7 @@ function openLogFolder(): { success: boolean; error?: string } {
     shell.openPath(logPath)
     return { success: true }
   } else {
-    console.warn("Inspire logs directory does not exist.")
+    console.warn("K3d Tweaks logs directory does not exist.")
     return { success: false, error: "Logs directory does not exist." }
   }
 }
@@ -367,12 +367,12 @@ function Show-InstallerGUI {
     Add-Type -AssemblyName System.Drawing
 
     $form = New-Object System.Windows.Forms.Form
-    $form.Text = "Inspire: Winget Installer"
+    $form.Text = "K3d Tweaks: Winget Installer"
     $form.Size = New-Object System.Drawing.Size(600,400)
     $form.StartPosition = "CenterScreen"
 
     $label = New-Object System.Windows.Forms.Label
-    $label.Text = "Welcome! Inspire needs Winget to install apps."
+    $label.Text = "Welcome! K3d Tweaks needs Winget to install apps."
     $label.AutoSize = $true
     $label.Location = New-Object System.Drawing.Point(20,20)
     $form.Controls.Add($label)
@@ -431,7 +431,7 @@ function Show-InstallerGUI {
             $wingetInstalled = Check-Winget
 
             if ($TestMode -or -not $wingetInstalled) {
-                $result.Messages += "Winget not found. Installing for Inspire..."
+                $result.Messages += "Winget not found. Installing for K3d Tweaks..."
                 
                 try {
                     $result.Messages += "Attempting to register App Installer..."
@@ -520,7 +520,7 @@ function Show-InstallerGUI {
                     }
                 }
             } else {
-                $result.Messages += "Winget is already installed. Inspire is ready to install apps!"
+                $result.Messages += "Winget is already installed. K3d Tweaks is ready to install apps!"
                 $result.Success = $true
             }
         } catch {
@@ -580,7 +580,7 @@ function Show-InstallerGUI {
 if ($TestMode -or -not (Check-Winget)) {
     Show-InstallerGUI
 } else {
-    Write-Output "Winget is already installed. Inspire can install apps!"
+    Write-Output "Winget is already installed. K3d Tweaks can install apps!"
 }
 `
 
@@ -616,7 +616,7 @@ function autoClearCache(): void {
       last = 0
     }
     if (Date.now() - last < 24 * 60 * 60 * 1000) return
-    clearInspireCache()
+    clearK3dCache()
     try {
       fs.writeFileSync(stampPath, String(Date.now()), "utf8")
     } catch {
@@ -631,7 +631,7 @@ export const setupSystemHandlers = (): void => {
   autoClearCache()
   ipcMain.handle("restart", restartSystem)
   ipcMain.handle("open-log-folder", openLogFolder)
-  ipcMain.handle("clear-inspire-cache", clearInspireCache)
+  ipcMain.handle("clear-k3d-cache", clearK3dCache)
   ipcMain.handle("get-system-info", getSystemInfo)
   ipcMain.handle("get-user-name", getUserName)
   ipcMain.handle("restart-explorer", restartExplorer)
@@ -641,13 +641,13 @@ export const setupSystemHandlers = (): void => {
   ipcMain.handle("get-system-uuid", getSystemUuid)
   ipcMain.handle("games:detect", detectGames)
   ipcMain.handle("install-winget", ensureWinget)
-  console.log("[Inspire main/system.ts]: System handlers setup complete")
+  console.log("[K3d Tweaks main/system.ts]: System handlers setup complete")
 }
 
 export const cleanupSystemHandlers = (): void => {
   ipcMain.removeHandler("restart")
   ipcMain.removeHandler("open-log-folder")
-  ipcMain.removeHandler("clear-inspire-cache")
+  ipcMain.removeHandler("clear-k3d-cache")
   ipcMain.removeHandler("get-system-info")
   ipcMain.removeHandler("get-platform")
   ipcMain.removeHandler("get-user-name")

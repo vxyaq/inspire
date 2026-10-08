@@ -3,7 +3,7 @@ import { autoUpdater, UpdateInfo } from "electron-updater"
 import { platform } from "@main/utils"
 
 const UPDATES_WINDOWS_ONLY =
-  "Auto updates are only published for the Windows build of Inspire."
+  "Auto updates are only published for the Windows build of K3d Tweaks."
 
 export function initAutoUpdater(getMainWindow: () => BrowserWindow | null): void {
   if (!platform.windows) {

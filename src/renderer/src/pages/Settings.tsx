@@ -95,10 +95,10 @@ function Settings() {
               <SettingCard>
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    <h3 className="text-base font-medium text-inspire-text mb-1">
+                    <h3 className="text-base font-medium text-k3d-text mb-1">
                       Animation Direction
                     </h3>
-                    <p className="text-sm text-inspire-text-secondary">
+                    <p className="text-sm text-k3d-text-secondary">
                       Choose the page transition animation direction
                     </p>
                   </div>
@@ -114,8 +114,8 @@ function Settings() {
               <SettingCard>
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    <h3 className="text-base font-medium text-inspire-text mb-1">Background</h3>
-                    <p className="text-sm text-inspire-text-secondary">
+                    <h3 className="text-base font-medium text-k3d-text mb-1">Background</h3>
+                    <p className="text-sm text-k3d-text-secondary">
                       Show the blurred background image or a plain gray background
                     </p>
                   </div>
@@ -132,10 +132,10 @@ function Settings() {
               <SettingCard>
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    <h3 className="text-base font-medium text-inspire-text mb-1">
+                    <h3 className="text-base font-medium text-k3d-text mb-1">
                       Check for Updates
                     </h3>
-                    <p className="text-sm text-inspire-text-secondary">Check for updates</p>
+                    <p className="text-sm text-k3d-text-secondary">Check for updates</p>
                   </div>
                   <Button onClick={checkForUpdates} disabled={checking}>
                     {checking ? "Checking..." : "Check for Updates"}
@@ -148,9 +148,9 @@ function Settings() {
               <SettingCard>
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    <h3 className="text-base font-medium text-inspire-text mb-1">Show tray icon</h3>
-                    <p className="text-sm text-inspire-text-secondary">
-                      Enable or disable Inspire running in the system tray.
+                    <h3 className="text-base font-medium text-k3d-text mb-1">Show tray icon</h3>
+                    <p className="text-sm text-k3d-text-secondary">
+                      Enable or disable K3d Tweaks running in the system tray.
                       <span className="inline-flex items-center gap-1 ml-2 text-yellow-500">
                         <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
                         Requires restart
@@ -167,7 +167,7 @@ function Settings() {
                       className={`text-xs font-medium px-2 py-1 rounded-full ${
                         trayEnabled
                           ? "text-green-400 bg-green-400/10"
-                          : "text-inspire-text-secondary bg-inspire-border-secondary/20"
+                          : "text-k3d-text-secondary bg-k3d-border-secondary/20"
                       }`}
                     >
                       {trayEnabled ? "Enabled" : "Disabled"}
@@ -176,11 +176,11 @@ function Settings() {
                 </div>
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex-1">
-                    <h3 className="text-base font-medium text-inspire-text mb-1">
+                    <h3 className="text-base font-medium text-k3d-text mb-1">
                       Discord Rich Presence
                     </h3>
-                    <p className="text-sm text-inspire-text-secondary">
-                      Show your current Inspire activity on Discord.
+                    <p className="text-sm text-k3d-text-secondary">
+                      Show your current K3d Tweaks activity on Discord.
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
@@ -189,7 +189,7 @@ function Settings() {
                       className={`text-xs font-medium px-2 py-1 rounded-full ${
                         rpcEnabled
                           ? "text-green-400 bg-green-400/10"
-                          : "text-inspire-text-secondary bg-inspire-border-secondary/20"
+                          : "text-k3d-text-secondary bg-k3d-border-secondary/20"
                       }`}
                     >
                       {rpcEnabled ? "Enabled" : "Disabled"}
@@ -200,10 +200,10 @@ function Settings() {
               <SettingCard>
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    <h3 className="text-base font-medium text-inspire-text mb-1">
+                    <h3 className="text-base font-medium text-k3d-text mb-1">
                       View Changelog
                     </h3>
-                    <p className="text-sm text-inspire-text-secondary">
+                    <p className="text-sm text-k3d-text-secondary">
                       Open the changelog modal.
                     </p>
                   </div>
@@ -226,7 +226,7 @@ const SettingCard = ({ children, className = "" }) => (
 
 const SettingSection = ({ title, children }) => (
   <div className="space-y-4">
-    <h2 className="text-xl font-semibold text-inspire-primary">{title}</h2>
+    <h2 className="text-xl font-semibold text-k3d-primary">{title}</h2>
     {children}
   </div>
 )

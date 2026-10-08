@@ -75,7 +75,7 @@ export default function RestorePoints() {
   const handleCreateRestorePoint = async () => {
     setProcessing(true)
     try {
-      await invoke({ channel: "create-inspire-restore-point" })
+      await invoke({ channel: "create-k3d-restore-point" })
       toast.success("Restore point created")
       await fetchRestorePoints()
     } catch (err) {
@@ -147,8 +147,8 @@ export default function RestorePoints() {
           onClick={() => setActiveTab("restore")}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-all active:scale-95 ${
             activeTab === "restore"
-              ? "bg-inspire-primary text-white shadow"
-              : "text-inspire-text-secondary hover:text-inspire-text bg-inspire-card/50"
+              ? "bg-k3d-primary text-white shadow"
+              : "text-k3d-text-secondary hover:text-k3d-text bg-k3d-card/50"
           }`}
         >
           <Shield size={16} className="inline mr-2" />
@@ -158,8 +158,8 @@ export default function RestorePoints() {
           onClick={() => setActiveTab("tweaks")}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-all active:scale-95 ${
             activeTab === "tweaks"
-              ? "bg-inspire-primary text-white shadow"
-              : "text-inspire-text-secondary hover:text-inspire-text bg-inspire-card/50"
+              ? "bg-k3d-primary text-white shadow"
+              : "text-k3d-text-secondary hover:text-k3d-text bg-k3d-card/50"
           }`}
         >
           <RotateCw size={16} className="inline mr-2" />
@@ -210,15 +210,15 @@ export default function RestorePoints() {
 
           {loading ? (
             <div className="flex items-center justify-center h-96">
-              <Loader2 size={32} className="text-inspire-primary animate-spin" />
+              <Loader2 size={32} className="text-k3d-primary animate-spin" />
             </div>
           ) : filteredRestorePoints.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-12 text-center bg-inspire-card border border-inspire-border rounded-lg">
-              <div className="p-4 bg-inspire-secondary rounded-full mb-4">
-                <Shield size={28} className="text-inspire-text" />
+            <div className="flex flex-col items-center justify-center py-12 text-center bg-k3d-card border border-k3d-border rounded-lg">
+              <div className="p-4 bg-k3d-secondary rounded-full mb-4">
+                <Shield size={28} className="text-k3d-text" />
               </div>
-              <h3 className="text-lg font-medium mb-2 text-inspire-text">No Restore Points</h3>
-              <p className="text-inspire-text-secondary max-w-sm mb-4">
+              <h3 className="text-lg font-medium mb-2 text-k3d-text">No Restore Points</h3>
+              <p className="text-k3d-text-secondary max-w-sm mb-4">
                 Create a restore point to preserve your system state. You can restore your system to any point when needed.
               </p>
               <Button
@@ -264,9 +264,9 @@ export default function RestorePoints() {
             onClose={() => setModalState({ isOpen: false, type: null, restorePoint: null })}
           >
             {modalState.type === "restore" && modalState.restorePoint && (
-              <div className="bg-inspire-card border border-inspire-border rounded-2xl p-4 shadow-xl max-w-lg w-full mx-4">
-                <h3 className="text-lg font-medium text-inspire-text mb-4">Restore System</h3>
-                <p className="text-inspire-text-secondary mb-4">
+              <div className="bg-k3d-card border border-k3d-border rounded-2xl p-4 shadow-xl max-w-lg w-full mx-4">
+                <h3 className="text-lg font-medium text-k3d-text mb-4">Restore System</h3>
+                <p className="text-k3d-text-secondary mb-4">
                   Restore your system to "{modalState.restorePoint.Description}"?
                   <br /><br />
                   Your files will not be affected, but recently installed applications and settings
@@ -297,8 +297,8 @@ export default function RestorePoints() {
           </Modal>
 
           <Modal open={customModalOpen} onClose={() => setCustomModalOpen(false)}>
-            <div className="bg-inspire-card border border-inspire-border rounded-2xl p-4 shadow-xl max-w-lg w-full mx-4">
-              <h3 className="text-lg font-medium text-inspire-text mb-4">Create Custom Restore Point</h3>
+            <div className="bg-k3d-card border border-k3d-border rounded-2xl p-4 shadow-xl max-w-lg w-full mx-4">
+              <h3 className="text-lg font-medium text-k3d-text mb-4">Create Custom Restore Point</h3>
               <Input
                 type="text"
                 value={customName}
@@ -331,9 +331,9 @@ export default function RestorePoints() {
           </Modal>
 
           <Modal open={confirmDeleteAll} onClose={() => !processing && setConfirmDeleteAll(false)}>
-            <div className="bg-inspire-card border border-inspire-border rounded-2xl p-4 shadow-xl max-w-lg w-full mx-4">
-              <h3 className="text-lg font-medium text-inspire-text mb-4">Delete All Restore Points</h3>
-              <p className="text-inspire-text-secondary mb-4">
+            <div className="bg-k3d-card border border-k3d-border rounded-2xl p-4 shadow-xl max-w-lg w-full mx-4">
+              <h3 className="text-lg font-medium text-k3d-text mb-4">Delete All Restore Points</h3>
+              <p className="text-k3d-text-secondary mb-4">
                 Delete all {restorePoints.length} restore point
                 {restorePoints.length !== 1 ? "s" : ""}? This cannot be undone.
               </p>
@@ -364,10 +364,10 @@ export default function RestorePoints() {
 
       {activeTab === "tweaks" && (
         <div key="tweaks" className="transition-opacity duration-200">
-          <div className="bg-inspire-card border border-inspire-border rounded-lg p-6 text-center">
-            <RotateCw size={32} className="text-inspire-text-secondary mx-auto mb-3 animate-spin" />
-            <h3 className="text-lg font-medium text-inspire-text mb-2">Revert Applied Tweaks</h3>
-            <p className="text-inspire-text-secondary">
+          <div className="bg-k3d-card border border-k3d-border rounded-lg p-6 text-center">
+            <RotateCw size={32} className="text-k3d-text-secondary mx-auto mb-3 animate-spin" />
+            <h3 className="text-lg font-medium text-k3d-text mb-2">Revert Applied Tweaks</h3>
+            <p className="text-k3d-text-secondary">
               This section is under construction
             </p>
           </div>

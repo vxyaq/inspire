@@ -1,8 +1,8 @@
-site_name: Inspire Docs
-site_description: "The ultimate documentation for Inspire"
-site_url: "https://inspiredocs.parcoil.com"
-repo_url: "https://github.com/thedogecraft/inspire"
-repo_name: "Inspire"
+site_name: K3d Tweaks Docs
+site_description: "The ultimate documentation for K3d Tweaks"
+site_url: "https://k3ddocs.parcoil.com"
+repo_url: "https://github.com/vxyaq/k3d-tweaks"
+repo_name: "K3d Tweaks"
 
 edit_uri: edit/v2/docs/docs/
 extra_css:
@@ -113,10 +113,10 @@ extra:
   generator: false
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/thedogecraft/inspire
+      link: https://github.com/vxyaq/k3d-tweaks
     - icon: fontawesome/brands/discord
       link: https://discord.com/invite/En5YJYWj3Z
-  # announcement: "⭐ Star Inspire on GitHub!"
+  # announcement: "⭐ Star K3d Tweaks on GitHub!"
 # nav:
 #   - Home: index.md
 #   - Tweaks: tweaks.md

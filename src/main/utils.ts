@@ -19,5 +19,5 @@ export const getResourcePath = (fileName: string): string => {
 }
 
 export const getAppIcon = (): string => {
-  return platform.windows ? getResourcePath("inspire2.ico") : getResourcePath("inspirelogo.png")
+  return platform.windows ? getResourcePath("k3dtweaks.ico") : getResourcePath("k3dtweaks-logo.png")
 }

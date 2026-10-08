@@ -1,6 +1,6 @@
-# Inspire Docs
+# K3d Tweaks Docs
 
-inspire docs is made using mkdocs
+k3d docs is made using mkdocs
 
 warning: the tweaks.md and /tweaks/ folder is auto-generated, do not edit directly
 

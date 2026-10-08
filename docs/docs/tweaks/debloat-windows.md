@@ -2,7 +2,7 @@
 
 ## Overview
 - **ID/URL**: `debloat-windows`
-- **Description**: Choose between Inspire Debloat script or Raphire's Win11Debloat script to remove built-in Windows apps and bloatware.
+- **Description**: Choose between K3d Tweaks Debloat script or Raphire's Win11Debloat script to remove built-in Windows apps and bloatware.
 - **Risk Level**: <span style="color:#4caf50">Safe</span>
 
 !!! info "Irreversible"
@@ -17,7 +17,7 @@
 
 ## The user can choose between two methods to debloat Windows:
 
-## 1. Inspire Custom Selective Script:
+## 1. K3d Tweaks Custom Selective Script:
 
 - This method allows users to select which apps they want to keep. A WPF Window is presented where users can check or uncheck apps from a list.
 
@@ -36,7 +36,7 @@
 ## Apply
 
 ```powershell { .no-copy }  
-# Inspire Debloat Script
+# K3d Tweaks Debloat Script
 # This script provides options for different debloat methods
 # Made by Parcoil
 # Credits to Raphire for his debloat script: https://github.com/Raphire
@@ -55,7 +55,7 @@ function Test-IsAdmin {
 }
 
 if (-not (Test-IsAdmin)) {
-    Write-Host "[Inspire Debloat] This script must be run as Administrator." -ForegroundColor Red
+    Write-Host "[K3d Tweaks Debloat] This script must be run as Administrator." -ForegroundColor Red
     Read-Host "Press Enter to exit"
     exit 1
 }
@@ -215,7 +215,7 @@ function Show-ScriptSelectionDialog {
     [xml]$xaml = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Inspire Debloat v$version" 
+        Title="K3d Tweaks Debloat v$version" 
         Height="300" Width="650" 
         WindowStartupLocation="CenterScreen"
         Topmost="True"
@@ -290,7 +290,7 @@ function Show-ScriptSelectionDialog {
                 Margin="0,0,0,20">
             <StackPanel>
                 <RadioButton x:Name="RadioInspire" 
-                            Content="Inspire Debloat (Choose which apps to remove) - Recommended" 
+                            Content="K3d Tweaks Debloat (Choose which apps to remove) - Recommended" 
                             Margin="0,0,0,16" 
                             IsChecked="True"/>
                 <RadioButton x:Name="RadioRaphire" 
@@ -341,7 +341,7 @@ function Show-BehaviorChangeWarning {
     [xml]$xaml = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Inspire Debloat - Important Change" 
+        Title="K3d Tweaks Debloat - Important Change" 
         Height="420" Width="550" 
         WindowStartupLocation="CenterScreen"
         Topmost="True"
@@ -475,7 +475,7 @@ function Show-AppSelectionDialog {
     [xml]$xaml = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Inspire Debloat v$version" 
+    Title="K3d Tweaks Debloat v$version" 
     Height="750" Width="650" 
     WindowStartupLocation="CenterScreen"
     ResizeMode="NoResize"
@@ -676,7 +676,7 @@ function Show-AppSelectionDialog {
 function Remove-SelectedApps {
     param([string[]]$AppsToRemove)
 
-    Write-Host "Starting Inspire debloat..." -ForegroundColor Green
+    Write-Host "Starting K3d Tweaks debloat..." -ForegroundColor Green
 
     # display friendly names in console output
     $removeNames = $AppsToRemove | ForEach-Object { Get-FriendlyName $_ }
@@ -713,13 +713,13 @@ function Remove-SelectedApps {
         }
     }
 
-    Write-Host "Inspire debloat completed!" -ForegroundColor Green
+    Write-Host "K3d Tweaks debloat completed!" -ForegroundColor Green
 }
 
 try {
     $script:appsWereRemoved = $false
     
-    Write-Host "Starting Inspire Debloat script..." -ForegroundColor Green
+    Write-Host "Starting K3d Tweaks Debloat script..." -ForegroundColor Green
     Write-Host "Script Choice: '$ScriptChoice'" -ForegroundColor Yellow
     Write-Host "Apps to Remove Count: $($AppsToRemove.Count)" -ForegroundColor Yellow
     
@@ -732,7 +732,7 @@ try {
     }
     elseif ($ScriptChoice -eq "custom") {
         if ($AppsToRemove.Count -gt 0) {
-            Write-Host "Running Inspire debloat to remove $($AppsToRemove.Count) apps..." -ForegroundColor Green
+            Write-Host "Running K3d Tweaks debloat to remove $($AppsToRemove.Count) apps..." -ForegroundColor Green
             Remove-SelectedApps -AppsToRemove $AppsToRemove
             $script:appsWereRemoved = $true
         }
@@ -797,14 +797,14 @@ try {
         Write-Host "Unknown script choice '$ScriptChoice', defaulting to Raphire's script..." -ForegroundColor Yellow
         & ([scriptblock]::Create((Invoke-RestMethod 'https://debloat.raphi.re/'))) -Silent -RemoveApps
     }
-    Write-Host "Debloat Script From https://getinspire.net" -ForegroundColor Cyan
+    Write-Host "Debloat Script From https://getk3d.net" -ForegroundColor Cyan
 
-    if ($script:appsWereRemoved -and -not (Get-Process -Name "Inspire" -ErrorAction SilentlyContinue)) {
+    if ($script:appsWereRemoved -and -not (Get-Process -Name "K3d Tweaks" -ErrorAction SilentlyContinue)) {
         [xml]$xaml = @"
 <Window 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Inspire Debloat" 
+    Title="K3d Tweaks Debloat" 
     Height="200" 
     Width="480"
     WindowStartupLocation="CenterScreen"
@@ -893,5 +893,5 @@ catch {
 
 ## Links
 - [Debloat Windows Script (Raphire)](https://github.com/Raphire/Win11Debloat)
-- [Use Inspire Debloat Script without Inspire](https://getinspire.net/debloat)
-- [Inspire Debloat Script](https://github.com/Parcoil/Inspire/blob/v2/resources/tweaks/debloat-windows/apply.ps1)
+- [Use K3d Tweaks Debloat Script without K3d Tweaks](https://getk3d.net/debloat)
+- [K3d Tweaks Debloat Script](https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/resources/tweaks/debloat-windows/apply.ps1)

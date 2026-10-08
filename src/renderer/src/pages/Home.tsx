@@ -20,10 +20,10 @@ interface StatCardProps {
 
 function StatCard({ icon: Icon, value, label, action, onAction }: StatCardProps) {
   return (
-    <Card className="p-5 bg-inspire-card backdrop-blur-xs rounded-xl border border-inspire-border hover:shadow-xs">
+    <Card className="p-5 bg-k3d-card backdrop-blur-xs rounded-xl border border-k3d-border hover:shadow-xs">
       <div className="flex items-start justify-between gap-3 mb-5">
-        <div className="p-2.5 rounded-lg bg-inspire-accent ring-1 ring-inset ring-inspire-border">
-          <Icon className="text-inspire-primary" size={20} />
+        <div className="p-2.5 rounded-lg bg-k3d-accent ring-1 ring-inset ring-k3d-border">
+          <Icon className="text-k3d-primary" size={20} />
         </div>
         <Button
           variant="secondary"
@@ -34,8 +34,8 @@ function StatCard({ icon: Icon, value, label, action, onAction }: StatCardProps)
           <ChevronRight size={14} />
         </Button>
       </div>
-      <p className="text-3xl font-bold text-inspire-text tracking-tight">{value}</p>
-      <p className="text-sm text-inspire-text-secondary mt-1">{label}</p>
+      <p className="text-3xl font-bold text-k3d-text tracking-tight">{value}</p>
+      <p className="text-sm text-k3d-text-secondary mt-1">{label}</p>
     </Card>
   )
 }
@@ -43,7 +43,7 @@ function Home() {
   const setSystemInfo = useSystemStore((state) => state.setSystemInfo)
   const [loading, setLoading] = useState(() => {
     try {
-      return !localStorage.getItem("inspire:systemInfo")
+      return !localStorage.getItem("k3d:systemInfo")
     } catch {
       return true
     }
@@ -52,7 +52,7 @@ function Home() {
   const [usingCache, setUsingCache] = useState(false)
   const [activeTweaks, setActiveTweaks] = useState(() => {
     try {
-      const cached = localStorage.getItem("inspire:activeTweaks")
+      const cached = localStorage.getItem("k3d:activeTweaks")
       return cached ? JSON.parse(cached) : []
     } catch {
       return []
@@ -63,18 +63,18 @@ function Home() {
     try {
       const active = await invoke({ channel: "tweak:active" })
       setActiveTweaks(active)
-      localStorage.setItem("inspire:activeTweaks", JSON.stringify(active))
+      localStorage.setItem("k3d:activeTweaks", JSON.stringify(active))
     } catch (err) {
       console.error("Failed to fetch active tweaks:", err)
     }
   }
 
   const [restoreCount, setRestoreCount] = useState(() => {
-    const cached = localStorage.getItem("inspire:restoreCount")
+    const cached = localStorage.getItem("k3d:restoreCount")
     return cached ? Number(cached) || 0 : 0
   })
   const [junkSize, setJunkSize] = useState(() => {
-    const cached = localStorage.getItem("inspire:junkSize")
+    const cached = localStorage.getItem("k3d:junkSize")
     return cached ? Number(cached) || 0 : 0
   })
 
@@ -84,7 +84,7 @@ function Home() {
         .then((res: any) => {
           const count = Array.isArray(res?.points) ? res.points.length : 0
           setRestoreCount(count)
-          localStorage.setItem("inspire:restoreCount", String(count))
+          localStorage.setItem("k3d:restoreCount", String(count))
         })
         .catch(() => {})
 
@@ -97,7 +97,7 @@ function Home() {
                 }, 0)
               : 0
           setJunkSize(total)
-          localStorage.setItem("inspire:junkSize", String(total))
+          localStorage.setItem("k3d:junkSize", String(total))
         })
         .catch(() => {})
     })
@@ -107,7 +107,7 @@ function Home() {
 
   useEffect(() => {
     const idleHandle = requestIdleCallback(() => {
-      const cached = localStorage.getItem("inspire:systemInfo")
+      const cached = localStorage.getItem("k3d:systemInfo")
       if (cached) {
         try {
           const parsed = JSON.parse(cached)
@@ -123,7 +123,7 @@ function Home() {
         .then((info) => {
           useSystemStore.setState((state) => {
             const merged = { ...state.systemInfo, ...info }
-            localStorage.setItem("inspire:systemInfo", JSON.stringify(merged))
+            localStorage.setItem("k3d:systemInfo", JSON.stringify(merged))
             return { systemInfo: merged }
           })
           setUsingCache(false)
@@ -151,7 +151,7 @@ function Home() {
     const handleExtraInfo = (_event: any, extra: Record<string, any>) => {
       useSystemStore.setState((state) => {
         const merged = { ...state.systemInfo, ...extra }
-        localStorage.setItem("inspire:systemInfo", JSON.stringify(merged))
+        localStorage.setItem("k3d:systemInfo", JSON.stringify(merged))
         return { systemInfo: merged }
       })
     }
@@ -169,19 +169,19 @@ function Home() {
 
   if (loading) {
     return (
-      <div className="fixed inset-0 z-40 flex items-center justify-center bg-inspire-bg">
+      <div className="fixed inset-0 z-40 flex items-center justify-center bg-k3d-bg">
         <div className="flex items-center justify-center h-64 flex-col gap-4">
           <div className="relative w-10 h-10">
-            <div className="absolute inset-0 border-[3px] border-inspire-border rounded-full"></div>
+            <div className="absolute inset-0 border-[3px] border-k3d-border rounded-full"></div>
             <div
-              className="absolute inset-0 border-[3px] border-transparent border-t-inspire-primary rounded-full animate-spin"
+              className="absolute inset-0 border-[3px] border-transparent border-t-k3d-primary rounded-full animate-spin"
               role="status"
               aria-label="loading"
             ></div>
           </div>
           <div className="flex flex-col items-center gap-1.5 text-center">
-            <p className="text-inspire-text-dark font-medium">Loading system information</p>
-            <p className="text-inspire-text-muted text-sm">
+            <p className="text-k3d-text-dark font-medium">Loading system information</p>
+            <p className="text-k3d-text-muted text-sm">
               This may take a while depending on your system
             </p>
           </div>
@@ -219,7 +219,7 @@ function Home() {
           />
         </div>
 
-        <p className="text-xs text-inspire-text-secondary text-center mt-4">
+        <p className="text-xs text-k3d-text-secondary text-center mt-4">
           {usingCache ? "Loading latest system data..." : ""}
         </p>
       </div>

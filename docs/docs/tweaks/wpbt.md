@@ -9,7 +9,7 @@
 
 
 !!! note 
-    This tweak was added in 2.14.1, Inspire 2.14.1+ is required.
+    This tweak was added in 2.14.1, K3d Tweaks 2.14.1+ is required.
   
 ## Details
 

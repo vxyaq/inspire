@@ -1,28 +1,28 @@
 @echo off
 REM Chocolatey Package Publisher
-REM This script packs and publishes the Inspire Chocolatey package
+REM This script packs and publishes the K3d Tweaks Chocolatey package
 
 setlocal enabledelayedexpansion
 
 echo.
 echo ========================================
-echo   Inspire Chocolatey Package Publisher
+echo   K3d Tweaks Chocolatey Package Publisher
 echo ========================================
 echo.
 
 REM Check if we're in the chocolatey directory
-if not exist "inspire.nuspec" (
-    echo ERROR: inspire.nuspec not found. Please run this from the chocolatey directory.
+if not exist "k3dtweaks.nuspec" (
+    echo ERROR: k3dtweaks.nuspec not found. Please run this from the chocolatey directory.
     exit /b 1
 )
 
 REM Get the version from nuspec using PowerShell for better XML parsing
-for /f "delims=" %%i in ('powershell -Command "[xml]$xml = Get-Content 'inspire.nuspec'; Write-Output $xml.package.metadata.version"') do (
+for /f "delims=" %%i in ('powershell -Command "[xml]$xml = Get-Content 'k3dtweaks.nuspec'; Write-Output $xml.package.metadata.version"') do (
     set VERSION=%%i
 )
 
 if not defined VERSION (
-    echo ERROR: Could not extract version from inspire.nuspec
+    echo ERROR: Could not extract version from k3dtweaks.nuspec
     exit /b 1
 )
 
@@ -31,20 +31,20 @@ echo.
 
 REM Pack the package
 echo [1/3] Packing Chocolatey package...
-choco pack inspire.nuspec
+choco pack k3dtweaks.nuspec
 
 if !errorlevel! neq 0 (
     echo ERROR: Failed to pack the package
     exit /b 1
 )
 
-set NUPKG=inspire.!VERSION!.nupkg
+set NUPKG=k3d.!VERSION!.nupkg
 
 if not exist "!NUPKG!" (
     echo ERROR: Package file not created: !NUPKG!
     echo.
     echo Checking for alternate filenames...
-    dir inspire.*.nupkg 2>nul
+    dir k3d.*.nupkg 2>nul
     if !errorlevel! neq 0 (
         echo No .nupkg files found
     )
@@ -115,6 +115,6 @@ echo ========================================
 echo.
 echo Package: !NUPKG!
 echo Version: !VERSION!
-echo Repository: https://community.chocolatey.org/packages/inspire
+echo Repository: https://community.chocolatey.org/packages/k3d
 echo.
 pause

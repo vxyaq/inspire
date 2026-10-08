@@ -10,9 +10,9 @@ export const getBackgroundPath = (): string | null => {
     userDataDir = app.getPath("userData")
   } catch {
     userDataDir = process.env.APPDATA
-      ? path.join(process.env.APPDATA, "Inspire")
+      ? path.join(process.env.APPDATA, "K3d Tweaks")
       : process.env.HOME
-        ? path.join(process.env.HOME, ".inspire")
+        ? path.join(process.env.HOME, ".k3d")
         : null
   }
 
@@ -53,7 +53,7 @@ export const registerBackgroundIpc = () => {
             : "image/png"
       return `data:${mime};base64,${data.toString("base64")}`
     } catch (err) {
-      console.error("[Inspire]: Failed to read background image:", err)
+      console.error("[K3d Tweaks]: Failed to read background image:", err)
       return null
     }
   })

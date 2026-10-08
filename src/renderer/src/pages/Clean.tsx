@@ -187,24 +187,24 @@ function Clean() {
       <div className="flex flex-col gap-6">
         <Card className="p-4">
           <div className="flex items-start gap-4">
-            <div className="flex items-center justify-center p-3 rounded-xl bg-inspire-accent shrink-0">
-              <Icon iconNode={broom} className="text-inspire-primary" size={24} />
+            <div className="flex items-center justify-center p-3 rounded-xl bg-k3d-accent shrink-0">
+              <Icon iconNode={broom} className="text-k3d-primary" size={24} />
             </div>
             <div className="flex-1 min-w-0">
-              <h2 className="text-lg font-semibold text-inspire-text mb-1">
+              <h2 className="text-lg font-semibold text-k3d-text mb-1">
                 System Cleaner
               </h2>
-              <p className="text-sm text-inspire-text-secondary">
+              <p className="text-sm text-k3d-text-secondary">
                 Last cleaned: <span className="font-medium">{lastClean}</span>
               </p>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2">
-                <p className="text-sm text-inspire-text-secondary">
+                <p className="text-sm text-k3d-text-secondary">
                   {loadingSizes ? (
                     "Calculating total size..."
                   ) : (
                     <>
                       Total size:{" "}
-                      <span className="font-medium text-inspire-primary">
+                      <span className="font-medium text-k3d-primary">
                         {formatBytes(totalSize)}
                       </span>
                     </>
@@ -263,7 +263,7 @@ function Clean() {
               <Card key={id} className="p-4 h-48 flex flex-col justify-between">
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-2">
-                    <h3 className="font-semibold text-inspire-text text-sm leading-tight">
+                    <h3 className="font-semibold text-k3d-text text-sm leading-tight">
                       {label}
                     </h3>
                     {freedSpace !== undefined && freedSpace > 0 && (
@@ -272,19 +272,19 @@ function Clean() {
                       </span>
                     )}
                   </div>
-                  <p className="text-inspire-text-secondary text-xs leading-relaxed line-clamp-2">
+                  <p className="text-k3d-text-secondary text-xs leading-relaxed line-clamp-2">
                     {description}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-inspire-border/40 flex items-center justify-between gap-2">
+                <div className="pt-3 border-t border-k3d-border/40 flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
                     <Tooltip content="Clean this item" delay={0.3} side="top">
-                      <div className="p-1.5 bg-inspire-accent rounded-md text-inspire-text-secondary shrink-0">
+                      <div className="p-1.5 bg-k3d-accent rounded-md text-k3d-text-secondary shrink-0">
                         {icon}
                       </div>
                     </Tooltip>
-                    <span className="text-xs text-inspire-text-muted font-medium truncate">
+                    <span className="text-xs text-k3d-text-muted font-medium truncate">
                       {loadingSizes
                         ? "Calculating..."
                         : currentSize !== undefined
@@ -297,7 +297,7 @@ function Clean() {
                     {isCurrentlyCleaning ? (
                       <Button
                         variant="outline"
-                        className="h-7 px-2 text-[11px] flex items-center gap-1 rounded-md border-inspire-border"
+                        className="h-7 px-2 text-[11px] flex items-center gap-1 rounded-md border-k3d-border"
                         disabled
                       >
                         <LoaderCircle className="animate-spin w-3 h-3" />

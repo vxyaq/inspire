@@ -95,9 +95,9 @@ async function loadTweaks(): Promise<Tweak[]> {
 
 const getNipPath = (): string => {
   if (isDev) {
-    return path.resolve(process.cwd(), "resources", "inspirenvidia.nip")
+    return path.resolve(process.cwd(), "resources", "k3dtweaks.nip")
   }
-  return path.join(process.resourcesPath, "inspirenvidia.nip")
+  return path.join(process.resourcesPath, "k3dtweaks.nip")
 }
 
 function isGPUTweak(tweak: Tweak): boolean {
@@ -232,7 +232,7 @@ export const setupTweaksHandlers = (): void => {
   ipcMain.handle("tweak:active", (): string[] => {
     return getActiveTweaks()
   })
-  console.log("[Inspire main/tweakHandler.ts]: Tweak handlers setup complete")
+  console.log("[K3d Tweaks main/tweakHandler.ts]: Tweak handlers setup complete")
 }
 
 const getActiveTweaks = (): string[] => {

@@ -71,16 +71,16 @@ export default function UpdateManager(): React.ReactElement {
 
   return (
     <Modal open={updateOpen} onClose={() => {}}>
-      <div className="bg-inspire-card border border-inspire-border rounded-2xl p-4 shadow-xl max-w-lg w-full mx-4">
-        <h2 className="text-xl font-semibold mb-2 text-inspire-primary">
+      <div className="bg-k3d-card border border-k3d-border rounded-2xl p-4 shadow-xl max-w-lg w-full mx-4">
+        <h2 className="text-xl font-semibold mb-2 text-k3d-primary">
           Update available{updateVersion ? ` (${updateVersion})` : ""}
         </h2>
-        <p className="mb-6 text-inspire-text">
+        <p className="mb-6 text-k3d-text">
           {isDownloaded
             ? "The update has been downloaded. Restart to install now."
             : isDownloading
               ? `Downloading update… ${Math.floor(downloadPercent)}%`
-              : "A new version is available. Please update to ensure Inspire keeps working properly."}
+              : "A new version is available. Please update to ensure K3d Tweaks keeps working properly."}
         </p>
         <div className="flex justify-end gap-3">
           <Button onClick={handleUpdateNow} disabled={isDownloading}>

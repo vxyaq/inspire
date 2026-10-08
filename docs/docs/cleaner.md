@@ -4,9 +4,9 @@ hide:
   - navigation
 ---
 
-# Inspire Cleaner
+# K3d Tweaks Cleaner
 
-The Inspire Cleaner helps free up disk space and remove unnecessary system files.
+The K3d Tweaks Cleaner helps free up disk space and remove unnecessary system files.
 
 ## 1. Clean Temporary Files
 

@@ -23,7 +23,7 @@ jobs:
       - run: pnpm exec electron-builder --win --x64 --publish never
       - uses: actions/upload-artifact@v4
         with:
-          name: inspire-windows-setup
+          name: k3d-windows-setup
           path: |
             dist/*-setup.exe
             dist/latest.yml

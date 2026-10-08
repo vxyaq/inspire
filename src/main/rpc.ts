@@ -17,9 +17,9 @@ function buildActivity() {
   return new PresenceBuilder()
     .setType(ActivityType.Playing)
     .setDetails("Optimizing your PC")
-    .setState(`Running Inspire v${jsonData.version ?? "2"}`)
+    .setState(`Running K3d Tweaks v${jsonData.version ?? "2"}`)
     .setStartTimestamp(Date.now())
-    .addButton("Download Inspire", "https://parcoil.com/inspire")
+    .addButton("Download K3d Tweaks", "https://parcoil.com/k3d")
     .addButton("Join Discord", "https://discord.com/invite/En5YJYWj3Z")
     .build()
 }

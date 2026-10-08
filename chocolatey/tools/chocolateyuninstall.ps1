@@ -1,7 +1,7 @@
 S$ErrorActionPreference = 'Stop'
 
 $packageName = $env:ChocolateyPackageName
-$softwareName = 'inspire*'
+$softwareName = 'k3d*'
 
 $installed = Get-ItemProperty -Path @(
   'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*',
@@ -25,7 +25,7 @@ if ($installed) {
     }
   }
 } else {
-  Write-Warning "Inspire was not found in the registry. It may have already been uninstalled."
+  Write-Warning "K3d Tweaks was not found in the registry. It may have already been uninstalled."
 }
 
 

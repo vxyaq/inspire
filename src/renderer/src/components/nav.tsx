@@ -70,7 +70,7 @@ function Nav({ collapsed }) {
 
   return (
     <nav
-      className={`h-screen text-inspire-text fixed left-0 top-0 flex flex-col py-6 z-40  transition-all duration-300 ease-in-out ${collapsed ? "w-16" : "w-52"}`}
+      className={`h-screen text-k3d-text fixed left-0 top-0 flex flex-col py-6 z-40  transition-all duration-300 ease-in-out ${collapsed ? "w-16" : "w-52"}`}
     >
       <div className="flex-1 flex flex-col gap-2 px-3 mt-10 relative" ref={containerRef}>
 
@@ -89,8 +89,8 @@ function Nav({ collapsed }) {
                 className={clsx(
                   `flex items-center gap-3 py-2.5 rounded-lg transition-all duration-200 border relative ${collapsed ? "px-2 justify-center" : "px-3"}`,
                   activeTab === id
-                    ? "border-transparent text-inspire-primary bg-inspire-primary/10"
-                    : "text-inspire-text-secondary hover:bg-inspire-border-secondary hover:text-inspire-text border-transparent",
+                    ? "border-transparent text-k3d-primary bg-k3d-primary/10"
+                    : "text-k3d-text-secondary hover:bg-k3d-border-secondary hover:text-k3d-text border-transparent",
                 )}
               >
                 <div>{tabIcons[id]}</div>
@@ -108,7 +108,7 @@ function Nav({ collapsed }) {
         <button
           className={clsx(
             "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 border m-3",
-            "bg-inspire-card text-inspire-text border-inspire-border-secondary hover:bg-inspire-border-secondary hover:text-inspire-text",
+            "bg-k3d-card text-k3d-text border-k3d-border-secondary hover:bg-k3d-border-secondary hover:text-k3d-text",
           )}
           onClick={() => setShowRestartModal(true)}
         >
@@ -130,8 +130,8 @@ function Nav({ collapsed }) {
             className={clsx(
               `flex items-center gap-3 py-2.5 rounded-lg transition-all duration-200 border relative ${collapsed ? "px-2 justify-center" : "px-3"}`,
               activeTab === "account"
-                ? "border-transparent text-inspire-primary bg-inspire-primary/10"
-                : "text-inspire-text-secondary hover:bg-inspire-border-secondary hover:text-inspire-text border-transparent",
+                ? "border-transparent text-k3d-primary bg-k3d-primary/10"
+                : "text-k3d-text-secondary hover:bg-k3d-border-secondary hover:text-k3d-text border-transparent",
             )}
           >
             <div>{tabIcons.account}</div>
@@ -150,8 +150,8 @@ function Nav({ collapsed }) {
             className={clsx(
               `flex items-center gap-3 py-2.5 rounded-lg transition-all duration-200 border relative ${collapsed ? "px-2 justify-center" : "px-3"}`,
               activeTab === "settings"
-                ? "border-transparent text-inspire-primary bg-inspire-primary/10"
-                : "text-inspire-text-secondary hover:bg-inspire-border-secondary hover:text-inspire-text border-transparent",
+                ? "border-transparent text-k3d-primary bg-k3d-primary/10"
+                : "text-k3d-text-secondary hover:bg-k3d-border-secondary hover:text-k3d-text border-transparent",
             )}
           >
             <div>{tabIcons.settings}</div>
@@ -164,7 +164,7 @@ function Nav({ collapsed }) {
         </Tooltip>
       </div>
       <Modal open={showRestartModal} onOpenChange={setShowRestartModal}>
-        <div className="bg-inspire-card p-4 rounded-2xl border border-inspire-border text-inspire-text w-[90vw] max-w-md">
+        <div className="bg-k3d-card p-4 rounded-2xl border border-k3d-border text-k3d-text w-[90vw] max-w-md">
           <h2 className="text-lg font-semibold">Confirm Restart</h2>
           <p>Are you sure you want to restart your computer now?</p>
           <div className="flex gap-2 justify-end">

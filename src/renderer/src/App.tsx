@@ -90,7 +90,7 @@ function App() {
   const [changelogOpen, setChangelogOpen] = useState(false)
 
   useEffect(() => {
-    const lastSeen = localStorage.getItem("inspire:changelogSeenVersion")
+    const lastSeen = localStorage.getItem("k3d:changelogSeenVersion")
     if (lastSeen !== CURRENT_VERSION) {
       const timer = setTimeout(() => setChangelogOpen(true), 500)
       return () => clearTimeout(timer)
@@ -114,11 +114,11 @@ function App() {
   }, [])
 
   return (
-    <div className="flex flex-col h-screen bg-inspire-bg text-inspire-text overflow-hidden">
+    <div className="flex flex-col h-screen bg-k3d-bg text-k3d-text overflow-hidden">
       {!authLoading && account && <FirstTime />}
       {authLoading ? (
         <main className="flex min-h-0 flex-1 items-center justify-center pt-[50px]">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-inspire-border border-t-inspire-primary" />
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-k3d-border border-t-k3d-primary" />
         </main>
       ) : !account ? (
         <AuthScreen onAuthenticated={setAccount} />
@@ -131,7 +131,7 @@ function App() {
           <ChangelogModal
             open={changelogOpen}
             onClose={() => {
-              localStorage.setItem("inspire:changelogSeenVersion", CURRENT_VERSION)
+              localStorage.setItem("k3d:changelogSeenVersion", CURRENT_VERSION)
               setChangelogOpen(false)
             }}
           />
@@ -143,7 +143,7 @@ function App() {
           <Nav collapsed={sidebarCollapsed} />
           <div className="relative flex min-h-0 flex-1 pt-[50px]">
             <main
-              className={`min-h-0 flex-1 rounded-tl-2xl border-l border-t border-inspire-border p-6 ${sidebarCollapsed ? "ml-16" : "ml-52"}`}
+              className={`min-h-0 flex-1 rounded-tl-2xl border-l border-t border-k3d-border p-6 ${sidebarCollapsed ? "ml-16" : "ml-52"}`}
             >
               <Routes>
                 <Route path="/" element={<Home />} />

@@ -1,1 +1,1 @@
-Please refer to the docs [here](https://docs.getinspire.net/creating-tweaks)
+Please refer to the docs [here](https://docs.getk3d.net/creating-tweaks)

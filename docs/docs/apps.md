@@ -12,7 +12,7 @@ The **Apps Page** is a comprehensive app installer that supports both **Winget**
 
 ### Package Manager Support
 
-Inspire supports two package managers:
+K3d Tweaks supports two package managers:
 
 - **Winget** - Windows Package Manager (default)
 - **Chocolatey** - Community package manager
@@ -99,4 +99,4 @@ Each app entry has the following structure:
 
 *Required for Winget source. Some apps may only have a Chocolatey package.
 
-After editing, submit a pull request on [GitHub](https://github.com/parcoil/inspire).
+After editing, submit a pull request on [GitHub](https://github.com/vxyaq/k3d-tweaks).

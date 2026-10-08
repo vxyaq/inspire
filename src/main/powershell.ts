@@ -13,10 +13,10 @@ console.error = log.error
 console.warn = log.warn
 
 export const WINDOWS_ONLY_ERROR =
-  "This feature is only available on Windows - Inspire's scripts rely on PowerShell and Windows tooling."
+  "This feature is only available on Windows - K3d Tweaks's scripts rely on PowerShell and Windows tooling."
 
 function windowsOnly(context: string): PowerShellResult {
-  console.warn(`[Inspire] Skipped "${context}": not running on Windows`)
+  console.warn(`[K3d Tweaks] Skipped "${context}": not running on Windows`)
   return { success: false, error: WINDOWS_ONLY_ERROR }
 }
 
@@ -76,7 +76,7 @@ export const setupPowerShellHandlers = (): void => {
   ipcMain.handle("run-powershell", (_event, props: ExecutePowerShellOptions) =>
     executePowerShell(props),
   )
-  console.log("[Inspire main/powershell.ts]: PowerShell handlers setup complete")
+  console.log("[K3d Tweaks main/powershell.ts]: PowerShell handlers setup complete")
 }
 
 export const cleanupPowerShellHandlers = (): void => {

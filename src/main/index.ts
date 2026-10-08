@@ -66,11 +66,11 @@ if (!gotTheLock) {
 let mainWindow: BrowserWindow | null = null
 
 function createWindow(): void {
-  console.log("[Inspire]: createWindow called")
-  console.log("[Inspire]: __dirname =", __dirname)
-  console.log("[Inspire]: icon path =", getAppIcon())
-  console.log("[Inspire]: preload path =", join(__dirname, "../preload/index.js"))
-  console.log("[Inspire]: renderer path =", join(__dirname, "../renderer/index.html"))
+  console.log("[K3d Tweaks]: createWindow called")
+  console.log("[K3d Tweaks]: __dirname =", __dirname)
+  console.log("[K3d Tweaks]: icon path =", getAppIcon())
+  console.log("[K3d Tweaks]: preload path =", join(__dirname, "../preload/index.js"))
+  console.log("[K3d Tweaks]: renderer path =", join(__dirname, "../renderer/index.html"))
 
   try {
     mainWindow = new BrowserWindow({
@@ -92,10 +92,10 @@ function createWindow(): void {
         spellcheck: false,
       },
     })
-    console.log("[Inspire]: BrowserWindow created")
+    console.log("[K3d Tweaks]: BrowserWindow created")
     setMainWindow(mainWindow)
   } catch (err: any) {
-    console.error("[Inspire]: BrowserWindow creation failed:", err)
+    console.error("[K3d Tweaks]: BrowserWindow creation failed:", err)
     throw err
   }
 
@@ -104,22 +104,22 @@ function createWindow(): void {
   })
 
   if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
-    console.log("[Inspire]: Loading renderer from URL:", process.env["ELECTRON_RENDERER_URL"])
+    console.log("[K3d Tweaks]: Loading renderer from URL:", process.env["ELECTRON_RENDERER_URL"])
     mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"])
   } else {
-    console.log("[Inspire]: Loading renderer from file")
+    console.log("[K3d Tweaks]: Loading renderer from file")
     mainWindow.loadFile(join(__dirname, "../renderer/index.html"))
   }
 
   mainWindow.once("ready-to-show", () => {
-    console.log("[Inspire]: Window ready to show")
+    console.log("[K3d Tweaks]: Window ready to show")
     mainWindow!.show()
   })
 
   mainWindow.webContents.on(
     "did-fail-load",
     (_event: Electron.Event, errorCode: number, errorDescription: string) => {
-      console.error("[Inspire]: Renderer failed to load:", errorCode, errorDescription)
+      console.error("[K3d Tweaks]: Renderer failed to load:", errorCode, errorDescription)
     },
   )
 }
@@ -127,22 +127,22 @@ app.commandLine.appendSwitch("no-sandbox")
 app
   .whenReady()
   .then(() => {
-    console.log("[Inspire]: App ready, creating window...")
+    console.log("[K3d Tweaks]: App ready, creating window...")
     try {
       createWindow()
-      console.log("[Inspire]: Window created successfully")
+      console.log("[K3d Tweaks]: Window created successfully")
     } catch (err: any) {
-      console.error("[Inspire]: createWindow failed:", err)
+      console.error("[K3d Tweaks]: createWindow failed:", err)
     }
     initAutoUpdater(() => mainWindow)
-    console.log("[Inspire]: Auto updater initialized")
+    console.log("[K3d Tweaks]: Auto updater initialized")
     if (store.get("showTray")) {
-      console.log("[Inspire]: Creating tray...")
+      console.log("[K3d Tweaks]: Creating tray...")
       try {
         trayInstance = createTray(mainWindow!)
-        console.log("[Inspire]: Tray created")
+        console.log("[K3d Tweaks]: Tray created")
       } catch (err: any) {
-        console.error("[Inspire]: Tray creation failed:", err)
+        console.error("[K3d Tweaks]: Tray creation failed:", err)
       }
     }
     setupPowerShellHandlers()
@@ -154,7 +154,7 @@ app
     if (store.get("rpcEnabled") !== false) {
       startDiscordRPC()
     }
-    console.log("[Inspire]: Handlers setup complete")
+    console.log("[K3d Tweaks]: Handlers setup complete")
 
     ipcMain.on("window-minimize", () => {
       if (mainWindow) mainWindow.minimize()
@@ -199,5 +199,5 @@ app
     })
   })
   .catch((err: any) => {
-    console.error("[Inspire]: app.whenReady failed:", err)
+    console.error("[K3d Tweaks]: app.whenReady failed:", err)
   })

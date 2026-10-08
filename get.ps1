@@ -2,10 +2,10 @@
 Clear-Host
 
 # GitHub config
-$repo = "Parcoil/Inspire"
+$repo = "Parcoil/K3d Tweaks"
 $apiUrl = "https://api.github.com/repos/$repo/releases/latest"
 $headers = @{
-    "User-Agent" = "Inspire-Fetcher"
+    "User-Agent" = "K3d Tweaks-Fetcher"
     "Accept"     = "application/vnd.github.v3+json"
 }
 
@@ -41,7 +41,7 @@ Write-Host "Version: v$versionLabel" -ForegroundColor Yellow
 Write-Host ""
 
 # Find installer asset
-$asset = $release.assets | Where-Object { $_.name -match "^inspire-.*-setup\.exe$" }
+$asset = $release.assets | Where-Object { $_.name -match "^k3d-.*-setup\.exe$" }
 
 if (-not $asset) {
     Write-Host "[X] No installer (.exe) found in latest release." -ForegroundColor Red
@@ -88,7 +88,7 @@ try {
     $process.WaitForExit()
     Remove-Item -Path $downloadPath -Force
     Write-Host "[🗑️] Deleted installer after installer exited." -ForegroundColor DarkYellow
-    Write-Host "[>] Thanks For using Inspire" -ForegroundColor Magenta
+    Write-Host "[>] Thanks For using K3d Tweaks" -ForegroundColor Magenta
 }
 catch {
     Write-Host "[X] Failed to launch installer or delete file." -ForegroundColor Red

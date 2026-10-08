@@ -2,8 +2,8 @@
 title: "List of All Tweaks"
 ---
 
-# All Inspire Tweaks
-A collection of tweaks to customize and enhance your Windows experience using Inspire.
+# All K3d Tweaks Tweaks
+A collection of tweaks to customize and enhance your Windows experience using K3d Tweaks.
 
 _New to tweaks? Read [What Are Tweaks?](./what-are-tweaks) for an overview._
 

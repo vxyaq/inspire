@@ -28,9 +28,9 @@ function Input({
       defaultValue={defaultValue}
       onChange={onChange}
       className={cn(
-        "w-full bg-inspire-card border border-inspire-border rounded-lg px-3 py-2 text-inspire-text",
-        "focus:ring-0 focus:outline-hidden focus:border-inspire-primary transition-colors",
-        "placeholder:text-inspire-text-secondary disabled:cursor-not-allowed disabled:opacity-50",
+        "w-full bg-k3d-card border border-k3d-border rounded-lg px-3 py-2 text-k3d-text",
+        "focus:ring-0 focus:outline-hidden focus:border-k3d-primary transition-colors",
+        "placeholder:text-k3d-text-secondary disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       placeholder={placeholder}
@@ -64,10 +64,10 @@ function LargeInput({
   return (
     <div
       className={cn(
-        "flex items-center gap-3 bg-inspire-card border rounded-lg px-4 backdrop-blur-xs transition-all duration-200",
+        "flex items-center gap-3 bg-k3d-card border rounded-lg px-4 backdrop-blur-xs transition-all duration-200",
         focused
-          ? "border-inspire-primary shadow-[0_0_0_3px_rgba(22,163,74,0.15)]"
-          : "border-inspire-border hover:border-inspire-border-secondary",
+          ? "border-k3d-primary shadow-[0_0_0_3px_rgba(22,163,74,0.15)]"
+          : "border-k3d-border hover:border-k3d-border-secondary",
         className,
       )}
     >
@@ -75,14 +75,14 @@ function LargeInput({
         <Icon
           className={cn(
             "w-5 h-5 shrink-0 transition-colors",
-            focused ? "text-inspire-primary" : "text-inspire-text-secondary",
+            focused ? "text-k3d-primary" : "text-k3d-text-secondary",
           )}
         />
       )}
       <input
         type="text"
         placeholder={placeholder}
-        className="w-full py-3 px-0 bg-transparent border-none focus:outline-hidden focus:ring-0 text-inspire-text placeholder:text-inspire-text-secondary"
+        className="w-full py-3 px-0 bg-transparent border-none focus:outline-hidden focus:ring-0 text-k3d-text placeholder:text-k3d-text-secondary"
         value={value}
         onChange={onChange}
         onFocus={() => setFocused(true)}
@@ -95,7 +95,7 @@ function LargeInput({
           title="Clear search"
           aria-label="Clear search"
           onClick={onClear}
-          className="p-1.5 shrink-0 rounded-lg text-inspire-text-secondary hover:bg-inspire-accent hover:text-inspire-text transition-colors"
+          className="p-1.5 shrink-0 rounded-lg text-k3d-text-secondary hover:bg-k3d-accent hover:text-k3d-text transition-colors"
         >
           <X className="w-4 h-4" />
         </button>

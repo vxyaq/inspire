@@ -81,7 +81,7 @@ if (Test-Path $userdataDir) {
         $cfgDir = Join-Path $_.FullName "730\local\cfg"
         $videoFile = Join-Path $cfgDir "cs2_video.txt"
         if (Test-Path $videoFile) {
-            Copy-Item $videoFile "$videoFile.inspire.bak" -Force -ErrorAction SilentlyContinue
+            Copy-Item $videoFile "$videoFile.k3d.bak" -Force -ErrorAction SilentlyContinue
             $content = [System.IO.File]::ReadAllText($videoFile)
             foreach ($key in $videoSettings.Keys) {
                 $pattern = '(?m)^"' + $key + '"\s+"[^"]*"$'
@@ -254,7 +254,7 @@ export default function Games(): React.ReactElement {
       <div className="w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
           <Card
-            className="relative h-52 overflow-hidden border border-inspire-border bg-cover bg-center p-0"
+            className="relative h-52 overflow-hidden border border-k3d-border bg-cover bg-center p-0"
             style={{ backgroundImage: `url(${cs2Background})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30" />
@@ -286,7 +286,7 @@ export default function Games(): React.ReactElement {
             </div>
           </Card>
           <Card
-            className="relative h-52 overflow-hidden border border-inspire-border bg-cover bg-center p-0"
+            className="relative h-52 overflow-hidden border border-k3d-border bg-cover bg-center p-0"
             style={{ backgroundImage: `url(${fivemBackground})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30" />

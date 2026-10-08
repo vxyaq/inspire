@@ -30,7 +30,7 @@ export default function Checkbox({
         className="peer hidden"
         aria-checked={checked}
       />
-      <div className="h-5 w-5 rounded-md border-2 border-inspire-border flex items-center justify-center transition-colors peer-checked:bg-inspire-primary peer-checked:border-inspire-border">
+      <div className="h-5 w-5 rounded-md border-2 border-k3d-border flex items-center justify-center transition-colors peer-checked:bg-k3d-primary peer-checked:border-k3d-border">
         {checked && <Check className="h-3.5 w-3.5 text-white" />}
       </div>
       <span className="text-sm">{label}</span>

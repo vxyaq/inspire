@@ -15,7 +15,7 @@ vi.mock("electron", () => ({
 
 const { getFolderSize, emptyFolderContents, getAllSizes } = await import("@main/cleaner")
 
-const tempRoot = path.join(os.tmpdir(), `inspire-cleaner-test-${Date.now()}`)
+const tempRoot = path.join(os.tmpdir(), `k3d-cleaner-test-${Date.now()}`)
 
 afterEach(async () => {
   await fsp.rm(tempRoot, { recursive: true, force: true }).catch(() => {})

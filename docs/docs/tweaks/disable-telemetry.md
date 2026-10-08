@@ -11,11 +11,11 @@
     This tweak was last updated in 2.21.1
   
 !!! note 
-    This tweak was added in 2.14.0, Inspire 2.14.0+ is required.
+    This tweak was added in 2.14.0, K3d Tweaks 2.14.0+ is required.
   
 ## Details
 
-- Disables Windows telemetry by modifying registry keys to prevent data collection and reporting to ~~Microsoft~~ Microslop. This tweak was previously in inspire but was removed issues with the tweak not applying correctly. It has been re-added.
+- Disables Windows telemetry by modifying registry keys to prevent data collection and reporting to ~~Microsoft~~ Microslop. This tweak was previously in k3d but was removed issues with the tweak not applying correctly. It has been re-added.
 
 
 

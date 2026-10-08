@@ -2,13 +2,13 @@
   "title": "Debloat Windows",
   "name": "debloat-windows",
   "risk": "safe",
-  "description": "Choose between Inspire Debloat script or Raphire's Win11Debloat script to remove built-in Windows apps and bloatware.",
+  "description": "Choose between K3d Tweaks Debloat script or Raphire's Win11Debloat script to remove built-in Windows apps and bloatware.",
   "reversible": false,
   "updatedversion": "2.14.0",
   "recommended": true,
   "top": true,
-  "deepDescription": "The user can choose between two methods to debloat Windows:\n\n 1. Inspire Custom Selective Script: This method allows users to select which apps they want to keep. A WPF Window is presented where users can check or uncheck apps from a list.\n\n 2. Raphire's Win11Debloat Script: This method uses a well-known script that removes a wide range of built-in Windows apps and features. It is comprehensive and suitable for users who want a quick and effective way to debloat their system.\n\n Both remove bloatware and improve privacy by removing unnecessary Microsoft components, but they cater to different user preferences regarding control and convenience.",
-  "modal": "Inspire has 2 debloat methods:\n\n- Inspire Debloat Script: Lets you pick which apps to keep.\n- Raphire's Script: Removes most built-in Windows apps quickly.\n\nBoth remove bloatware and improve privacy.",
+  "deepDescription": "The user can choose between two methods to debloat Windows:\n\n 1. K3d Tweaks Custom Selective Script: This method allows users to select which apps they want to keep. A WPF Window is presented where users can check or uncheck apps from a list.\n\n 2. Raphire's Win11Debloat Script: This method uses a well-known script that removes a wide range of built-in Windows apps and features. It is comprehensive and suitable for users who want a quick and effective way to debloat their system.\n\n Both remove bloatware and improve privacy by removing unnecessary Microsoft components, but they cater to different user preferences regarding control and convenience.",
+  "modal": "K3d Tweaks has 2 debloat methods:\n\n- K3d Tweaks Debloat Script: Lets you pick which apps to keep.\n- Raphire's Script: Removes most built-in Windows apps quickly.\n\nBoth remove bloatware and improve privacy.",
   "category": ["Performance", "Privacy"],
   "links": [
     {
@@ -16,12 +16,12 @@
       "url": "https://github.com/Raphire/Win11Debloat"
     },
     {
-      "name": "Use Inspire Debloat Script without Inspire",
-      "url": "https://getinspire.net/debloat"
+      "name": "Use K3d Tweaks Debloat Script without K3d Tweaks",
+      "url": "https://getk3d.net/debloat"
     },
     {
-      "name": "Inspire Debloat Script",
-      "url": "https://github.com/Parcoil/Inspire/blob/v2/resources/tweaks/debloat-windows/apply.ps1"
+      "name": "K3d Tweaks Debloat Script",
+      "url": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/resources/tweaks/debloat-windows/apply.ps1"
     }
   ]
 }

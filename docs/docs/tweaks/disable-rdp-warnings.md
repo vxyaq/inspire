@@ -9,7 +9,7 @@
 
 
 !!! note 
-    This tweak was added in 2.19.0, Inspire 2.19.0+ is required.
+    This tweak was added in 2.19.0, K3d Tweaks 2.19.0+ is required.
   
 
 

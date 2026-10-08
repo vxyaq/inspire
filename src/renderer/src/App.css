@@ -11,18 +11,18 @@
 }
 
 @theme {
-  --color-inspire-old-primary: #01e5ff;
-  --color-inspire-primary: var(--color-primary);
-  --color-inspire-text: var(--color-text);
-  --color-inspire-text-secondary: var(--color-text-secondary);
-  --color-inspire-text-muted: var(--color-text-muted);
-  --color-inspire-bg: var(--color-bg);
-  --color-inspire-card: var(--color-card);
-  --color-inspire-border: var(--color-border);
-  --color-inspire-secondary: var(--color-secondary);
-  --color-inspire-accent: var(--color-accent);
-  --color-inspire-border-secondary: var(--color-border-secondary);
-  --color-inspire-old-secondary: #005fff;
+  --color-k3d-old-primary: #01e5ff;
+  --color-k3d-primary: var(--color-primary);
+  --color-k3d-text: var(--color-text);
+  --color-k3d-text-secondary: var(--color-text-secondary);
+  --color-k3d-text-muted: var(--color-text-muted);
+  --color-k3d-bg: var(--color-bg);
+  --color-k3d-card: var(--color-card);
+  --color-k3d-border: var(--color-border);
+  --color-k3d-secondary: var(--color-secondary);
+  --color-k3d-accent: var(--color-accent);
+  --color-k3d-border-secondary: var(--color-border-secondary);
+  --color-k3d-old-secondary: #005fff;
   --animate-border-spin: border-spin 3s linear infinite;
 
   @keyframes border-spin {
@@ -73,30 +73,30 @@
   }
 
   :root {
-    --color-inspire-bg: #111214;
-    --color-inspire-text: #f5f6fa;
-    --color-inspire-text-dark: #e0e2e6;
-    --color-inspire-text-darker: #c8ccd2;
-    --color-inspire-text-secondary: #aeb3bb;
-    --color-inspire-text-muted: #7a7f87;
-    --color-inspire-card: #18191b;
-    --color-inspire-border: #26272b;
-    --color-inspire-border-secondary: #232426;
-    --color-inspire-primary: #16a34a;
-    --color-inspire-secondary: #8b95a3;
-    --color-inspire-accent: #232324;
+    --color-k3d-bg: #111214;
+    --color-k3d-text: #f5f6fa;
+    --color-k3d-text-dark: #e0e2e6;
+    --color-k3d-text-darker: #c8ccd2;
+    --color-k3d-text-secondary: #aeb3bb;
+    --color-k3d-text-muted: #7a7f87;
+    --color-k3d-card: #18191b;
+    --color-k3d-border: #26272b;
+    --color-k3d-border-secondary: #232426;
+    --color-k3d-primary: #16a34a;
+    --color-k3d-secondary: #8b95a3;
+    --color-k3d-accent: #232324;
   }
 
   .Toastify__toast {
-    background-color: var(--color-inspire-card) !important;
-    border: 1px solid var(--color-inspire-border) !important;
+    background-color: var(--color-k3d-card) !important;
+    border: 1px solid var(--color-k3d-border) !important;
     border-radius: 0.75rem !important;
     box-shadow: 0 16px 40px -20px rgb(0 0 0 / 0.8) !important;
-    color: var(--color-inspire-text) !important;
-    --toastify-icon-color-success: var(--color-inspire-primary) !important;
+    color: var(--color-k3d-text) !important;
+    --toastify-icon-color-success: var(--color-k3d-primary) !important;
   }
   .Toastify__close-button {
-    color: var(--color-inspire-text-secondary) !important;
+    color: var(--color-k3d-text-secondary) !important;
   }
 }
 
@@ -121,7 +121,7 @@
 }
 
 .recharts-line path {
-  stroke: var(--color-inspire-primary);
+  stroke: var(--color-k3d-primary);
 }
 
 button:focus:not(:focus-visible),
@@ -132,13 +132,13 @@ input:focus:not(:focus-visible),
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-inspire-primary);
+  outline: 2px solid var(--color-k3d-primary);
   outline-offset: 2px;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-inspire-primary) 45%, transparent);
-  color: var(--color-inspire-text);
+  background: color-mix(in srgb, var(--color-k3d-primary) 45%, transparent);
+  color: var(--color-k3d-text);
 }
 
 body {
@@ -147,7 +147,7 @@ body {
 
 /* Background: plain gray UI by default, blurred background.png when enabled */
 html {
-  background-color: var(--color-inspire-bg);
+  background-color: var(--color-k3d-bg);
 }
 
 body {
@@ -160,7 +160,7 @@ body.bg-image::before {
   inset: -30px;
   z-index: -1;
   pointer-events: none;
-  background-image: var(--inspire-bg-image);
+  background-image: var(--k3d-bg-image);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -169,11 +169,11 @@ body.bg-image::before {
 }
 
 /* Glassy surfaces - less opaque so background shows through more */
-body.bg-image .bg-inspire-bg {
+body.bg-image .bg-k3d-bg {
   background-color: rgb(17 18 20 / 0.5);
 }
 
-body.bg-image .bg-inspire-card {
+body.bg-image .bg-k3d-card {
   background-color: rgb(24 25 27 / 0.6);
 }
 
@@ -182,10 +182,10 @@ body.page-no-bg.bg-image::before {
   display: none;
 }
 
-body.page-no-bg.bg-image .bg-inspire-bg {
-  background-color: var(--color-inspire-bg);
+body.page-no-bg.bg-image .bg-k3d-bg {
+  background-color: var(--color-k3d-bg);
 }
 
-body.page-no-bg.bg-image .bg-inspire-card {
-  background-color: var(--color-inspire-card);
+body.page-no-bg.bg-image .bg-k3d-card {
+  background-color: var(--color-k3d-card);
 }

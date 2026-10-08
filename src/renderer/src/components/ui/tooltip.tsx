@@ -67,7 +67,7 @@ const Tooltip = ({
       {children}
       {isVisible && (
         <div
-          className={`absolute z-50 pointer-events-none px-2 py-1 text-xs font-medium bg-inspire-card text-inspire-text rounded-md shadow-lg border border-inspire-border whitespace-nowrap transition-all duration-150 ease-out`}
+          className={`absolute z-50 pointer-events-none px-2 py-1 text-xs font-medium bg-k3d-card text-k3d-text rounded-md shadow-lg border border-k3d-border whitespace-nowrap transition-all duration-150 ease-out`}
           style={{
             ...sideToPositionStyle[side],
             transform: transformStyle,

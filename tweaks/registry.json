@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-08T18:09:52.261Z",
+  "version": "2026-10-08T18:55:14.996Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -11,8 +11,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/24-hour-clock",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/24-hour-clock/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/24-hour-clock",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/24-hour-clock/meta.json"
     },
     {
       "id": "align-taskbar-left",
@@ -24,13 +24,13 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/align-taskbar-left",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/align-taskbar-left/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/align-taskbar-left",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/align-taskbar-left/meta.json"
     },
     {
       "id": "debloat-windows",
       "title": "Debloat Windows",
-      "description": "Choose between Inspire Debloat script or Raphire's Win11Debloat script to remove built-in Windows apps and bloatware.",
+      "description": "Choose between K3d Tweaks Debloat script or Raphire's Win11Debloat script to remove built-in Windows apps and bloatware.",
       "category": [
         "Performance",
         "Privacy"
@@ -38,8 +38,8 @@
       "recommended": true,
       "reversible": false,
       "updatedversion": "2.14.0",
-      "docsurl": "https://docs.getinspire.net/tweaks/debloat-windows",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/debloat-windows/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/debloat-windows",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/debloat-windows/meta.json"
     },
     {
       "id": "detailed-bsod",
@@ -51,8 +51,8 @@
       "recommended": false,
       "reversible": true,
       "updatedversion": "2.21.1",
-      "docsurl": "https://docs.getinspire.net/tweaks/detailed-bsod",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/detailed-bsod/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/detailed-bsod",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/detailed-bsod/meta.json"
     },
     {
       "id": "disable-background-ms-store-apps",
@@ -64,8 +64,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-background-ms-store-apps",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-background-ms-store-apps/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-background-ms-store-apps",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-background-ms-store-apps/meta.json"
     },
     {
       "id": "consumer-features",
@@ -77,8 +77,8 @@
       "recommended": false,
       "reversible": true,
       "addedversion": "2.14.1",
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-consumer-features",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-consumer-features/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-consumer-features",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-consumer-features/meta.json"
     },
     {
       "id": "disable-copilot",
@@ -91,8 +91,8 @@
       ],
       "recommended": true,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-copilot",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-copilot/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-copilot",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-copilot/meta.json"
     },
     {
       "id": "disable-core-isolation",
@@ -104,8 +104,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-core-isolation",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-core-isolation/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-core-isolation",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-core-isolation/meta.json"
     },
     {
       "id": "disable-defender-rtp",
@@ -117,8 +117,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-defender-rtp",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-defender-rtp/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-defender-rtp",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-defender-rtp/meta.json"
     },
     {
       "id": "disable-dynamic-ticking",
@@ -129,8 +129,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-dynamic-ticking",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-dynamic-ticking/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-dynamic-ticking",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-dynamic-ticking/meta.json"
     },
     {
       "id": "disable-fast-startup",
@@ -142,8 +142,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-fast-startup",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-fast-startup/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-fast-startup",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-fast-startup/meta.json"
     },
     {
       "id": "disable-gamebar",
@@ -154,8 +154,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-gamebar",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-gamebar/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-gamebar",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-gamebar/meta.json"
     },
     {
       "id": "disable-hibernation",
@@ -167,8 +167,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-hibernation",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-hibernation/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-hibernation",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-hibernation/meta.json"
     },
     {
       "id": "disable-location-tracking",
@@ -180,8 +180,8 @@
       "recommended": true,
       "reversible": true,
       "updatedversion": "2.21.1",
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-location-tracking",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-location-tracking/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-location-tracking",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-location-tracking/meta.json"
     },
     {
       "id": "disable-lockscreen-tips",
@@ -192,8 +192,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-lockscreen-tips",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-lockscreen-tips/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-lockscreen-tips",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-lockscreen-tips/meta.json"
     },
     {
       "id": "disable-mouse-acceleration",
@@ -205,8 +205,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-mouse-acceleration",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-mouse-acceleration/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-mouse-acceleration",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-mouse-acceleration/meta.json"
     },
     {
       "id": "disable-rdp-warnings",
@@ -219,8 +219,8 @@
       "recommended": false,
       "reversible": true,
       "addedversion": "2.19.0",
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-rdp-warnings",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-rdp-warnings/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-rdp-warnings",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-rdp-warnings/meta.json"
     },
     {
       "id": "disable-windows-recall",
@@ -233,8 +233,8 @@
       "recommended": false,
       "reversible": true,
       "addedversion": "2.14.2",
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-recall",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-recall/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-recall",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-recall/meta.json"
     },
     {
       "id": "disable-taskbar-seach",
@@ -247,8 +247,8 @@
       "recommended": false,
       "reversible": true,
       "addedversion": "2.22.0",
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-taskbar-seach",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-taskbar-seach/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-taskbar-seach",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-taskbar-seach/meta.json"
     },
     {
       "id": "disable-telemetry",
@@ -262,8 +262,8 @@
       "reversible": true,
       "addedversion": "2.14.0",
       "updatedversion": "2.21.1",
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-telemetry",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-telemetry/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-telemetry",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-telemetry/meta.json"
     },
     {
       "id": "disable-wifi-sense",
@@ -276,8 +276,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/disable-wifi-sense",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/disable-wifi-sense/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-wifi-sense",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-wifi-sense/meta.json"
     },
     {
       "id": "enable-dark-mode",
@@ -289,8 +289,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/enable-dark-mode",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/enable-dark-mode/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/enable-dark-mode",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/enable-dark-mode/meta.json"
     },
     {
       "id": "enable-end-task-right-click",
@@ -301,8 +301,8 @@
       ],
       "recommended": true,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/enable-end-task-right-click",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/enable-end-task-right-click/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/enable-end-task-right-click",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/enable-end-task-right-click/meta.json"
     },
     {
       "id": "enable-game-mode",
@@ -315,8 +315,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/enable-game-mode",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/enable-game-mode/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/enable-game-mode",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/enable-game-mode/meta.json"
     },
     {
       "id": "enable-hags",
@@ -329,8 +329,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/enable-hags",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/enable-hags/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/enable-hags",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/enable-hags/meta.json"
     },
     {
       "id": "enable-optimization-for-windowed-games",
@@ -343,8 +343,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/enable-optimization-for-windowed-games",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/enable-optimization-for-windowed-games/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/enable-optimization-for-windowed-games",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/enable-optimization-for-windowed-games/meta.json"
     },
     {
       "id": "hide-taskview-and-widgets",
@@ -356,8 +356,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/hide-taskview-and-widgets",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/hide-taskview-and-widgets/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/hide-taskview-and-widgets",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/hide-taskview-and-widgets/meta.json"
     },
     {
       "id": "menu-show-delay-zero",
@@ -369,8 +369,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/menu-show-delay-zero",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/menu-show-delay-zero/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/menu-show-delay-zero",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/menu-show-delay-zero/meta.json"
     },
     {
       "id": "optimize-amd-settings",
@@ -383,8 +383,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/optimize-amd-settings",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/optimize-amd-settings/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/optimize-amd-settings",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-amd-settings/meta.json"
     },
     {
       "id": "optimize-discord",
@@ -396,8 +396,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/optimize-discord",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/optimize-discord/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/optimize-discord",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-discord/meta.json"
     },
     {
       "id": "optimize-intel-settings",
@@ -410,8 +410,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/optimize-intel-settings",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/optimize-intel-settings/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/optimize-intel-settings",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-intel-settings/meta.json"
     },
     {
       "id": "optimize-medal",
@@ -423,8 +423,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/optimize-medal",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/optimize-medal/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/optimize-medal",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-medal/meta.json"
     },
     {
       "id": "optimize-network-settings",
@@ -437,8 +437,8 @@
       "recommended": false,
       "reversible": true,
       "updatedversion": "2.9.0",
-      "docsurl": "https://docs.getinspire.net/tweaks/optimize-network-settings",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/optimize-network-settings/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/optimize-network-settings",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-network-settings/meta.json"
     },
     {
       "id": "optimize-nvidia-settings",
@@ -451,8 +451,8 @@
       ],
       "recommended": false,
       "reversible": false,
-      "docsurl": "https://docs.getinspire.net/tweaks/optimize-nvidia-settings",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/optimize-nvidia-settings/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/optimize-nvidia-settings",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-nvidia-settings/meta.json"
     },
     {
       "id": "optimize-obs",
@@ -464,8 +464,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/optimize-obs",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/optimize-obs/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/optimize-obs",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-obs/meta.json"
     },
     {
       "id": "remove-edge",
@@ -477,8 +477,8 @@
       "recommended": true,
       "reversible": true,
       "addedversion": "2.22.0",
-      "docsurl": "https://docs.getinspire.net/tweaks/remove-edge",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/remove-edge/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/remove-edge",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/remove-edge/meta.json"
     },
     {
       "id": "remove-gaming-apps",
@@ -490,8 +490,8 @@
       ],
       "recommended": false,
       "reversible": false,
-      "docsurl": "https://docs.getinspire.net/tweaks/remove-gaming-apps",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/remove-gaming-apps/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/remove-gaming-apps",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/remove-gaming-apps/meta.json"
     },
     {
       "id": "remove-ms-bing-integration",
@@ -503,8 +503,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/remove-ms-bing-integration",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/remove-ms-bing-integration/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/remove-ms-bing-integration",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/remove-ms-bing-integration/meta.json"
     },
     {
       "id": "remove-onedrive",
@@ -517,8 +517,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/remove-onedrive",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/remove-onedrive/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/remove-onedrive",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/remove-onedrive/meta.json"
     },
     {
       "id": "revert-context-menu",
@@ -530,8 +530,8 @@
       ],
       "recommended": true,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/revert-context-menu",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/revert-context-menu/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/revert-context-menu",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/revert-context-menu/meta.json"
     },
     {
       "id": "set-powershell7-default",
@@ -542,8 +542,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/set-powershell7-default",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/set-powershell7-default/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/set-powershell7-default",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/set-powershell7-default/meta.json"
     },
     {
       "id": "set-services-to-manual",
@@ -556,8 +556,8 @@
       "recommended": true,
       "reversible": true,
       "updatedversion": "2.21.1",
-      "docsurl": "https://docs.getinspire.net/tweaks/set-services-to-manual",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/set-services-to-manual/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/set-services-to-manual",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/set-services-to-manual/meta.json"
     },
     {
       "id": "set-time-utc",
@@ -568,8 +568,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/set-time-utc",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/set-time-utc/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/set-time-utc",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/set-time-utc/meta.json"
     },
     {
       "id": "set-win32-priority-separation",
@@ -580,8 +580,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/set-win32-priority-separation",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/set-win32-priority-separation/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/set-win32-priority-separation",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/set-win32-priority-separation/meta.json"
     },
     {
       "id": "show-seconds-in-taskbar-clock",
@@ -593,8 +593,8 @@
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/show-seconds-in-system-clock",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/show-seconds-in-system-clock/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/show-seconds-in-system-clock",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/show-seconds-in-system-clock/meta.json"
     },
     {
       "id": "ultimate-performance-plan",
@@ -606,8 +606,8 @@
       ],
       "recommended": true,
       "reversible": true,
-      "docsurl": "https://docs.getinspire.net/tweaks/ultimate-performance-plan",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/ultimate-performance-plan/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/ultimate-performance-plan",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/ultimate-performance-plan/meta.json"
     },
     {
       "id": "wpbt",
@@ -619,8 +619,8 @@
       "recommended": false,
       "reversible": true,
       "addedversion": "2.14.1",
-      "docsurl": "https://docs.getinspire.net/tweaks/wpbt",
-      "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/wpbt/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/wpbt",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/wpbt/meta.json"
     }
   ]
 }

@@ -5,20 +5,20 @@ hide:
 
 <img src="https://raw.githubusercontent.com/Parcoil/logos/refs/heads/main/logos/inspirelogo.png" width="120" height="120">
 
-# Welcome to the Inspire documentation
+# Welcome to the K3d Tweaks documentation
 
 A Windows app to debloat and optimize your PC
 
 <!-- The ultimate Windows optimizer - fast, private, and lightweight. -->
 
-[:material-download: Get Inspire](https://github.com/parcoil/inspire/releases/latest){ .md-button .md-button--primary }
-[:material-github: GitHub](https://github.com/Parcoil/Inspire){ .md-button }
+[:material-download: Get K3d Tweaks](https://github.com/vxyaq/k3d-tweaks/releases/latest){ .md-button .md-button--primary }
+[:material-github: GitHub](https://github.com/vxyaq/k3d-tweaks Tweaks){ .md-button }
 
 ---
 
-## :octicons-inspires-fill-24: What is Inspire?
+## :octicons-k3ds-fill-24: What is K3d Tweaks?
 
-Inspire is a **free and open-source Windows optimization tool**.  
+K3d Tweaks is a **free and open-source Windows optimization tool**.  
 It helps you:
 
 - Debloat/Remove unwanted apps
@@ -58,15 +58,15 @@ It helps you:
 
 === "Website (Recommended)"
 
-    1. Visit [getinspire.net](https://getinspire.net)
+    1. Visit [getk3d.net](https://getk3d.net)
     2. Choose **Portable** or **Installer**
-    3. Run Inspire
+    3. Run K3d Tweaks
     4. Apply Tweaks
 
 === "GitHub Releases"
 
-    1. Download from [GitHub Releases](https://github.com/Parcoil/Inspire/releases)
-    2. Extract and run `inspire-{version}-setup.exe`
+    1. Download from [GitHub Releases](https://github.com/vxyaq/k3d-tweaks Tweaks/releases)
+    2. Extract and run `k3d-{version}-setup.exe`
     3. Apply Tweaks
 
 !!! tip
@@ -83,15 +83,15 @@ It helps you:
    Learn what tweaks are and how they work.
 
 - [:material-tune: **View Tweaks**](tweaks)  
-   View all of the tweaks in Inspire
+   View all of the tweaks in K3d Tweaks
 
 - [:material-code-braces: **Creating Tweaks**](creating-tweaks)  
    Build your own custom tweak scripts.
 
-- [:material-web: **Official Website**](https://getinspire.net)  
-   Download The latest version of Inspire.
+- [:material-web: **Official Website**](https://getk3d.net)  
+   Download The latest version of K3d Tweaks.
 
-- [:material-github: **GitHub Repository**](https://github.com/Parcoil/Inspire)  
+- [:material-github: **GitHub Repository**](https://github.com/vxyaq/k3d-tweaks Tweaks)  
    Explore the source code.
 
 </div>
@@ -101,6 +101,6 @@ It helps you:
 !!! question "Need Help?"
 
     Join our [Discord Server](https://discord.gg/En5YJYWj3Z)
-    or open an issue on [GitHub](https://github.com/Parcoil/Inspire/issues).
+    or open an issue on [GitHub](https://github.com/vxyaq/k3d-tweaks Tweaks/issues).
 
 *Some Tweaks cannot be unapplied and require manual app reinstalls or manual setting changes.
