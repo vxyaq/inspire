@@ -77,6 +77,12 @@ function ChangelogContent({ body }: { body: string }) {
 
 const LOCAL_CHANGELOG: Release[] = [
   {
+    tag_name: "v1.2.1",
+    name: "K3d Tweaks v1.2.1",
+    body: "## What's New\n\n- Request Game section in Settings with Discord notifications\n- Discord Rich Presence connection status and automatic reconnect\n\n## Improvements\n\n- Faster app startup\n",
+    published_at: new Date().toISOString(),
+  },
+  {
     tag_name: "v1.2.0",
     name: "K3d Tweaks v1.2.0",
     body: "## What's New\n\n- Full rebrand to K3d Tweaks with a new logo\n- New BIOS tab with hardware detection (XMP, Resizable BAR, PBO, MCE, UEFI, C-States, virtualization)\n- Games folder with per-game optimizations (CS2 mega FPS boost, FiveM)\n- New Discord, Medal and OBS optimization tweaks\n- HWID license plans (Free and Pro) with Pro-only Games and BIOS tabs\n- Real NVIDIA, AMD and Intel driver optimization scripts\n\n## Improvements\n\n- Faster Home loading and a 15-second update check timeout\n- Restore points can no longer be created twice\n- Darker background behind popups for readability\n- Smaller download size and everything in English\n",
