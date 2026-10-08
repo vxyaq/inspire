@@ -104,28 +104,27 @@ export default function Games(): React.ReactElement {
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30" />
             <div className="relative flex h-full flex-col p-4">
               <h2 className="text-sm font-semibold leading-tight text-white">Counter-Strike 2</h2>
+              {cs2Installed === false && (
+                <span className="absolute top-3 right-3 text-[11px] font-semibold text-white/70">
+                  Not installed
+                </span>
+              )}
               <div className="pointer-events-none absolute inset-0 flex items-center bg-black/75 p-4 text-xs leading-relaxed text-white/85 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                 Sets High process priority, disables Game DVR capture, and applies a GPU-aware
                 high-performance profile for NVIDIA, AMD, or Intel graphics.
               </div>
-              {cs2Installed === false ? (
-                <span className="absolute bottom-1.5 right-2.5 h-7 px-1 text-[11px] font-semibold text-white/70">
-                  Not installed
-                </span>
-              ) : (
-                <Button
-                  onClick={optimizeCS2}
-                  disabled={optimizing || cs2Installed === null}
-                  variant=""
-                  className="absolute bottom-4 right-4 h-7 border border-white bg-white px-2.5 text-[11px] font-semibold text-black shadow-lg shadow-black/40 hover:bg-gray-200 hover:border-gray-200"
-                >
-                  {optimizing || cs2Installed === null ? (
-                    <LoaderCircle size={13} className="animate-spin" />
-                  ) : (
-                    "Optimize"
-                  )}
-                </Button>
-              )}
+              <Button
+                onClick={optimizeCS2}
+                disabled={optimizing || cs2Installed === null || cs2Installed === false}
+                variant=""
+                className="absolute bottom-4 right-4 h-7 border border-white bg-white px-2.5 text-[11px] font-semibold text-black shadow-lg shadow-black/40 hover:bg-gray-200 hover:border-gray-200"
+              >
+                {optimizing || cs2Installed === null ? (
+                  <LoaderCircle size={13} className="animate-spin" />
+                ) : (
+                  "Optimize"
+                )}
+              </Button>
             </div>
           </Card>
         </div>
