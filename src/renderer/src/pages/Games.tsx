@@ -107,7 +107,7 @@ export default function Games(): React.ReactElement {
                   })()
                 }
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-black/10" />
                 <div className="relative flex h-full flex-col p-4">
                   <h2 className="text-sm font-semibold leading-tight text-white">{game.title}</h2>
                   {isInstalled === false && (
