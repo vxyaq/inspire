@@ -99,9 +99,12 @@ export default function Games(): React.ReactElement {
                 key={game.id}
                 className="relative h-52 overflow-hidden border border-k3d-border bg-cover bg-center p-0"
                 style={
-                  BACKGROUNDS[game.background]
-                    ? { backgroundImage: `url(${BACKGROUNDS[game.background]})` }
-                    : undefined
+                  (() => {
+                    const bg = game.background?.startsWith("http")
+                      ? game.background
+                      : BACKGROUNDS[game.background]
+                    return bg ? { backgroundImage: `url(${bg})` } : undefined
+                  })()
                 }
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30" />
