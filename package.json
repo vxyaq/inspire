@@ -101,6 +101,7 @@
     "directories": {
       "buildResources": "build"
     },
+    "afterPack": "./scripts/afterPack.js",
     "files": [
       "!**/.vscode/*",
       "!src/*",

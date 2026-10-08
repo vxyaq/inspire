@@ -5,7 +5,7 @@ import { invoke } from "@/lib/electron"
 import Button from "@/components/ui/button"
 import Card from "@/components/ui/Card"
 import RootDiv from "@/components/rootdiv"
-import cs2Background from "../assets/cs2-background.png"
+import cs2Background from "../assets/cs2-background.webp"
 
 const CS2_OPTIMIZATION_SCRIPT = String.raw`
 $ErrorActionPreference = "Stop"
