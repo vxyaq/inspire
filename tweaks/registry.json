@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-08T19:22:51.601Z",
+  "version": "2026-10-08T19:30:34.814Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -26,6 +26,19 @@
       "reversible": true,
       "docsurl": "https://docs.getk3d.net/tweaks/align-taskbar-left",
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/align-taskbar-left/meta.json"
+    },
+    {
+      "id": "cstates-off",
+      "title": "Disable CPU Idle States",
+      "description": "Disables CPU idle states in the power plan to cut latency and micro-stutters in games",
+      "category": [
+        "BIOS",
+        "Performance"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/cstates-off",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/cstates-off/meta.json"
     },
     {
       "id": "debloat-windows",
@@ -359,6 +372,18 @@
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/hide-taskview-and-widgets/meta.json"
     },
     {
+      "id": "mce-intel",
+      "title": "Enable MCE (Intel)",
+      "description": "Reboots to BIOS to enable Multi-Core Enhancement on Intel for full all-core turbo clocks",
+      "category": [
+        "BIOS"
+      ],
+      "recommended": false,
+      "reversible": false,
+      "docsurl": "https://docs.getk3d.net/tweaks/mce-intel",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/mce-intel/meta.json"
+    },
+    {
       "id": "menu-show-delay-zero",
       "title": "Menu Show Delay Zero",
       "description": "Removes the delay when opening menus.",
@@ -467,6 +492,18 @@
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-obs/meta.json"
     },
     {
+      "id": "pbo-ryzen",
+      "title": "Enable PBO (Ryzen)",
+      "description": "Reboots to BIOS to enable Precision Boost Overdrive on AMD Ryzen for higher CPU clocks",
+      "category": [
+        "BIOS"
+      ],
+      "recommended": false,
+      "reversible": false,
+      "docsurl": "https://docs.getk3d.net/tweaks/pbo-ryzen",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/pbo-ryzen/meta.json"
+    },
+    {
       "id": "reboot-to-uefi",
       "title": "Reboot to UEFI Firmware",
       "description": "Restarts the PC straight into BIOS/UEFI setup to enable FPS settings like XMP, Resizable BAR",
@@ -530,6 +567,18 @@
       "reversible": true,
       "docsurl": "https://docs.getk3d.net/tweaks/remove-onedrive",
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/remove-onedrive/meta.json"
+    },
+    {
+      "id": "resizable-bar",
+      "title": "Enable Resizable BAR",
+      "description": "Checks GPU and boot mode, then reboots to BIOS to enable Resizable BAR for more GPU frames",
+      "category": [
+        "BIOS"
+      ],
+      "recommended": false,
+      "reversible": false,
+      "docsurl": "https://docs.getk3d.net/tweaks/resizable-bar",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/resizable-bar/meta.json"
     },
     {
       "id": "revert-context-menu",
@@ -608,6 +657,18 @@
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/show-seconds-in-system-clock/meta.json"
     },
     {
+      "id": "uefi-csm",
+      "title": "Enforce Pure UEFI (Disable CSM)",
+      "description": "Checks boot mode and reboots to BIOS to disable CSM for pure UEFI with faster boot",
+      "category": [
+        "BIOS"
+      ],
+      "recommended": false,
+      "reversible": false,
+      "docsurl": "https://docs.getk3d.net/tweaks/uefi-csm",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/uefi-csm/meta.json"
+    },
+    {
       "id": "ultimate-performance-plan",
       "title": "Ultimate Performance Power Plan",
       "description": "Enables And Applies The Windows Ultimate Powerplan for better performance",
@@ -619,6 +680,19 @@
       "reversible": true,
       "docsurl": "https://docs.getk3d.net/tweaks/ultimate-performance-plan",
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/ultimate-performance-plan/meta.json"
+    },
+    {
+      "id": "virtualization-off",
+      "title": "Disable Virtualization Security",
+      "description": "Turns off VBS and HVCI virtualization security to free CPU for games",
+      "category": [
+        "BIOS",
+        "Performance"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/virtualization-off",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/virtualization-off/meta.json"
     },
     {
       "id": "wpbt",
@@ -633,6 +707,18 @@
       "addedversion": "2.14.1",
       "docsurl": "https://docs.getk3d.net/tweaks/wpbt",
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/wpbt/meta.json"
+    },
+    {
+      "id": "xmp-expo-ram",
+      "title": "Enable XMP / EXPO RAM Profile",
+      "description": "Checks if RAM runs below rated speed and reboots to BIOS to enable XMP/EXPO for full memory speed",
+      "category": [
+        "BIOS"
+      ],
+      "recommended": false,
+      "reversible": false,
+      "docsurl": "https://docs.getk3d.net/tweaks/xmp-expo-ram",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/xmp-expo-ram/meta.json"
     }
   ]
 }

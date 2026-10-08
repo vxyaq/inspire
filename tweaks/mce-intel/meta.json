@@ -1,0 +1,11 @@
+{
+  "title": "Enable MCE (Intel)",
+  "name": "mce-intel",
+  "risk": "caution",
+  "modal": "WARNING: Your PC will restart IMMEDIATELY into the BIOS/UEFI setup. Save all work first. MCE raises CPU clocks, heat and power draw. Make sure your cooling can handle it.",
+  "reversible": false,
+  "category": ["BIOS"],
+  "description": "Reboots to BIOS to enable Multi-Core Enhancement on Intel for full all-core turbo clocks",
+  "deepDescription": "Multi-Core Enhancement (ASUS) or removing turbo power limits (other boards) keeps Intel CPUs at max all-core turbo for more FPS. Requires an Intel CPU. This tweak reboots you into BIOS. Enable there:\n\n- Multi-Core Enhancement → Enabled (Remove All Limits)\n\nWatch CPU temperatures afterwards. Do not change anything else.",
+  "warning": "PC restarts immediately. Save your work first."
+}

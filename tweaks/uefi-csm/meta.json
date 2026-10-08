@@ -1,0 +1,11 @@
+{
+  "title": "Enforce Pure UEFI (Disable CSM)",
+  "name": "uefi-csm",
+  "risk": "caution",
+  "modal": "WARNING: Your PC will restart IMMEDIATELY into the BIOS/UEFI setup. Save all work first. Only disable CSM if Windows was installed in UEFI mode (GPT disk). On Legacy/MBR installs convert with mbr2gpt first, or Windows will NOT boot.",
+  "reversible": false,
+  "category": ["BIOS"],
+  "description": "Checks boot mode and reboots to BIOS to disable CSM for pure UEFI with faster boot",
+  "deepDescription": "Legacy CSM mode slows boot and blocks features like Resizable BAR and Secure Boot. This tweak checks your boot mode, then reboots you into BIOS. Disable there:\n\n- CSM / Compatibility Support Module → Off\n- Boot mode → UEFI only\n\nIf your disk is MBR, run mbr2gpt /convert first or Windows will not start.",
+  "warning": "PC restarts immediately. Wrong setting can stop Windows from booting."
+}

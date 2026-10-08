@@ -1,0 +1,11 @@
+{
+  "title": "Enable XMP / EXPO RAM Profile",
+  "name": "xmp-expo-ram",
+  "risk": "caution",
+  "modal": "WARNING: Your PC will restart IMMEDIATELY into the BIOS/UEFI setup. Save all work first. Enable XMP (Intel), EXPO (AMD) or DOCP (ASUS), then Save and Exit. Do not change anything else.",
+  "reversible": false,
+  "category": ["BIOS"],
+  "description": "Checks if RAM runs below rated speed and reboots to BIOS to enable XMP/EXPO for full memory speed",
+  "deepDescription": "This detects whether your RAM runs slower than its rated speed (XMP/EXPO off). Windows cannot flip the profile itself, so this tweak reboots you straight into BIOS. Enable there:\n\n- Intel boards → XMP Profile 1\n- AMD boards → EXPO Profile 1\n- ASUS boards → DOCP\n\nFull RAM speed gives more FPS, especially on Ryzen.",
+  "warning": "PC restarts immediately. Save your work first."
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Enable Resizable BAR",
+  "name": "resizable-bar",
+  "risk": "caution",
+  "modal": "WARNING: Your PC will restart IMMEDIATELY into the BIOS/UEFI setup. Save all work first. Enable Above 4G Decoding first, then Re-Size BAR Support. Do not change anything else.",
+  "reversible": false,
+  "category": ["BIOS"],
+  "description": "Checks GPU and boot mode, then reboots to BIOS to enable Resizable BAR for more GPU frames",
+  "deepDescription": "Resizable BAR lets the CPU access the full GPU memory at once, adding FPS in supported games. Requires a dedicated NVIDIA, AMD or Intel Arc GPU and UEFI boot. This tweak verifies that, then reboots you into BIOS. Enable there:\n\n- Above 4G Decoding → On (required first)\n- Re-Size BAR Support → On",
+  "warning": "PC restarts immediately. Save your work first."
+}

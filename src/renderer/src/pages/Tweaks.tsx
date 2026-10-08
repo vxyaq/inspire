@@ -58,6 +58,7 @@ function Tweaks() {
   const [selectedRecommendedTweaks, setSelectedRecommendedTweaks] = useState<Set<string>>(new Set())
   const [isApplyingRecommended, setIsApplyingRecommended] = useState(false)
   const [isAltHeld, setIsAltHeld] = useState(false)
+  const [biosFacts, setBiosFacts] = useState<any>(null)
 
   const { setNeedsRestart } = useRestartStore()
   const systemInfo = useSystemStore((state) => state.systemInfo)
@@ -83,12 +84,57 @@ function Tweaks() {
       }
     }
 
+    if (biosFacts) {
+      if (tweak.name === "xmp-expo-ram") {
+        if (
+          biosFacts.ramRated &&
+          biosFacts.ramRunning &&
+          biosFacts.ramRunning >= biosFacts.ramRated * 0.95
+        ) {
+          return { compatible: false, reason: "XMP/EXPO already enabled" }
+        }
+      }
+      if (tweak.name === "resizable-bar") {
+        if (systemInfo.hasGPU === false) {
+          return { compatible: false, reason: "Requires a dedicated GPU" }
+        }
+        if (biosFacts.uefiBoot === false) {
+          return { compatible: false, reason: "Requires UEFI boot mode" }
+        }
+      }
+      if (tweak.name === "pbo-ryzen") {
+        if (!biosFacts.isRyzen) {
+          return { compatible: false, reason: "Requires an AMD Ryzen CPU" }
+        }
+      }
+      if (tweak.name === "mce-intel") {
+        if (biosFacts.cpuVendor !== "Intel") {
+          return { compatible: false, reason: "Requires an Intel CPU" }
+        }
+      }
+      if (tweak.name === "uefi-csm") {
+        if (biosFacts.uefiBoot === true) {
+          return { compatible: false, reason: "Already booting in UEFI mode" }
+        }
+      }
+      if (tweak.name === "virtualization-off") {
+        if (biosFacts.virtFirmware === false) {
+          return { compatible: false, reason: "Already disabled in firmware" }
+        }
+      }
+    }
+
     return { compatible: true }
   }
 
   useEffect(() => {
     loadTweaks()
     loadToggleStates()
+    invoke({ channel: "bios:status" })
+      .then((facts) => {
+        if (facts) setBiosFacts(facts)
+      })
+      .catch(() => {})
   }, [])
 
   useEffect(() => {

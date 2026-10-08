@@ -1,0 +1,11 @@
+{
+  "title": "Disable CPU Idle States",
+  "name": "cstates-off",
+  "risk": "safe",
+  "modal": "This keeps the CPU out of deep idle states from Windows for lower latency. Idle power usage will be higher.",
+  "reversible": true,
+  "category": ["BIOS", "Performance"],
+  "description": "Disables CPU idle states in the power plan to cut latency and micro-stutters in games",
+  "deepDescription": "Deep CPU idle states (C-States) add wake-up latency and micro-stutters. This disables processor idle in the active Windows power plan:\n\n- Processor idle disable → On\n\nIdle power draw is higher. Revert restores the default.",
+  "warning": "Higher idle power usage."
+}

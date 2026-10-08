@@ -1,0 +1,12 @@
+{
+  "title": "Disable Virtualization Security",
+  "name": "virtualization-off",
+  "risk": "caution",
+  "modal": "This turns off Virtualization-Based Security and Hypervisor Code Integrity. Games gain FPS, but Windows loses security hardening. Do not apply if you use virtual machines, WSL2 or Docker.",
+  "reversible": true,
+  "category": ["BIOS", "Performance"],
+  "description": "Turns off VBS and HVCI virtualization security to free CPU for games",
+  "deepDescription": "Virtualization-Based Security costs CPU time in games. This disables it from Windows:\n\n- VirtualizationBasedSecurity → Off\n- Hypervisor Code Integrity → Off\n\nRestart required. For the full effect also disable SVM (AMD) or VT-d (Intel) in BIOS. Revert restores protection.",
+  "restart": true,
+  "warning": "Lowers Windows security. Needs a restart."
+}

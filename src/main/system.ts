@@ -243,6 +243,67 @@ async function detectGames(): Promise<{ id: string; installed: boolean }[]> {
   ]
 }
 
+interface BiosFacts {
+  cpuVendor: "AMD" | "Intel" | "Other"
+  isRyzen: boolean
+  ramRated: number | null
+  ramRunning: number | null
+  uefiBoot: boolean | null
+  virtFirmware: boolean | null
+}
+
+let biosFactsCache: { at: number; facts: BiosFacts } | null = null
+
+async function getBiosFacts(): Promise<BiosFacts> {
+  const fallback: BiosFacts = {
+    cpuVendor: "Other",
+    isRyzen: false,
+    ramRated: null,
+    ramRunning: null,
+    uefiBoot: null,
+    virtFirmware: null,
+  }
+  if (!platform.windows) return fallback
+  if (biosFactsCache && Date.now() - biosFactsCache.at < 5 * 60 * 1000) return biosFactsCache.facts
+  try {
+    const result = await executePowerShell({
+      script: `$cpu = Get-CimInstance Win32_Processor | Select-Object -First 1
+$mem = Get-CimInstance Win32_PhysicalMemory
+$rated = ($mem | Measure-Object -Property Speed -Maximum).Maximum
+$running = ($mem | Measure-Object -Property ConfiguredClockSpeed -Maximum).Maximum
+$fw = "Unknown"
+try { $fw = (Get-ComputerInfo -Property BiosFirmwareType).BiosFirmwareType } catch { }
+@{ cpu = $cpu.Manufacturer; name = $cpu.Name; virt = $cpu.VirtualizationFirmwareEnabled; rated = $rated; running = $running; fw = "$fw" } | ConvertTo-Json -Compress`,
+      name: "GetBiosFacts",
+    })
+    if (!result.success || !result.output) return fallback
+    const data = JSON.parse(result.output) as {
+      cpu?: string
+      name?: string
+      virt?: boolean | null
+      rated?: number
+      running?: number
+      fw?: string
+    }
+    const facts: BiosFacts = {
+      cpuVendor: (data.cpu || "").toLowerCase().includes("amd")
+        ? "AMD"
+        : (data.cpu || "").toLowerCase().includes("intel")
+          ? "Intel"
+          : "Other",
+      isRyzen: (data.name || "").toLowerCase().includes("ryzen"),
+      ramRated: data.rated && data.rated > 0 ? data.rated : null,
+      ramRunning: data.running && data.running > 0 ? data.running : null,
+      uefiBoot: data.fw === "Uefi" ? true : data.fw === "Legacy" ? false : null,
+      virtFirmware: typeof data.virt === "boolean" ? data.virt : null,
+    }
+    biosFactsCache = { at: Date.now(), facts }
+    return facts
+  } catch {
+    return fallback
+  }
+}
+
 async function getSystemUuid(): Promise<string> {
   try {
     const uuidData = await si.uuid()
@@ -634,6 +695,7 @@ export const setupSystemHandlers = (): void => {
   ipcMain.handle("get-admin-status", async () => getAdminStatus())
   ipcMain.handle("get-platform", () => process.platform)
   ipcMain.handle("get-system-uuid", getSystemUuid)
+  ipcMain.handle("bios:status", getBiosFacts)
   ipcMain.handle("games:detect", detectGames)
   ipcMain.handle("install-winget", ensureWinget)
   console.log("[K3d Tweaks main/system.ts]: System handlers setup complete")
@@ -648,6 +710,7 @@ export const cleanupSystemHandlers = (): void => {
   ipcMain.removeHandler("restart-explorer")
   ipcMain.removeHandler("check-winget")
   ipcMain.removeHandler("get-system-uuid")
+  ipcMain.removeHandler("bios:status")
   ipcMain.removeHandler("games:detect")
   ipcMain.removeHandler("install-winget")
 }

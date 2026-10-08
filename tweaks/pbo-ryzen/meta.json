@@ -1,0 +1,11 @@
+{
+  "title": "Enable PBO (Ryzen)",
+  "name": "pbo-ryzen",
+  "risk": "caution",
+  "modal": "WARNING: Your PC will restart IMMEDIATELY into the BIOS/UEFI setup. Save all work first. PBO raises CPU clocks, heat and power draw. Make sure your cooling can handle it.",
+  "reversible": false,
+  "category": ["BIOS"],
+  "description": "Reboots to BIOS to enable Precision Boost Overdrive on AMD Ryzen for higher CPU clocks",
+  "deepDescription": "Precision Boost Overdrive lifts AMD Ryzen power and clock limits for more FPS. Requires an AMD Ryzen CPU. This tweak reboots you into BIOS. Enable there:\n\n- Precision Boost Overdrive → Enabled\n- Limits → Motherboard\n\nWatch CPU temperatures afterwards. Do not change anything else.",
+  "warning": "PC restarts immediately. Save your work first."
+}
