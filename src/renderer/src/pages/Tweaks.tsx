@@ -59,6 +59,7 @@ function Tweaks() {
   const [isApplyingRecommended, setIsApplyingRecommended] = useState(false)
   const [isAltHeld, setIsAltHeld] = useState(false)
   const [biosFacts, setBiosFacts] = useState<any>(null)
+  const [isPro, setIsPro] = useState(false)
 
   const { setNeedsRestart } = useRestartStore()
   const systemInfo = useSystemStore((state) => state.systemInfo)
@@ -134,6 +135,18 @@ function Tweaks() {
         if (facts) setBiosFacts(facts)
       })
       .catch(() => {})
+    const loadPlan = () => {
+      invoke({ channel: "auth:get-session" })
+        .then((account) => {
+          const pro = account?.plan === "pro"
+          setIsPro(pro)
+          if (!pro) setActiveCategory((prev) => (prev === "BIOS" ? "All" : prev))
+        })
+        .catch(() => setIsPro(false))
+    }
+    loadPlan()
+    window.addEventListener("auth:changed", loadPlan)
+    return () => window.removeEventListener("auth:changed", loadPlan)
   }, [])
 
   useEffect(() => {
@@ -414,17 +427,21 @@ function Tweaks() {
         tweak.description?.toLowerCase().includes(term) ||
         tweakCategories(tweak).some((cat) => cat.toLowerCase().includes(term))
 
+      if (!isPro && tweakCategories(tweak).includes("BIOS")) return false
+
       const matchesCategory =
         activeCategory === "All" || tweakCategories(tweak).includes(activeCategory)
 
       return matchesSearch && matchesCategory
     })
-  }, [tweaks, deferredSearchTerm, activeCategory])
+  }, [tweaks, deferredSearchTerm, activeCategory, isPro])
 
-  const categories = useMemo(
-    () => ["All", ...new Set(tweaks.flatMap((t: any) => tweakCategories(t)))],
-    [tweaks],
-  )
+  const categories = useMemo(() => {
+    const all = [...new Set(tweaks.flatMap((t: any) => tweakCategories(t)))]
+    const rest = all.filter((c) => c !== "BIOS")
+    const ordered = [...rest, ...(all.includes("BIOS") ? ["BIOS"] : [])]
+    return ["All", ...ordered.filter((c) => isPro || c !== "BIOS")]
+  }, [tweaks, isPro])
 
   const sortedTweaks = useMemo(() => {
     return [...filteredTweaks].sort((a, b) => {

@@ -8,9 +8,28 @@ const store = new Store()
 
 const CLIENT_ID = "1188686354490609754"
 
-const MAX_RECONNECT_ATTEMPTS = 3
+const MAX_RECONNECT_ATTEMPTS = 10
+const RETRY_INTERVAL_MS = 30000
 
 let client: Client | null = null
+let retryTimer: NodeJS.Timeout | null = null
+
+function scheduleRetry(): void {
+  if (retryTimer) return
+  retryTimer = setInterval(() => {
+    if (!client && store.get("rpcEnabled") !== false) {
+      void startDiscordRPC()
+    }
+  }, RETRY_INTERVAL_MS)
+  retryTimer.unref?.()
+}
+
+function clearRetry(): void {
+  if (retryTimer) {
+    clearInterval(retryTimer)
+    retryTimer = null
+  }
+}
 
 function buildActivity() {
   return new PresenceBuilder()
@@ -46,15 +65,22 @@ async function startDiscordRPC(): Promise<boolean> {
   rpc.on("close", () => log.log("(rpc) Discord RPC connection closed"))
   rpc.on("ERROR", (error: Error) => log.warn("(rpc) Discord RPC error:", error.message))
   rpc.on("reconnect_failed", () => {
-    log.warn("(rpc) Discord RPC reconnect attempts exhausted")
+    log.warn("(rpc) Discord RPC reconnect attempts exhausted, will retry")
     if (client === rpc) client = null
+    scheduleRetry()
   })
 
   try {
     await rpc.login({ clientId: CLIENT_ID })
   } catch (error: any) {
     log.warn("(rpc) Discord RPC initialization failed:", error?.message ?? String(error))
-    await stopDiscordRPC()
+    if (client === rpc) client = null
+    try {
+      await rpc.destroy()
+    } catch {
+      return false
+    }
+    scheduleRetry()
     return false
   }
 
@@ -68,6 +94,7 @@ async function stopDiscordRPC(): Promise<boolean> {
 
   const current = client
   client = null
+  clearRetry()
 
   try {
     await current.destroy()
