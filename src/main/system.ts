@@ -686,10 +686,22 @@ function autoClearCache(): void {
 const REQUEST_WEBHOOK_URL =
   "https://discord.com/api/webhooks/1557885258660188170/KSpWIgFw-GtMijhCEoR8Q3B0Abn4PUGBHUGck8ZoWA-hKrdoDO2g2jbCPwf5xyfg9TyC"
 
+const REQUEST_COOLDOWN_MS = 30 * 60 * 1000
+
 async function sendGameRequest(game: unknown): Promise<{ ok: boolean; error?: string }> {
   const name = typeof game === "string" ? game.trim() : ""
   if (name.length < 2 || name.length > 100) {
     return { ok: false, error: "Game name must be between 2 and 100 characters." }
+  }
+  try {
+    const store = new Store() as any
+    const last = Number(store.get("lastGameRequestAt")) || 0
+    const wait = REQUEST_COOLDOWN_MS - (Date.now() - last)
+    if (wait > 0) {
+      return { ok: false, error: `You can send the next request in ${Math.ceil(wait / 60000)} minutes.` }
+    }
+  } catch {
+    return { ok: false, error: "Unable to verify request limit." }
   }
   let from = "Unknown user"
   try {
@@ -707,6 +719,12 @@ async function sendGameRequest(game: unknown): Promise<{ ok: boolean; error?: st
       signal: AbortSignal.timeout(10_000),
     })
     if (!response.ok) return { ok: false, error: `Request failed (${response.status}).` }
+    try {
+      const store = new Store() as any
+      store.set("lastGameRequestAt", Date.now())
+    } catch {
+      return { ok: false, error: "Unable to save request limit." }
+    }
     return { ok: true }
   } catch (error: any) {
     return { ok: false, error: String(error?.message || error) }
