@@ -397,7 +397,7 @@ function Tweaks() {
     Appearance: <Paintbrush className="w-4 h-4 text-pink-400" />,
     Gaming: <Gamepad className="w-4 h-4 text-green-400" />,
     General: <Wrench className="w-4 h-4 text-zinc-400" />,
-    BIOS: <HardDrive className="w-4 h-4 text-orange-400" />,
+    BIOS: <HardDrive className="w-4 h-4 text-red-500" />,
   }
 
   const presets = [
