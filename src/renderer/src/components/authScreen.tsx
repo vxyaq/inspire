@@ -46,8 +46,8 @@ export default function AuthScreen({ onAuthenticated }: AuthScreenProps): React.
   }
 
   return (
-    <main className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-5 py-10 pt-[90px]">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/80" />
+    <main className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-5 py-10">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/65" />
       <Card className="relative w-full max-w-[360px] overflow-hidden rounded-2xl border border-inspire-border bg-[#070707] px-7 py-10 sm:px-8">
         <div className="flex flex-col items-center text-center">
           <img src={inspireLogo} alt="Inspire" className="h-14 w-14" />
