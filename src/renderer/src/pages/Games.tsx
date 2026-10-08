@@ -6,6 +6,7 @@ import Button from "@/components/ui/button"
 import Card from "@/components/ui/Card"
 import RootDiv from "@/components/rootdiv"
 import cs2Background from "../assets/cs2-background.webp"
+import fivemBackground from "../assets/fivem-background.webp"
 
 const CS2_OPTIMIZATION_SCRIPT = String.raw`
 $ErrorActionPreference = "Stop"
@@ -213,7 +214,11 @@ export default function Games(): React.ReactElement {
               )}
             </div>
           </Card>
-          <Card className="relative h-52 overflow-hidden border border-inspire-border bg-gradient-to-br from-orange-950 via-[#140f0a] to-black p-0">
+          <Card
+            className="relative h-52 overflow-hidden border border-inspire-border bg-cover bg-center p-0"
+            style={{ backgroundImage: `url(${fivemBackground})` }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30" />
             <div className="relative flex h-full flex-col p-4">
               <h2 className="text-sm font-semibold leading-tight text-white">FiveM</h2>
               {fivemInstalled === false && (
