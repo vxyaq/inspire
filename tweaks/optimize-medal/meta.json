@@ -1,0 +1,13 @@
+{
+  "title": "Optimize Medal",
+  "name": "optimize-medal",
+  "risk": "safe",
+  "modal": "Medal will be closed to apply this. Lower clip resolution and bitrate in Medal settings if clips still lag.",
+  "reversible": true,
+  "category": [
+    "Performance",
+    "Gaming"
+  ],
+  "description": "Clears Medal cache and whitelists it in Defender so background recording stops eating FPS",
+  "deepDescription": "This changes Medal for better in-game performance:\n\n- Cache, Code Cache, GPUCache \u2192 Cleared\n- Defender exclusion for the Medal folder \u2192 On (stops real-time scanning of the recorder)\n\nDo manually in Medal for full effect: use GPU encoder, lower clip bitrate, disable Auto Clipping."
+}

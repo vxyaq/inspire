@@ -1,0 +1,10 @@
+packages:
+  - packages/*
+ignoredBuiltDependencies:
+  - core-js
+  - protobufjs
+
+onlyBuiltDependencies:
+  - electron
+  - electron-winstaller
+  - esbuild

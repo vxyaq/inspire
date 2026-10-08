@@ -1,0 +1,14 @@
+{
+  "name": "docs",
+  "description": "inspire docs is made using mkdocs",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

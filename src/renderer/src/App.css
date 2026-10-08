@@ -1,0 +1,191 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@property --angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@theme {
+  --color-inspire-old-primary: #01e5ff;
+  --color-inspire-primary: var(--color-primary);
+  --color-inspire-text: var(--color-text);
+  --color-inspire-text-secondary: var(--color-text-secondary);
+  --color-inspire-text-muted: var(--color-text-muted);
+  --color-inspire-bg: var(--color-bg);
+  --color-inspire-card: var(--color-card);
+  --color-inspire-border: var(--color-border);
+  --color-inspire-secondary: var(--color-secondary);
+  --color-inspire-accent: var(--color-accent);
+  --color-inspire-border-secondary: var(--color-border-secondary);
+  --color-inspire-old-secondary: #005fff;
+  --animate-border-spin: border-spin 3s linear infinite;
+
+  @keyframes border-spin {
+    from {
+      --angle: 0deg;
+    }
+    to {
+      --angle: 360deg;
+    }
+  }
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer utilities {
+  /* No visible scrollbars anywhere (wheel/keyboard scrolling still works) */
+  *,
+  *::before,
+  *::after {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  *::-webkit-scrollbar,
+  *::-webkit-scrollbar-track,
+  *::-webkit-scrollbar-thumb,
+  *::-webkit-scrollbar-corner {
+    width: 0;
+    height: 0;
+    display: none;
+    background: transparent;
+  }
+
+  :root {
+    --color-inspire-bg: #111214;
+    --color-inspire-text: #f5f6fa;
+    --color-inspire-text-dark: #e0e2e6;
+    --color-inspire-text-darker: #c8ccd2;
+    --color-inspire-text-secondary: #aeb3bb;
+    --color-inspire-text-muted: #7a7f87;
+    --color-inspire-card: #18191b;
+    --color-inspire-border: #26272b;
+    --color-inspire-border-secondary: #232426;
+    --color-inspire-primary: #16a34a;
+    --color-inspire-secondary: #8b95a3;
+    --color-inspire-accent: #232324;
+  }
+
+  .Toastify__toast {
+    background-color: var(--color-inspire-card) !important;
+    border: 1px solid var(--color-inspire-border) !important;
+    border-radius: 0.75rem !important;
+    box-shadow: 0 16px 40px -20px rgb(0 0 0 / 0.8) !important;
+    color: var(--color-inspire-text) !important;
+    --toastify-icon-color-success: var(--color-inspire-primary) !important;
+  }
+  .Toastify__close-button {
+    color: var(--color-inspire-text-secondary) !important;
+  }
+}
+
+@layer base {
+  html {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-synthesis: none;
+  }
+}
+@layer utilities {
+  * {
+    user-select: none;
+  }
+
+  input,
+  textarea,
+  [contenteditable],
+  pre,
+  code {
+    user-select: text;
+  }
+}
+
+.recharts-line path {
+  stroke: var(--color-inspire-primary);
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+[tabindex]:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-inspire-primary);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-inspire-primary) 45%, transparent);
+  color: var(--color-inspire-text);
+}
+
+body {
+  color-scheme: dark;
+}
+
+/* Background: plain gray UI by default, blurred background.png when enabled */
+html {
+  background-color: var(--color-inspire-bg);
+}
+
+body {
+  background-color: transparent;
+}
+
+body.bg-image::before {
+  content: "";
+  position: fixed;
+  inset: -30px;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--inspire-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(3px) brightness(0.8) saturate(1.1);
+  transform: scale(1.02);
+}
+
+/* Glassy surfaces - less opaque so background shows through more */
+body.bg-image .bg-inspire-bg {
+  background-color: rgb(17 18 20 / 0.5);
+}
+
+body.bg-image .bg-inspire-card {
+  background-color: rgb(24 25 27 / 0.6);
+}
+
+/* Pages that opt out (Tweaks, Settings) render on the plain gray UI */
+body.page-no-bg.bg-image::before {
+  display: none;
+}
+
+body.page-no-bg.bg-image .bg-inspire-bg {
+  background-color: var(--color-inspire-bg);
+}
+
+body.page-no-bg.bg-image .bg-inspire-card {
+  background-color: var(--color-inspire-card);
+}

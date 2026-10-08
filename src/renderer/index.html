@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inspire</title>
+    <script>
+      if (!window.electron) {
+        const listeners = {}
+        const tweak = (name, title, description, category, opts = {}) => ({
+          name,
+          title,
+          description,
+          category,
+          recommended: !!opts.recommended,
+          reversible: opts.reversible !== false,
+          restart: !!opts.restart,
+          warning: opts.warning,
+          psapply: "# sample tweak",
+          psunapply: "# sample tweak",
+        })
+        const responses = {
+          "get-admin-status": true,
+          "get-platform": "linux",
+          "get-user-name": "",
+          "tray:get": false,
+          "rpc-enabled:get": true,
+          "updater:get-version": "2.24.0",
+          "updater:check": { ok: true, updateInfo: null },
+          "check-winget": { success: true, installed: true },
+          "check-chocolatey": { success: true, installed: true },
+          "tweak:active": [],
+          "tweak-states:load": "{}",
+          "tweak-states:save": true,
+          "get-restore-points": { success: true, points: [] },
+          "cleaner:get-sizes": {},
+          "get-installed-apps": [],
+          "tweaks:fetch": [
+            tweak("disable-telemetry", "Disable Telemetry", "Removes Windows telemetry, diagnostic data and background data collection.", ["Privacy", "Services"], { recommended: true }),
+            tweak("debloat-windows", "Windows Debloat", "Removes preinstalled apps and hooks you never asked for.", ["Performance", "Privacy"], { recommended: true }),
+            tweak("set-win32-priority-separation", "Set Win32 Priority Separation", "Optimizes foreground process priority for snappier responsiveness.", ["Performance"], { restart: true }),
+            tweak("optimize-nvidia-settings", "Optimize NVIDIA Settings", "Applies a low latency profile through NVIDIA Profile Inspector.", ["GPU", "Performance"], { warning: "Requires an NVIDIA GPU" }),
+            tweak("disable-gamebar", "Disable Xbox Game Bar", "Stops the Game Bar overlay and its background capture process.", ["Gaming", "Performance"], { recommended: true }),
+            tweak("24-hour-clock", "Set 24-Hour Clock", "Changes clock to display 24-hour format.", ["General", "Appearance"]),
+            tweak("show-seconds-in-taskbar-clock", "Show Seconds in Taskbar Clock", "Displays seconds in the taskbar clock.", ["Appearance"]),
+            tweak("disable-location-tracking", "Disable Location Tracking", "Turns off the location service and location history.", ["Privacy"], { restart: true }),
+            tweak("set-services-to-manual", "Set Services to Manual", "Moves non essential Windows services to manual start.", ["Services", "Performance"]),
+            tweak("disable-cortana", "Disable Cortana", "Disables Cortana and its search integration.", ["Privacy"]),
+            tweak("ultimate-performance-plan", "Ultimate Performance Plan", "Unlocks the hidden Ultimate Performance power plan.", ["Performance"], { recommended: true }),
+            tweak("revert-context-menu", "Revert Context Menu", "Restores the classic Windows 11 right click menu.", ["Appearance"]),
+            tweak("disable-startup-apps", "Disable Startup Apps", "Stops heavy apps from launching with Windows.", ["Performance"]),
+            tweak("disable-ai-features", "Disable Windows AI Features", "Turns off Copilot and other integrated Windows AI features.", ["AI", "Privacy"]),
+          ],
+        }
+        window.electron = {
+          ipcRenderer: {
+            invoke: (channel) => Promise.resolve(responses[channel] ?? null),
+            send: () => {},
+            on: (channel, listener) => {
+              ;(listeners[channel] = listeners[channel] || []).push(listener)
+            },
+            removeListener: (channel, listener) => {
+              listeners[channel] = (listeners[channel] || []).filter((l) => l !== listener)
+            },
+            removeAllListeners: (channel) => {
+              delete listeners[channel]
+            },
+          },
+        }
+      }
+    </script>
+  </head>
+  <body class="">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

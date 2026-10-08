@@ -1,0 +1,27 @@
+node_modules
+dist
+dist-old
+dist-2
+out
+.DS_Store
+.eslintcache
+*.log*
+firstinspire2build.zip
+.env
+.mutagen.yml
+*.nupkg
+
+
+__pycache__/
+*.py[oc]
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# docs
+site
+docs/tweaks
+!packages/discord-rpc-new/dist/

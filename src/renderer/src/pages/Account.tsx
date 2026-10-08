@@ -1,0 +1,166 @@
+import { useEffect, useState } from "react"
+import { CircleUserRound, CreditCard, Fingerprint, LogIn, ShieldCheck } from "lucide-react"
+import RootDiv from "@/components/rootdiv"
+import Card from "@/components/ui/Card"
+import { invoke } from "@/lib/electron"
+
+type AccountProfile = {
+  provider: "discord" | "google"
+  id: string
+  displayName: string
+  email?: string
+  avatarUrl?: string
+  plan?: "free" | "pro"
+}
+
+function Account() {
+  const [account, setAccount] = useState<AccountProfile | null>(null)
+  const [systemUuid, setSystemUuid] = useState<string>("")
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const loadAccount = () => {
+      setLoading(true)
+      invoke({ channel: "auth:get-session" })
+        .then((session) => setAccount(session ?? null))
+        .catch(() => setAccount(null))
+        .finally(() => setLoading(false))
+    }
+
+    const loadSystemUuid = async () => {
+      try {
+        const uuid = await invoke({ channel: "get-system-uuid" })
+        setSystemUuid(uuid ?? "Unknown")
+      } catch {
+        setSystemUuid("Unknown")
+      }
+    }
+
+    loadAccount()
+    loadSystemUuid()
+    window.addEventListener("auth:changed", loadAccount)
+    return () => window.removeEventListener("auth:changed", loadAccount)
+  }, [])
+
+  if (loading) {
+    return (
+      <RootDiv>
+        <div className="flex min-h-64 items-center justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-inspire-border border-t-inspire-primary" />
+        </div>
+      </RootDiv>
+    )
+  }
+
+  if (!account) {
+    return (
+      <RootDiv>
+        <Card className="mx-auto flex max-w-xl flex-col items-center gap-3 p-8 text-center">
+          <LogIn className="h-10 w-10 text-inspire-primary" />
+          <h1 className="text-xl font-semibold">No account signed in</h1>
+          <p className="text-sm text-inspire-text-secondary">
+            Sign in to view your account information.
+          </p>
+        </Card>
+      </RootDiv>
+    )
+  }
+
+  const providerName = account.provider === "discord" ? "Discord" : "Google"
+
+  return (
+    <RootDiv>
+      <div className="mx-auto flex max-w-3xl flex-col gap-6 pb-12">
+        <div>
+          <h1 className="text-2xl font-semibold text-inspire-text">Account</h1>
+          <p className="mt-1 text-sm text-inspire-text-secondary">
+            Information about the account connected to Inspire.
+          </p>
+        </div>
+
+        <Card className="flex items-center gap-4 p-6">
+          {account.avatarUrl ? (
+            <img
+              src={account.avatarUrl}
+              alt=""
+              className="h-16 w-16 rounded-full object-cover"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-inspire-primary/15 text-2xl font-semibold text-inspire-primary">
+              {account.displayName.slice(0, 1).toUpperCase()}
+            </div>
+          )}
+          <div className="min-w-0">
+            <h2 className="truncate text-xl font-semibold text-inspire-text">
+              {account.displayName}
+            </h2>
+            <p className="truncate text-sm text-inspire-text-secondary">
+              {account.email ?? `Połączono przez ${providerName}`}
+            </p>
+          </div>
+        </Card>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <InfoCard icon={<CircleUserRound />} label="Account name" value={account.displayName} />
+          <InfoCard
+            icon={<CreditCard />}
+            label="Plan"
+            value={account.plan === "pro" ? "Pro" : "Free"}
+          />
+          <InfoCard
+            icon={<Fingerprint />}
+            label="HWID (click to copy)"
+            value={systemUuid}
+            valueClassName="break-all font-mono text-xs blur-xs select-all"
+            onClick={() => copyHwid(systemUuid)}
+          />
+          <InfoCard icon={<ShieldCheck />} label="Signed in with" value={providerName} />
+        </div>
+      </div>
+    </RootDiv>
+  )
+}
+
+async function copyHwid(hwid: string) {
+  if (!hwid) return
+  try {
+    await navigator.clipboard.writeText(hwid)
+  } catch {
+    const area = document.createElement("textarea")
+    area.value = hwid
+    document.body.appendChild(area)
+    area.select()
+    document.execCommand("copy")
+    document.body.removeChild(area)
+  }
+}
+
+function InfoCard({
+  icon,
+  label,
+  value,
+  valueClassName = "",
+  onClick,
+}: {
+  icon: React.ReactNode
+  label: string
+  value: string
+  valueClassName?: string
+  onClick?: () => void
+}) {
+  return (
+    <Card
+      className={`flex min-w-0 items-start gap-3 p-4 ${onClick ? "cursor-pointer" : ""}`}
+      onClick={onClick}
+    >
+      <div className="rounded-lg bg-inspire-primary/10 p-2 text-inspire-primary">{icon}</div>
+      <div className="min-w-0">
+        <p className="text-xs text-inspire-text-muted">{label}</p>
+        <p className={`mt-1 text-sm font-medium text-inspire-text ${valueClassName}`}>{value}</p>
+      </div>
+    </Card>
+  )
+}
+
+export default Account

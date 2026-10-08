@@ -1,0 +1,13 @@
+{
+  "title": "Optimize Discord",
+  "name": "optimize-discord",
+  "risk": "safe",
+  "modal": "Discord will be closed to apply this. Turn off the in-game Overlay and QoS High Packet Priority manually in Discord settings, this script cannot change those.",
+  "reversible": true,
+  "category": [
+    "Performance",
+    "Gaming"
+  ],
+  "description": "Disables Discord hardware acceleration and clears its bloated cache to stop FPS drops in games",
+  "deepDescription": "This changes Discord for better in-game performance:\n\n- Hardware acceleration \u2192 Off (frees GPU while gaming)\n- Cache, Code Cache, GPUCache \u2192 Cleared (often gigabytes of junk)\n\nDo manually in Discord for full effect: disable in-game Overlay and QoS High Packet Priority."
+}
