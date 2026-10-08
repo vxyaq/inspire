@@ -14,6 +14,7 @@ import { mainWindow } from "@main/windowState"
 import { TtlCache } from "@main/cache"
 import { platform } from "@main/utils"
 import type { SystemInfo } from "../types"
+import Store from "electron-store"
 
 const systemInfoCache = new TtlCache<SystemInfo>(5 * 60 * 1000)
 
@@ -682,8 +683,39 @@ function autoClearCache(): void {
   }
 }
 
+const REQUEST_WEBHOOK_URL =
+  "https://discord.com/api/webhooks/1557885258660188170/KSpWIgFw-GtMijhCEoR8Q3B0Abn4PUGBHUGck8ZoWA-hKrdoDO2g2jbCPwf5xyfg9TyC"
+
+async function sendGameRequest(game: unknown): Promise<{ ok: boolean; error?: string }> {
+  const name = typeof game === "string" ? game.trim() : ""
+  if (name.length < 2 || name.length > 100) {
+    return { ok: false, error: "Game name must be between 2 and 100 characters." }
+  }
+  let from = "Unknown user"
+  try {
+    const store = new Store() as any
+    const account = store.get("account")
+    if (account?.displayName) from = String(account.displayName)
+  } catch {
+    from = "Unknown user"
+  }
+  try {
+    const response = await fetch(REQUEST_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content: `New game request from ${from}: ${name}` }),
+      signal: AbortSignal.timeout(10_000),
+    })
+    if (!response.ok) return { ok: false, error: `Request failed (${response.status}).` }
+    return { ok: true }
+  } catch (error: any) {
+    return { ok: false, error: String(error?.message || error) }
+  }
+}
+
 export const setupSystemHandlers = (): void => {
   autoClearCache()
+  ipcMain.handle("request:send", (_event, game: unknown) => sendGameRequest(game))
   ipcMain.handle("restart", restartSystem)
   ipcMain.handle("open-log-folder", openLogFolder)
   ipcMain.handle("clear-k3d-cache", clearK3dCache)
@@ -700,6 +732,7 @@ export const setupSystemHandlers = (): void => {
 }
 
 export const cleanupSystemHandlers = (): void => {
+  ipcMain.removeHandler("request:send")
   ipcMain.removeHandler("restart")
   ipcMain.removeHandler("open-log-folder")
   ipcMain.removeHandler("clear-k3d-cache")

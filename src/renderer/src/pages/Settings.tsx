@@ -6,6 +6,7 @@ import ChangelogModal from "@/components/changelogModal"
 import Toggle from "@/components/ui/Toggle"
 import { toast } from "react-toastify"
 import Card from "@/components/ui/Card"
+import { Input } from "@/components/ui/input"
 import { Dropdown } from "@/components/ui/dropdown"
 import {
   applyBackgroundImage,
@@ -23,9 +24,33 @@ function Settings() {
   const [trayEnabled, setTrayEnabled] = useState(true)
   const [trayLoading, setTrayLoading] = useState(false)
   const [changelogOpen, setChangelogOpen] = useState(false)
+  const [gameRequest, setGameRequest] = useState("")
+  const [requestSending, setRequestSending] = useState(false)
   const [rpcEnabled, setRpcEnabled] = useState(true)
   const [rpcLoading, setRpcLoading] = useState(false)
   const [rpcConnected, setRpcConnected] = useState<boolean | null>(null)
+  const submitGameRequest = async () => {
+    const name = gameRequest.trim()
+    if (name.length < 2) {
+      toast.error("Enter a game name first")
+      return
+    }
+    try {
+      setRequestSending(true)
+      const res = await invoke({ channel: "request:send", payload: name })
+      if (res?.ok) {
+        toast.success("Request sent")
+        setGameRequest("")
+      } else {
+        toast.error(res?.error ?? "Unable to send request")
+      }
+    } catch (e) {
+      toast.error(String(e))
+    } finally {
+      setRequestSending(false)
+    }
+  }
+
   const checkForUpdates = async () => {
     try {
       setChecking(true)
@@ -150,6 +175,30 @@ function Settings() {
                   </div>
                   <Button onClick={checkForUpdates} disabled={checking}>
                     {checking ? "Checking..." : "Check for Updates"}
+                  </Button>
+                </div>
+              </SettingCard>
+            </SettingSection>
+
+            <SettingSection title="Request Game">
+              <SettingCard>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex-1">
+                    <h3 className="text-base font-medium text-k3d-text mb-1">
+                      Request a game
+                    </h3>
+                    <p className="text-sm text-k3d-text-secondary mb-3">
+                      Tell us which game optimization you want next.
+                    </p>
+                    <Input
+                      value={gameRequest}
+                      onChange={(e) => setGameRequest(e.target.value)}
+                      placeholder="Game name..."
+                      maxLength={100}
+                    />
+                  </div>
+                  <Button onClick={submitGameRequest} disabled={requestSending} className="shrink-0 self-end">
+                    {requestSending ? "Sending..." : "Submit"}
                   </Button>
                 </div>
               </SettingCard>

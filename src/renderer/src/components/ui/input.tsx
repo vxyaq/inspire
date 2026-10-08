@@ -11,6 +11,7 @@ interface InputProps {
   placeholder?: string
   Icon?: LucideIcon
   disabled?: boolean
+  maxLength?: number
 }
 
 function Input({
