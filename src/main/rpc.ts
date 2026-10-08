@@ -6,13 +6,14 @@ import Store from "electron-store"
 
 const store = new Store()
 
-const CLIENT_ID = "1188686354490609754"
+const CLIENT_ID = "1540168677708795966"
 
 const MAX_RECONNECT_ATTEMPTS = 10
 const RETRY_INTERVAL_MS = 30000
 
 let client: Client | null = null
 let retryTimer: NodeJS.Timeout | null = null
+let connected = false
 
 function scheduleRetry(): void {
   if (retryTimer) return
@@ -52,6 +53,7 @@ async function startDiscordRPC(): Promise<boolean> {
 
   rpc.on("READY", async () => {
     log.log("(rpc) Discord RPC connected")
+    connected = true
 
     try {
       await rpc.setActivity(buildActivity())
@@ -61,8 +63,17 @@ async function startDiscordRPC(): Promise<boolean> {
     }
   })
 
-  rpc.on("disconnected", () => log.log("(rpc) Discord RPC disconnected"))
-  rpc.on("close", () => log.log("(rpc) Discord RPC connection closed"))
+  const markDown = () => {
+    if (client === rpc) connected = false
+  }
+  rpc.on("disconnected", () => {
+    log.log("(rpc) Discord RPC disconnected")
+    markDown()
+  })
+  rpc.on("close", () => {
+    log.log("(rpc) Discord RPC connection closed")
+    markDown()
+  })
   rpc.on("ERROR", (error: Error) => log.warn("(rpc) Discord RPC error:", error.message))
   rpc.on("reconnect_failed", () => {
     log.warn("(rpc) Discord RPC reconnect attempts exhausted, will retry")
@@ -94,6 +105,7 @@ async function stopDiscordRPC(): Promise<boolean> {
 
   const current = client
   client = null
+  connected = false
   clearRetry()
 
   try {
@@ -110,6 +122,8 @@ ipcMain.handle("start-discord-rpc", () => startDiscordRPC())
 ipcMain.handle("stop-discord-rpc", () => stopDiscordRPC())
 
 ipcMain.handle("rpc-enabled:get", () => store.get("rpcEnabled") !== false)
+
+ipcMain.handle("rpc:status", () => ({ connected }))
 
 ipcMain.handle("rpc-enabled:set", (_event, value: boolean) => {
   store.set("rpcEnabled", value)

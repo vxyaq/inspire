@@ -25,6 +25,7 @@ function Settings() {
   const [changelogOpen, setChangelogOpen] = useState(false)
   const [rpcEnabled, setRpcEnabled] = useState(true)
   const [rpcLoading, setRpcLoading] = useState(false)
+  const [rpcConnected, setRpcConnected] = useState<boolean | null>(null)
   const checkForUpdates = async () => {
     try {
       setChecking(true)
@@ -64,6 +65,14 @@ function Settings() {
 
   useEffect(() => {
     invoke({ channel: "rpc-enabled:get" }).then((status) => setRpcEnabled(status))
+    const checkRpc = () => {
+      invoke({ channel: "rpc:status" })
+        .then((status) => setRpcConnected(!!status?.connected))
+        .catch(() => setRpcConnected(null))
+    }
+    checkRpc()
+    const timer = setInterval(checkRpc, 5000)
+    return () => clearInterval(timer)
   }, [])
 
   const handleToggleTray = async () => {
@@ -179,6 +188,13 @@ function Settings() {
                     </h3>
                     <p className="text-sm text-k3d-text-secondary">
                       Show your current K3d Tweaks activity on Discord.
+                      {rpcConnected !== null && (
+                        <span
+                          className={`ml-2 text-xs font-medium ${rpcConnected ? "text-green-400" : "text-yellow-500"}`}
+                        >
+                          {rpcConnected ? "● Connected" : "● Waiting for Discord…"}
+                        </span>
+                      )}
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
