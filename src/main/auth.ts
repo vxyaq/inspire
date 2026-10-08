@@ -152,6 +152,11 @@ async function refreshAccountPlan(): Promise<AccountProfile | null> {
 
 ipcMain.handle("auth:refresh-plan", refreshAccountPlan)
 
+ipcMain.handle("auth:logout", (): { ok: true } => {
+  store.delete("account")
+  return { ok: true }
+})
+
 ipcMain.handle("auth:login", async (_event, provider: AuthProvider): Promise<AuthResponse> => {
   if (provider !== "discord" && provider !== "google") {
     return { ok: false, error: "Unsupported login provider." }

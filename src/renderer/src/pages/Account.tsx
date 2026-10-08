@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
-import { CircleUserRound, CreditCard, Fingerprint, LogIn, ShieldCheck } from "lucide-react"
+import { useNavigate } from "react-router-dom"
+import { CircleUserRound, CreditCard, Fingerprint, LogIn, LogOut, ShieldCheck } from "lucide-react"
 import RootDiv from "@/components/rootdiv"
+import Button from "@/components/ui/button"
 import Card from "@/components/ui/Card"
 import { invoke } from "@/lib/electron"
 
@@ -14,9 +16,21 @@ type AccountProfile = {
 }
 
 function Account() {
+  const navigate = useNavigate()
   const [account, setAccount] = useState<AccountProfile | null>(null)
   const [systemUuid, setSystemUuid] = useState<string>("")
   const [loading, setLoading] = useState(true)
+
+  const signOut = async () => {
+    try {
+      await invoke({ channel: "auth:logout" })
+    } catch {
+      return
+    }
+    setAccount(null)
+    navigate("/")
+    window.dispatchEvent(new Event("auth:changed"))
+  }
 
   useEffect(() => {
     const loadAccount = () => {
@@ -91,7 +105,7 @@ function Account() {
               {account.displayName.slice(0, 1).toUpperCase()}
             </div>
           )}
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <h2 className="truncate text-xl font-semibold text-k3d-text">
               {account.displayName}
             </h2>
@@ -99,6 +113,9 @@ function Account() {
               {account.email ?? `Connected via ${providerName}`}
             </p>
           </div>
+          <Button variant="secondary" onClick={signOut} className="shrink-0">
+            <LogOut size={16} /> Log out
+          </Button>
         </Card>
 
         <div className="grid gap-4 sm:grid-cols-2">
