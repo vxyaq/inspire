@@ -390,14 +390,14 @@ function Tweaks() {
   }, [filteredTweaks])
 
   const categoryIcons = {
-    Performance: <Zap className="w-4 h-4  text-k3d-primary" />,
-    GPU: <Gpu className="w-4 h-4 text-k3d-primary" />,
-    Privacy: <Shield className="w-4 h-4 text-k3d-primary" />,
-    Network: <Network className="w-4 h-4 text-k3d-primary" />,
-    Appearance: <Paintbrush className="w-4 h-4 text-k3d-primary" />,
-    Gaming: <Gamepad className="w-4 h-4 text-k3d-primary" />,
-    General: <Wrench className="w-4 h-4 text-k3d-primary" />,
-    BIOS: <HardDrive className="w-4 h-4 text-k3d-primary" />,
+    Performance: <Zap className="w-4 h-4 text-amber-400" />,
+    GPU: <Gpu className="w-4 h-4 text-violet-400" />,
+    Privacy: <Shield className="w-4 h-4 text-sky-400" />,
+    Network: <Network className="w-4 h-4 text-cyan-400" />,
+    Appearance: <Paintbrush className="w-4 h-4 text-pink-400" />,
+    Gaming: <Gamepad className="w-4 h-4 text-green-400" />,
+    General: <Wrench className="w-4 h-4 text-zinc-400" />,
+    BIOS: <HardDrive className="w-4 h-4 text-orange-400" />,
   }
 
   const presets = [
