@@ -203,7 +203,7 @@ async function detectGames(): Promise<{ id: string; installed: boolean }[]> {
   if (!platform.windows) {
     return [
       { id: "cs2", installed: false },
-      { id: "fivem", installed: false },
+      { id: "fortnite", installed: false },
     ]
   }
   const libraries = await getSteamLibraries()
@@ -227,19 +227,17 @@ async function detectGames(): Promise<{ id: string; installed: boolean }[]> {
       continue
     }
   }
-  let fivemInstalled = false
-  const localAppData = process.env.LOCALAPPDATA || ""
-  if (localAppData) {
-    try {
-      await fs.promises.access(path.join(localAppData, "FiveM", "FiveM.exe"))
-      fivemInstalled = true
-    } catch {
-      fivemInstalled = false
-    }
+  let fortniteInstalled = false
+  const epicExe = "C:\\Program Files\\Epic Games\\Fortnite\\FortniteGame\\Binaries\\Win64\\FortniteClient-Win64-Shipping.exe"
+  try {
+    await fs.promises.access(epicExe)
+    fortniteInstalled = true
+  } catch {
+    fortniteInstalled = false
   }
   return [
     { id: "cs2", installed: cs2Installed },
-    { id: "fivem", installed: fivemInstalled },
+    { id: "fortnite", installed: fortniteInstalled },
   ]
 }
 

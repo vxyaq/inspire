@@ -6,11 +6,11 @@ import Button from "@/components/ui/button"
 import Card from "@/components/ui/Card"
 import RootDiv from "@/components/rootdiv"
 import cs2Background from "../assets/cs2-background.webp"
-import fivemBackground from "../assets/fivem-background.webp"
+import fortniteBackground from "../assets/fortnite-background.webp"
 
 const BACKGROUNDS: Record<string, string> = {
   "cs2-background.webp": cs2Background,
-  "fivem-background.webp": fivemBackground,
+  "fortnite-background.webp": fortniteBackground,
 }
 
 const OPTIMIZE_TIMEOUT_MS = 90000
@@ -36,7 +36,9 @@ export default function Games(): React.ReactElement {
   useEffect(() => {
     invoke({ channel: "games:fetch" })
       .then((fetched) => {
-        if (Array.isArray(fetched)) setGames(fetched)
+        if (Array.isArray(fetched)) {
+          setGames([...fetched].sort((a, b) => a.title.localeCompare(b.title)))
+        }
       })
       .catch(() => {})
     invoke({ channel: "games:detect" })

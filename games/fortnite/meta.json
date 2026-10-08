@@ -1,0 +1,11 @@
+{
+  "id": "fortnite",
+  "title": "Fortnite",
+  "background": "fortnite-background.webp",
+  "description": "Lowers all Unreal scalability settings, uncaps FPS and disables Game DVR capture for maximum Fortnite frames.",
+  "notRunningMarker": "FORTNITE_NOT_RUNNING",
+  "notRunningText": "Launch Fortnite and click the button again.",
+  "missingMarker": "FORTNITE_CONFIG_MISSING",
+  "missingText": "Fortnite optimization applied. Config file not found, run the game once first.",
+  "successText": "Fortnite FPS boost applied successfully."
+}
