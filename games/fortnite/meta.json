@@ -2,7 +2,7 @@
   "id": "fortnite",
   "title": "Fortnite",
   "background": "fortnite-background.webp",
-  "description": "Lowers all Unreal scalability settings, uncaps FPS and disables Game DVR capture for maximum Fortnite frames.",
+  "description": "Optimization specifically designed for Fortnite, focused on maximizing FPS, lowering input delay, smoothing frame times and cutting system load for a smoother, more stable and consistent Battle Royale experience without stutters, hitches or late-loading builds.",
   "notRunningMarker": "FORTNITE_NOT_RUNNING",
   "notRunningText": "Launch Fortnite and click the button again.",
   "missingMarker": "FORTNITE_CONFIG_MISSING",
