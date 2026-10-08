@@ -3,9 +3,9 @@ import { toast } from "react-toastify"
 import Button from "./ui/button"
 import Card from "./ui/Card"
 import { invoke } from "@/lib/electron"
-import { MessageCircle } from "lucide-react"
 import { applyBackgroundImage, getBackgroundStyle } from "@/lib/background"
 import inspireLogo from "../assets/inspire-logo.svg"
+import discordLogo from "../assets/discord-logo.svg"
 
 export interface AccountProfile {
   provider: "discord" | "google"
@@ -48,7 +48,7 @@ export default function AuthScreen({ onAuthenticated }: AuthScreenProps): React.
   return (
     <main className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-5 py-10 pt-[90px]">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/80" />
-      <Card className="relative w-full max-w-[360px] overflow-hidden rounded-2xl border-2 border-[#d457cf] bg-[#070707] px-7 py-10 shadow-[0_0_32px_rgba(212,87,207,0.08)] sm:px-8">
+      <Card className="relative w-full max-w-[360px] overflow-hidden rounded-2xl border border-inspire-border bg-[#070707] px-7 py-10 sm:px-8">
         <div className="flex flex-col items-center text-center">
           <img src={inspireLogo} alt="Inspire" className="h-14 w-14" />
           <h1 className="mt-4 text-2xl font-semibold tracking-tight text-white">Login to Inspire</h1>
@@ -67,7 +67,7 @@ export default function AuthScreen({ onAuthenticated }: AuthScreenProps): React.
             {loadingProvider === "discord" ? (
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#5865f2]/30 border-t-[#5865f2]" />
             ) : (
-              <MessageCircle size={18} fill="currentColor" className="text-[#5865f2]" />
+              <img src={discordLogo} alt="" className="h-[18px] w-[22px]" />
             )}
             <span>
               {loadingProvider === "discord" ? "Connecting to Discord…" : "Sign in with Discord"}
@@ -76,7 +76,7 @@ export default function AuthScreen({ onAuthenticated }: AuthScreenProps): React.
         </div>
 
         <p className="mt-7 text-center text-xs font-medium text-zinc-300">
-          Auth handled by <span className="text-[#d457cf]">Inspire</span>
+          Auth handled by <span className="text-inspire-primary">Inspire</span>
         </p>
         <p className="mt-1 text-center text-xs text-zinc-500">
           Authentication opens in your browser
