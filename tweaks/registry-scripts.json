@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-08T13:45:21.891Z",
+  "version": "2026-10-08T18:09:52.261Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -586,7 +586,7 @@
       "docsurl": "https://docs.getinspire.net/tweaks/optimize-nvidia-settings",
       "source": "https://github.com/Parcoil/Inspire/blob/v2/tweaks/optimize-nvidia-settings/meta.json",
       "scripts": {
-        "apply": "Write-Host \"Applying NVIDIA driver optimization...\"\nif (Get-Command nvidia-smi -ErrorAction SilentlyContinue) {\n    nvidia-smi -pm 1\n}\nGet-ScheduledTask -ErrorAction SilentlyContinue | Where-Object { $_.TaskName -like \"NvTm*\" } | Disable-ScheduledTask -ErrorAction SilentlyContinue\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_FSEBehaviorMode\" -Value 2 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_HonorUserFSEBehaviorMode\" -Value 1 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_DXGIHonorFSEWindowsCompatible\" -Value 1 -Type DWord -Force\nWrite-Host \"NVIDIA driver optimization applied.\"\n",
+        "apply": "Write-Host \"Applying NVIDIA driver optimization...\"\nif (Get-Command nvidia-smi -ErrorAction SilentlyContinue) {\n    nvidia-smi -pm 1\n}\nGet-ScheduledTask -ErrorAction SilentlyContinue | Where-Object { $_.TaskName -like \"NvTm*\" } | Disable-ScheduledTask -ErrorAction SilentlyContinue\nSet-Service -Name \"NvTelemetryContainer\" -StartupType Disabled -ErrorAction SilentlyContinue\n$gpu = Get-WmiObject Win32_VideoController -ErrorAction SilentlyContinue | Where-Object { $_.Name -match \"NVIDIA\" -and $_.PNPDeviceID } | Select-Object -First 1\nif ($gpu) {\n    $msiPath = \"HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\$($gpu.PNPDeviceID)\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties\"\n    if (Test-Path $msiPath) {\n        Set-ItemProperty -Path $msiPath -Name \"MSISupported\" -Value 1 -Type DWord -Force\n    }\n}\n$graphicsDrivers = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers\"\nSet-ItemProperty -Path $graphicsDrivers -Name \"TdrDelay\" -Value 8 -Type DWord -Force\nSet-ItemProperty -Path $graphicsDrivers -Name \"TdrLevel\" -Value 3 -Type DWord -Force\n$nvidiaData = Join-Path $env:LOCALAPPDATA \"NVIDIA\"\n@(\"DXCache\", \"GLCache\") | ForEach-Object {\n    $cachePath = Join-Path $nvidiaData $_\n    if (Test-Path $cachePath) {\n        Remove-Item (Join-Path $cachePath \"*\") -Recurse -Force -ErrorAction SilentlyContinue\n    }\n}\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_FSEBehaviorMode\" -Value 2 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_HonorUserFSEBehaviorMode\" -Value 1 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_DXGIHonorFSEWindowsCompatible\" -Value 1 -Type DWord -Force\nWrite-Host \"NVIDIA driver optimization applied.\"\n",
         "unapply": null
       }
     },
