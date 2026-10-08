@@ -5,6 +5,7 @@ import Card from "./ui/Card"
 import { invoke } from "@/lib/electron"
 import { MessageCircle } from "lucide-react"
 import { applyBackgroundImage, getBackgroundStyle } from "@/lib/background"
+import inspireLogo from "../assets/inspire-logo.svg"
 
 export interface AccountProfile {
   provider: "discord" | "google"
@@ -49,7 +50,8 @@ export default function AuthScreen({ onAuthenticated }: AuthScreenProps): React.
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/80" />
       <Card className="relative w-full max-w-[360px] overflow-hidden rounded-2xl border-2 border-[#d457cf] bg-[#070707] px-7 py-10 shadow-[0_0_32px_rgba(212,87,207,0.08)] sm:px-8">
         <div className="flex flex-col items-center text-center">
-          <h1 className="text-2xl font-semibold tracking-tight text-white">Login to Inspire</h1>
+          <img src={inspireLogo} alt="Inspire" className="h-14 w-14" />
+          <h1 className="mt-4 text-2xl font-semibold tracking-tight text-white">Login to Inspire</h1>
           <p className="mt-8 max-w-[250px] text-sm leading-5 text-zinc-400">
             Choose one of the following to authorize:
           </p>
