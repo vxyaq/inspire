@@ -15,8 +15,6 @@ export function initAutoUpdater(getMainWindow: () => BrowserWindow | null): void
     return
   }
 
-  // The user starts the download from the update dialog. This prevents the
-  // renderer from starting a second download after update-available.
   autoUpdater.autoDownload = false
   autoUpdater.disableWebInstaller = false
   autoUpdater.autoInstallOnAppQuit = true

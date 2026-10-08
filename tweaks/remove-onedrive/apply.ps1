@@ -9,38 +9,35 @@ $OneDrivePath = $($env:OneDrive)
             Write-Host "Onedrive dosn't seem to be installed anymore" -ForegroundColor Red
             return
         }
-        # Check if OneDrive got Uninstalled
         if (-not (Test-Path $regPath)) {
         Write-Host "Copy downloaded Files from the OneDrive Folder to Root UserProfile"
         Start-Process -FilePath powershell -ArgumentList "robocopy '$($OneDrivePath)' '$($env:USERPROFILE.TrimEnd())\' /mov /e /xj" -NoNewWindow -Wait
-  
+
         Write-Host "Removing OneDrive leftovers"
         Remove-Item -Recurse -Force -ErrorAction SilentlyContinue "$env:localappdata\Microsoft\OneDrive"
         Remove-Item -Recurse -Force -ErrorAction SilentlyContinue "$env:localappdata\OneDrive"
         Remove-Item -Recurse -Force -ErrorAction SilentlyContinue "$env:programdata\Microsoft OneDrive"
         Remove-Item -Recurse -Force -ErrorAction SilentlyContinue "$env:systemdrive\OneDriveTemp"
         reg delete "HKEY_CURRENT_USER\Software\Microsoft\OneDrive" -f
-        # check if directory is empty before removing:
         If ((Get-ChildItem "$OneDrivePath" -Recurse | Measure-Object).Count -eq 0) {
             Remove-Item -Recurse -Force -ErrorAction SilentlyContinue "$OneDrivePath"
         }
-  
+
         Write-Host "Remove Onedrive from explorer sidebar"
         Set-ItemProperty -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Name "System.IsPinnedToNameSpaceTree" -Value 0
         Set-ItemProperty -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Name "System.IsPinnedToNameSpaceTree" -Value 0
-  
+
         Write-Host "Removing run hook for new users"
         reg load "hku\Default" "C:\Users\Default\NTUSER.DAT"
         reg delete "HKEY_USERS\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
         reg unload "hku\Default"
-  
+
         Write-Host "Removing startmenu entry"
         Remove-Item -Force -ErrorAction SilentlyContinue "$env:userprofile\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk"
-  
+
         Write-Host "Removing scheduled task"
         Get-ScheduledTask -TaskPath '\' -TaskName 'OneDrive*' -ea SilentlyContinue | Unregister-ScheduledTask -Confirm:$false
-  
-        # Add Shell folders restoring default locations
+
         Write-Host "Shell Fixing"
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "AppData" -Value "$env:userprofile\AppData\Roaming" -Type ExpandString
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Cache" -Value "$env:userprofile\AppData\Local\Microsoft\Windows\INetCache" -Type ExpandString
@@ -67,7 +64,7 @@ $OneDrivePath = $($env:OneDrive)
         Write-Host "Restarting explorer"
         taskkill.exe /F /IM "explorer.exe"
         Start-Process "explorer.exe"
-  
+
         Write-Host "Waiting for explorer to complete loading"
         Write-Host "Please Note - The OneDrive folder at $OneDrivePath may still have items in it. You must manually delete it, but all the files should already be copied to the base user folder."
         Write-Host "If there are Files missing afterwards, please Login to Onedrive.com and Download them manually" -ForegroundColor Yellow

@@ -23,7 +23,6 @@ const store = new Store<{ account?: AccountProfile; authResetVersion?: number }>
 const AUTH_SERVER_URL = "https://inspire.wisp.uno"
 const DISCORD_REDIRECT_URI = "http://127.0.0.1:43817/oauth/discord/callback"
 
-// Force a fresh sign-in after the account/session reset requested for this release.
 const AUTH_RESET_VERSION = 1
 if (store.get("authResetVersion") !== AUTH_RESET_VERSION) {
   store.delete("account")
@@ -182,5 +181,4 @@ ipcMain.handle("auth:login", async (_event, provider: AuthProvider): Promise<Aut
 
   return { ok: false, error: "Google OAuth is not configured yet. Add a Google Client ID first." }
 })
-
 

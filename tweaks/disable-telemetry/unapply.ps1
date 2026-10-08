@@ -1,4 +1,3 @@
-# Registry cleanup (removes entries we added)
 $registrySettings = @(
     "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo\Enabled",
     "HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy\TailoredExperiencesWithDiagnosticDataEnabled",
@@ -13,7 +12,6 @@ $registrySettings = @(
     "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System\PublishUserActivities",
     "HKCU:\Software\Microsoft\Siuf\Rules\NumberOfSIUFInPeriod",
 
-    # enable windows Error Reporting
     "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting\Disabled",
     "HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\Disabled",
     "HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\DontSendAdditionalData",
@@ -21,7 +19,6 @@ $registrySettings = @(
     "HKLM:\Software\Microsoft\Windows\Windows Error Reporting\Consent\DefaultConsent",
     "HKLM:\Software\Microsoft\Windows\Windows Error Reporting\Consent\DefaultOverrideBehavior",
 
-    # enable start menu tile suggestions and ads
     "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\ContentDeliveryAllowed",
     "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SubscribedContentEnabled",
     "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\OemPreInstalledAppsEnabled",
@@ -36,16 +33,12 @@ foreach ($reg in $registrySettings) {
     Remove-ItemProperty -Path ($reg -replace '\\[^\\]+$','') -Name ($reg -split '\\')[-1] -ErrorAction SilentlyContinue
 }
 
-# Enable Defender Auto Sample Submission
 Set-MpPreference -SubmitSamplesConsent 1
 
-# Enable Connected User Experiences and Telemetry service
 Set-Service -Name diagtrack -StartupType Automatic
 
-# Enable Windows Error Reporting Manager service
 Set-Service -Name wermgr -StartupType Automatic
 
-# Reset SvcHostSplitThresholdInKB to default value
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "SvcHostSplitThresholdInKB" -Value 399360 -Type DWord
 
 Write-Output "Telemetry settings have been reverted to default."

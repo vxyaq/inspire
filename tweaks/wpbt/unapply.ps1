@@ -1,4 +1,3 @@
-# Credit to Chris Titus Tech
 
 $regPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager"
 $regName = "DisableWpbtExecution"

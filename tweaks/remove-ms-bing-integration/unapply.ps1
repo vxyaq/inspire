@@ -10,7 +10,7 @@ if (Test-Path $explorerPath) {
 }
 
 Write-Host "Reinstalling Bing apps..."
-winget install 9WZDNCRFHVFW --accept-source-agreements --accept-package-agreements --silent  # Bing News
-winget install 9WZDNCRFJ3Q2 --accept-source-agreements --accept-package-agreements --silent  # Bing Weather
+winget install 9WZDNCRFHVFW --accept-source-agreements --accept-package-agreements --silent
+winget install 9WZDNCRFJ3Q2 --accept-source-agreements --accept-package-agreements --silent
 
 Write-Host "Bing search re-enabled. Some apps may need to be reinstalled from Microsoft Store."

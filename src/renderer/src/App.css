@@ -54,7 +54,7 @@
 }
 
 @layer utilities {
-  /* No visible scrollbars anywhere (wheel/keyboard scrolling still works) */
+
   *,
   *::before,
   *::after {
@@ -145,7 +145,6 @@ body {
   color-scheme: dark;
 }
 
-/* Background: plain gray UI by default, blurred background.png when enabled */
 html {
   background-color: var(--color-k3d-bg);
 }
@@ -168,7 +167,6 @@ body.bg-image::before {
   transform: scale(1.02);
 }
 
-/* Glassy surfaces - less opaque so background shows through more */
 body.bg-image .bg-k3d-bg {
   background-color: rgb(17 18 20 / 0.5);
 }
@@ -177,7 +175,6 @@ body.bg-image .bg-k3d-card {
   background-color: rgb(24 25 27 / 0.6);
 }
 
-/* Pages that opt out (Tweaks, Settings) render on the plain gray UI */
 body.page-no-bg.bg-image::before {
   display: none;
 }

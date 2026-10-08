@@ -31,7 +31,6 @@ import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { Tweak } from "@/types/index"
 
-// The AI category was merged into General, so "AI" never shows up as its own tab
 const CATEGORY_ALIASES: Record<string, string> = { AI: "General" }
 
 const tweakCategories = (tweak: any): string[] => {
@@ -64,7 +63,6 @@ function Tweaks() {
   const { setNeedsRestart } = useRestartStore()
   const systemInfo = useSystemStore((state) => state.systemInfo)
 
-  // always-fresh snapshot of state so handlers can stay referentially stable
   const stateRef = useRef({ toggleStates, tweaks })
   stateRef.current = { toggleStates, tweaks }
 
@@ -428,7 +426,6 @@ function Tweaks() {
     [tweaks],
   )
 
-  // sort this so recommended tweaks are at the top
   const sortedTweaks = useMemo(() => {
     return [...filteredTweaks].sort((a, b) => {
       const aRec: any = !!a.top

@@ -11,21 +11,21 @@ const parseVersion = (version) => {
 
 export const isNewInCurrentVersion = (tweakVersion, currentVersion) => {
   if (!tweakVersion) return false;
-  
+
   const current = parseVersion(currentVersion);
   const tweakVer = parseVersion(tweakVersion);
-  
-  return current.major === tweakVer.major && 
+
+  return current.major === tweakVer.major &&
          current.minor === tweakVer.minor;
 };
 
 export const isUpdatedInCurrentVersion = (updatedVersion, currentVersion) => {
   if (!updatedVersion) return false;
-  
+
   const current = parseVersion(currentVersion);
   const updatedVer = parseVersion(updatedVersion);
-  
-  return current.major === updatedVer.major && 
+
+  return current.major === updatedVer.major &&
          current.minor === updatedVer.minor;
 };
 

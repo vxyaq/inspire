@@ -282,7 +282,7 @@ $services = @(
       @{ Name = "wuauserv"; StartupType = "Manual" },
       @{ Name = "wudfsvc"; StartupType = "Manual" }
   )
-  
+
   foreach ($svc in $services) {
       try {
           Set-Service -Name $svc.Name -StartupType $svc.StartupType -ErrorAction Stop

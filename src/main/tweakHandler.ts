@@ -195,7 +195,7 @@ export const setupTweaksHandlers = (): void => {
       if (isIntelTweak(tweak) && !gpuInfo.isIntel) {
         throw new Error(`This tweak is only for Intel GPUs, but no Intel GPU was detected.`)
       }
-      // Warn about potential WGL issues
+
       if (gpuInfo.wglIssue && (isNvidiaTweak(tweak) || isIntelTweak(tweak))) {
         console.warn(`Warning: This GPU may have WGL compatibility issues. The tweak may not work correctly.`)
       }

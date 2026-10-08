@@ -78,8 +78,7 @@ function createWindow(): void {
       width: 1380,
       backgroundColor: "#0c121f",
       height: 760,
-      // minWidth: 1380,
-      // minHeight: 760,
+
       minWidth: 790,
       center: true,
       frame: false,

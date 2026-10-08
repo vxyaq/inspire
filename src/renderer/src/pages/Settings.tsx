@@ -66,8 +66,6 @@ function Settings() {
     invoke({ channel: "rpc-enabled:get" }).then((status) => setRpcEnabled(status))
   }, [])
 
-
-
   const handleToggleTray = async () => {
     setTrayLoading(true)
     const newStatus = !trayEnabled

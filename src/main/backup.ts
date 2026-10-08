@@ -96,8 +96,7 @@ export const setupBackupHandlers = (): void => {
   )
 
   ipcMain.handle("get-restore-points", async (): Promise<BackupResult> => {
-    // Restore points are a Windows-only feature. Return an empty result on other platforms
-    // so Home and Backup can load without logging an expected platform error.
+
     if (!platform.windows) {
       return { success: true, points: [] }
     }

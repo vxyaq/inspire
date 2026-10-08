@@ -7,4 +7,3 @@ Stop-Process -Name explorer -Force
 
 Write-Host "Task View restored. Widgets reinstalled (may require sign-out to appear)."
 
-

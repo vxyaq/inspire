@@ -1,4 +1,3 @@
-# Remove all Bing apps
 Get-AppxPackage *BingNews* | Remove-AppxPackage -ErrorAction SilentlyContinue
 Get-AppxPackage *BingWeather* | Remove-AppxPackage -ErrorAction SilentlyContinue
 Get-AppxPackage *BingFinance* | Remove-AppxPackage -ErrorAction SilentlyContinue

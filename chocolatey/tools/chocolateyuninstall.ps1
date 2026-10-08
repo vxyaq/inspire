@@ -11,21 +11,20 @@ $installed = Get-ItemProperty -Path @(
 if ($installed) {
   $installed | ForEach-Object {
     $uninstallString = $_.UninstallString
-    
+
     Write-Host "Found: $($_.DisplayName)"
     Write-Host "Uninstall string: $uninstallString"
-    
+
     if ($uninstallString) {
       Write-Host "Executing uninstall..."
       & cmd /c $uninstallString /S
-      
+
       Start-Sleep -Seconds 2
-      
+
       Write-Host "Uninstall completed"
     }
   }
 } else {
   Write-Warning "K3d Tweaks was not found in the registry. It may have already been uninstalled."
 }
-
 

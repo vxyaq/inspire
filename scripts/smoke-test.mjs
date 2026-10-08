@@ -52,7 +52,7 @@ setTimeout(() => {
         windowsHide: true,
       })
     } catch {
-      // process already exited
+
     }
     process.exit(0)
   } else {
@@ -69,7 +69,7 @@ setTimeout(() => {
       windowsHide: true,
     })
   } catch {
-    // process already exited
+
   }
   process.exit(1)
 }, TIMEOUT)

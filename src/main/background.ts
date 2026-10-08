@@ -36,9 +36,6 @@ export const registerBackgroundIpc = () => {
     return getBackgroundPath()
   })
 
-  // Returns the background as a data URL so it works both from the dev server
-  // (http origin, where file:// subresources are blocked) and from the packaged
-  // app (file origin, where Windows paths with backslashes break CSS url()).
   ipcMain.handle("background:get-data-url", () => {
     const bgPath = getBackgroundPath()
     if (!bgPath) return null

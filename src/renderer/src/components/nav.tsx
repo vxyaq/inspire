@@ -52,9 +52,6 @@ function Nav({ collapsed }) {
 
   const [showRestartModal, setShowRestartModal] = useState(false)
 
-
-
-
   const getActiveTab = () => {
     const path = location.pathname
     if (path === "/") return "home"
@@ -65,7 +62,7 @@ function Nav({ collapsed }) {
   const activeTab = getActiveTab()
 
   useEffect(() => {
-    // Only update on collapse state changes, use CSS for smoother indicator
+
   }, [collapsed])
 
   return (
@@ -120,7 +117,7 @@ function Nav({ collapsed }) {
           </span>
         </button>
       )}
-      {/* Settings pinned at the very bottom */}
+      {}
       <div className="px-3 pt-3 mt-1 flex flex-col gap-2">
         <Tooltip content={!collapsed ? "" : tabs.account.label} side="right" delay={0}>
           <Button

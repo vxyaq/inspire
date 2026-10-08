@@ -1,7 +1,4 @@
-/* global document$, posthog */
 
-// this is posthog
-// add more js below it
 
 document$.subscribe(function() {
     !(function (t, e) {

@@ -1,4 +1,4 @@
-// move this to python soon as mkdocs uses python so it makes sense to use python
+
 
 import fs from "fs"
 import path from "path"
@@ -87,17 +87,17 @@ ${
 }
 
 ${
-  tweak.updatedversion 
-  ? `!!! note 
+  tweak.updatedversion
+  ? `!!! note
     This tweak was last updated in ${tweak.updatedversion}
-  ` 
+  `
   : ""
 }
 ${
-  tweak.addedversion 
-  ? `!!! note 
+  tweak.addedversion
+  ? `!!! note
     This tweak was added in ${tweak.addedversion}, K3d Tweaks ${tweak.addedversion}+ is required.
-  ` 
+  `
   : ""
 }
 ${deepDesc ? `## Details\n\n${deepDesc}` : ""}
@@ -127,7 +127,6 @@ ${unapplyScript ? `## Unapply\n\n\`\`\`powershell\n${unapplyScript}\n\`\`\`\n` :
 
 ${tweak.links ? `## Links\n${tweak.links.map((link) => `- [${link.name}](${link.url})`).join("\n")}` : ""}
 `
-
 
   fs.writeFileSync(mdPath, mdContent.trim() + "\n", "utf-8")
 

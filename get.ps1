@@ -1,7 +1,6 @@
 
 Clear-Host
 
-# GitHub config
 $repo = "Parcoil/K3d Tweaks"
 $apiUrl = "https://api.github.com/repos/$repo/releases/latest"
 $headers = @{
@@ -9,10 +8,8 @@ $headers = @{
     "Accept"     = "application/vnd.github.v3+json"
 }
 
-# Use current dir if script folder is not defined
 $downloadFolder = if ($PSScriptRoot) { $PSScriptRoot } else { Get-Location }
 
-# Fetch latest release info
 try {
     $release = Invoke-RestMethod -Uri $apiUrl -Headers $headers
 }
@@ -21,26 +18,23 @@ catch {
     exit 1
 }
 
-# Extract tag/version
 $tag = $release.tag_name
-$versionLabel = $tag -replace "^v", ""  # Remove leading "v" if present
+$versionLabel = $tag -replace "^v", ""
 
-# ASCII art header
 $asciiHeader = @"
 
 ███████╗██████╗  █████╗ ██████╗ ██╗  ██╗██╗     ███████╗
 ██╔════╝██╔══██╗██╔══██╗██╔══██╗██║ ██╔╝██║     ██╔════╝
-███████╗██████╔╝███████║██████╔╝█████╔╝ ██║     █████╗  
-╚════██║██╔═══╝ ██╔══██║██╔══██╗██╔═██╗ ██║     ██╔══╝  
+███████╗██████╔╝███████║██████╔╝█████╔╝ ██║     █████╗
+╚════██║██╔═══╝ ██╔══██║██╔══██╗██╔═██╗ ██║     ██╔══╝
 ███████║██║     ██║  ██║██║  ██║██║  ██╗███████╗███████╗
-╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝                       
+╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝
 "@
 
 Write-Host $asciiHeader -ForegroundColor Cyan
 Write-Host "Version: v$versionLabel" -ForegroundColor Yellow
 Write-Host ""
 
-# Find installer asset
 $asset = $release.assets | Where-Object { $_.name -match "^k3d-.*-setup\.exe$" }
 
 if (-not $asset) {
@@ -55,7 +49,6 @@ Write-Host "[✓] Latest version: $tag" -ForegroundColor Green
 Write-Host "[✓] Found installer: $fileName" -ForegroundColor Green
 Write-Host "[>] Downloading to: $downloadPath" -ForegroundColor Cyan
 
-# Ensure BITS service is running
 $bitsService = Get-Service BITS
 if ($bitsService.Status -ne "Running") {
     Write-Host "[>] Starting BITS service..." -ForegroundColor Cyan
@@ -63,7 +56,6 @@ if ($bitsService.Status -ne "Running") {
     Start-Sleep -Seconds 2
 }
 
-# Download the installer
 try {
     Start-BitsTransfer -Source $asset.browser_download_url -Destination $downloadPath
     Write-Host "`n[✔] Download complete!" -ForegroundColor Green
@@ -81,7 +73,6 @@ catch {
     }
 }
 
-# Launch installer as admin and delete installer immediately after
 Write-Host "[🚀] Launching installer..." -ForegroundColor Magenta
 try {
     $process = Start-Process -FilePath $downloadPath -Verb RunAs -PassThru

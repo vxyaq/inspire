@@ -99,8 +99,6 @@ export async function detectGPU(): Promise<GPUInfo> {
       result.isAmd = dedicatedGPU.model.toLowerCase().includes("amd")
       result.isIntel = dedicatedGPU.model.toLowerCase().includes("intel")
 
-      // Check for WGL issue - common on some Intel/Nvidia setups
-      // This is a heuristic - actual WGL issues need more testing
       const modelLower = dedicatedGPU.model.toLowerCase()
       result.wglIssue = modelLower.includes("intel") && !modelLower.includes("arc")
     }

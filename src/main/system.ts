@@ -489,15 +489,15 @@ function Show-InstallerGUI {
 
             if ($TestMode -or -not $wingetInstalled) {
                 $result.Messages += "Winget not found. Installing for K3d Tweaks..."
-                
+
                 try {
                     $result.Messages += "Attempting to register App Installer..."
-                    
+
                     # Add timeout wrapper for AppX operations
                     $job = Start-Job -ScriptBlock {
                         Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
                     }
-                    
+
                     $completed = Wait-Job -Job $job -Timeout 60
                     if ($completed) {
                         Receive-Job -Job $job
@@ -506,9 +506,9 @@ function Show-InstallerGUI {
                         Remove-Job -Job $job -Force
                         throw "Registration timed out after 60 seconds"
                     }
-                    
+
                     Start-Sleep -Seconds 2
-                    
+
                     if (Check-Winget) {
                         $result.Messages += "Winget installed successfully!"
                         $result.Success = $true
@@ -518,32 +518,32 @@ function Show-InstallerGUI {
                 } catch {
                     $result.Messages += "Registration method failed: $($_.Exception.Message)"
                     $result.Messages += "Trying download method..."
-                    
+
                     try {
                         $result.Messages += "Downloading latest App Installer package..."
                         $progressPreference = 'SilentlyContinue'
-                        
+
                         # Add timeout to web requests
                         $releases = Invoke-RestMethod -Uri "https://api.github.com/repos/microsoft/winget-cli/releases/latest" -TimeoutSec 30
                         $downloadUrl = ($releases.assets | Where-Object { $_.name -like "*.msixbundle" }).browser_download_url
-                        
+
                         if (-not $downloadUrl) {
                             throw "Could not find download URL in GitHub release"
                         }
-                        
+
                         $tempFile = Join-Path $env:TEMP "Microsoft.DesktopAppInstaller.msixbundle"
-                        
+
                         $result.Messages += "Downloading from GitHub..."
                         Start-BitsTransfer -Source $downloadUrl -Destination $tempFile -TimeoutSec 120
-                        
+
                         $result.Messages += "Installing package (this may take a minute)..."
-                        
+
                         # Add timeout wrapper for installation
                         $job = Start-Job -ScriptBlock {
                             param($path)
                             Add-AppxPackage -Path $path
                         } -ArgumentList $tempFile
-                        
+
                         $completed = Wait-Job -Job $job -Timeout 120
                         if ($completed) {
                             Receive-Job -Job $job
@@ -552,14 +552,14 @@ function Show-InstallerGUI {
                             Remove-Job -Job $job -Force
                             throw "Installation timed out after 120 seconds"
                         }
-                        
+
                         # Clean up
                         if (Test-Path $tempFile) {
                             Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
                         }
-                        
+
                         Start-Sleep -Seconds 2
-                        
+
                         if (Check-Winget) {
                             $result.Messages += "Winget installed successfully!"
                             $result.Success = $true
@@ -597,14 +597,14 @@ function Show-InstallerGUI {
     $timer.Add_Tick({
         if ($handle.IsCompleted) {
             $timer.Stop()
-            
+
             try {
                 $result = $powershell.EndInvoke($handle)
-                
+
                 foreach ($message in $result.Messages) {
                     Append-Output $message
                 }
-                
+
                 Append-Output ""
                 Append-Output "You can now close this window."
             } catch {
@@ -619,7 +619,7 @@ function Show-InstallerGUI {
     })
 
     $form.Add_Shown({ $timer.Start() })
-    
+
     # Clean up on form close
     $form.Add_FormClosing({
         if (-not $handle.IsCompleted) {

@@ -8,7 +8,6 @@ const store = new Store()
 
 const CLIENT_ID = "1188686354490609754"
 
-// using patched discord-rpc-new package
 const MAX_RECONNECT_ATTEMPTS = 3
 
 let client: Client | null = null
@@ -26,7 +25,7 @@ function buildActivity() {
 
 async function startDiscordRPC(): Promise<boolean> {
   if (client) {
-    return false // already connected or connecting
+    return false
   }
 
   const rpc = new Client({ maxReconnectAttempts: MAX_RECONNECT_ATTEMPTS })

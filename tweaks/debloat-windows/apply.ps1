@@ -1,7 +1,3 @@
-# K3d Tweaks Debloat Script
-# This script provides options for different debloat methods
-# Made by Parcoil
-# Credits to Raphire for his debloat script: https://github.com/Raphire
 
 param(
     [string]$ScriptChoice = "",
@@ -25,7 +21,6 @@ Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName PresentationCore
 Add-Type -AssemblyName WindowsBase
 
-# list of apps to remove
 $appDefinitions = @(
     @{ Package = "Clipchamp.Clipchamp"; FriendlyName = "Clipchamp Video Editor" },
     @{ Package = "Microsoft.3DBuilder"; FriendlyName = "3D Builder" },
@@ -97,7 +92,7 @@ $appDefinitions = @(
     @{ Package = "king.com.CandyCrushSaga"; FriendlyName = "Candy Crush Saga" },
     @{ Package = "king.com.CandyCrushSodaSaga"; FriendlyName = "Candy Crush Soda Saga" },
     @{ Package = "9NBLGGH4QGHW"; FriendlyName = "Microsoft Sticky Notes" },
-    @{ Package = "Phone Link"; FriendlyName = "Phone Link" }   
+    @{ Package = "Phone Link"; FriendlyName = "Phone Link" }
 )
 
 $recommendedApps = @(
@@ -163,13 +158,12 @@ $recommendedApps = @(
 
 function Get-FriendlyName {
     param([string]$PackageName)
-    
+
     $def = $appDefinitions | Where-Object { $_.Package -eq $PackageName }
     if ($def) {
         return $def.FriendlyName
     }
-    
-    # fallback to auto-generated name
+
     return $PackageName -replace "MicrosoftCorporationII\.", "" -replace "Microsoft\.", "" -replace "\.", " "
 }
 
@@ -177,8 +171,8 @@ function Show-ScriptSelectionDialog {
     [xml]$xaml = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="K3d Tweaks Debloat v$version" 
-        Height="300" Width="650" 
+        Title="K3d Tweaks Debloat v$version"
+        Height="300" Width="650"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
         ResizeMode="NoResize"
@@ -206,7 +200,7 @@ function Show-ScriptSelectionDialog {
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
+                        <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="6"
@@ -228,41 +222,41 @@ function Show-ScriptSelectionDialog {
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock Grid.Row="0" 
-                   Text="Choose your debloat approach:" 
-                   FontSize="16" 
-                   FontWeight="SemiBold" 
+
+        <TextBlock Grid.Row="0"
+                   Text="Choose your debloat approach:"
+                   FontSize="16"
+                   FontWeight="SemiBold"
                    Foreground="#f0f4f8"
                    Margin="0,0,0,20"/>
-        
-        <Border Grid.Row="1" 
-                Background="#131c2c" 
-                BorderBrush="#1f2a3d" 
-                BorderThickness="1" 
+
+        <Border Grid.Row="1"
+                Background="#131c2c"
+                BorderBrush="#1f2a3d"
+                BorderThickness="1"
                 CornerRadius="8"
                 Padding="20"
                 Margin="0,0,0,20">
             <StackPanel>
-                <RadioButton x:Name="RadioInspire" 
-                            Content="K3d Tweaks Debloat (Choose which apps to remove) - Recommended" 
-                            Margin="0,0,0,16" 
+                <RadioButton x:Name="RadioInspire"
+                            Content="K3d Tweaks Debloat (Choose which apps to remove) - Recommended"
+                            Margin="0,0,0,16"
                             IsChecked="True"/>
-                <RadioButton x:Name="RadioRaphire" 
+                <RadioButton x:Name="RadioRaphire"
                             Content="Raphire's Win11Debloat (Comprehensive - read docs for details)"/>
             </StackPanel>
         </Border>
-        
-        <StackPanel Grid.Row="2" 
-                    Orientation="Horizontal" 
-                    HorizontalAlignment="Right" 
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
                     Margin="0,20,0,0">
             <Button x:Name="BtnOK" Content="Continue" Width="100" Margin="0,0,12,0" IsDefault="True"/>
             <Button x:Name="BtnCancel" Content="Cancel" Width="100" IsCancel="True"/>
@@ -273,13 +267,13 @@ function Show-ScriptSelectionDialog {
 
     $reader = New-Object System.Xml.XmlNodeReader $xaml
     $window = [Windows.Markup.XamlReader]::Load($reader)
-    
+
     $radioRaphire = $window.FindName("RadioRaphire")
     $btnOK = $window.FindName("BtnOK")
     $btnCancel = $window.FindName("BtnCancel")
-    
+
     $script:dialogResult = $null
-    
+
     $btnOK.Add_Click({
             if ($radioRaphire.IsChecked) {
                 $script:dialogResult = "raphire"
@@ -289,12 +283,12 @@ function Show-ScriptSelectionDialog {
             }
             $window.Close()
         })
-    
+
     $btnCancel.Add_Click({
             $script:dialogResult = "cancel"
             $window.Close()
         })
-    
+
     $window.ShowDialog() | Out-Null
     return $script:dialogResult
 }
@@ -303,8 +297,8 @@ function Show-BehaviorChangeWarning {
     [xml]$xaml = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="K3d Tweaks Debloat - Important Change" 
-        Height="420" Width="550" 
+        Title="K3d Tweaks Debloat - Important Change"
+        Height="420" Width="550"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
         ResizeMode="NoResize"
@@ -320,7 +314,7 @@ function Show-BehaviorChangeWarning {
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
+                        <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="6"
@@ -340,54 +334,54 @@ function Show-BehaviorChangeWarning {
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid Margin="28">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
+
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,16">
             <TextBlock Text="!" FontSize="24" FontWeight="Bold" Foreground="#f59e0b" Margin="0,0,10,0" VerticalAlignment="Center"/>
             <TextBlock Text="Behavior Has Changed!"
-                       FontSize="18" 
-                       FontWeight="SemiBold" 
+                       FontSize="18"
+                       FontWeight="SemiBold"
                        Foreground="#f0f4f8"
                        VerticalAlignment="Center"/>
         </StackPanel>
-        
-        <Border Grid.Row="1" 
-                Background="#131c2c" 
-                BorderBrush="#f59e0b" 
-                BorderThickness="1" 
+
+        <Border Grid.Row="1"
+                Background="#131c2c"
+                BorderBrush="#f59e0b"
+                BorderThickness="1"
                 CornerRadius="8"
                 Padding="16"
                 Margin="0,0,0,20">
             <StackPanel>
-                <TextBlock Text="The app selection has been inverted:" 
-                           FontSize="14" 
-                           FontWeight="SemiBold" 
+                <TextBlock Text="The app selection has been inverted:"
+                           FontSize="14"
+                           FontWeight="SemiBold"
                            Foreground="#aab4c3"
                            Margin="0,0,0,10"/>
                 <TextBlock Text="- Previously: You selected apps to KEEP"
-                           FontSize="13" 
+                           FontSize="13"
                            Foreground="#aab4c3"
                            Margin="0,0,0,4"/>
                 <TextBlock Text="- Now: Select apps to REMOVE"
-                           FontSize="13" 
+                           FontSize="13"
                            FontWeight="SemiBold"
                            Foreground="#b91c1c"
                            Margin="0,0,0,10"/>
                 <TextBlock Text="This change gives you more direct control over what gets removed from your system, and allows us to set recommended defaults for removal. It also lets us add more features to this script in the future."
-                           FontSize="13" 
+                           FontSize="13"
                            Foreground="#aab4c3"
                            TextWrapping="Wrap"/>
             </StackPanel>
         </Border>
-        
-        <StackPanel Grid.Row="2" 
-                    Orientation="Horizontal" 
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button x:Name="BtnCancel" Content="Cancel" Width="100" Margin="0,0,12,0" IsCancel="True"/>
             <Button x:Name="BtnUnderstand" Content="I Understand, Continue" Width="195"/>
@@ -398,47 +392,43 @@ function Show-BehaviorChangeWarning {
 
     $reader = New-Object System.Xml.XmlNodeReader $xaml
     $window = [Windows.Markup.XamlReader]::Load($reader)
-    
+
     $btnUnderstand = $window.FindName("BtnUnderstand")
     $btnCancel = $window.FindName("BtnCancel")
-    
+
     $script:dialogResult = $true
-    
+
     $btnUnderstand.Add_Click({
         $script:dialogResult = $true
         $window.Close()
     })
-    
+
     $btnCancel.Add_Click({
         $script:dialogResult = $false
         $window.Close()
     })
-    
+
     $window.ShowDialog() | Out-Null
     return $script:dialogResult
 }
 
 function Show-AppSelectionDialog {
-    # generate apps list with friendly names
-    # apps are unchecked by default (meaning they won't be removed)
-    # users check apps they want to remove
     $apps = @()
     foreach ($appDef in $appDefinitions) {
-        $apps += @{ 
+        $apps += @{
             Name      = $appDef.FriendlyName
             Package   = $appDef.Package
             IsChecked = $false
         }
     }
-    
-    # sort by friendly name for better UX
+
     $apps = $apps | Sort-Object { $_.Name }
-    
+
     [xml]$xaml = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="K3d Tweaks Debloat v$version" 
-    Height="750" Width="650" 
+    Title="K3d Tweaks Debloat v$version"
+    Height="750" Width="650"
     WindowStartupLocation="CenterScreen"
     ResizeMode="NoResize"
     Background="#0c121f">
@@ -465,7 +455,7 @@ function Show-AppSelectionDialog {
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
+                        <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="6"
@@ -490,7 +480,7 @@ function Show-AppSelectionDialog {
             <Setter Property="Background" Value="#131c2c"/>
         </Style>
     </Window.Resources>
-    
+
     <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -499,62 +489,62 @@ function Show-AppSelectionDialog {
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock Grid.Row="0" 
-                   Text="Select apps to remove" 
-                   FontSize="18" 
-                   FontWeight="SemiBold" 
+
+        <TextBlock Grid.Row="0"
+                   Text="Select apps to remove"
+                   FontSize="18"
+                   FontWeight="SemiBold"
                    Foreground="#f0f4f8"
                    Margin="0,0,0,6"/>
-        
-        <TextBlock Grid.Row="1" 
-                   Text="Check the apps you want to remove. Unchecked apps will remain installed." 
-                   FontSize="13" 
+
+        <TextBlock Grid.Row="1"
+                   Text="Check the apps you want to remove. Unchecked apps will remain installed."
+                   FontSize="13"
                    Foreground="#7e92a9"
                    TextWrapping="Wrap"
                    Margin="0,0,0,12"/>
 
-        <Border Grid.Row="2" 
-                Background="#131c2c" 
-                BorderBrush="#1f2a3d" 
-                BorderThickness="1" 
+        <Border Grid.Row="2"
+                Background="#131c2c"
+                BorderBrush="#1f2a3d"
+                BorderThickness="1"
                 CornerRadius="8"
                 Margin="0,0,0,12">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl x:Name="AppsList" Margin="12">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox Content="{Binding Name}" 
-                                     IsChecked="{Binding IsChecked}" 
+                            <CheckBox Content="{Binding Name}"
+                                     IsChecked="{Binding IsChecked}"
                                      Margin="4,3"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
         </Border>
-        
-        <StackPanel Grid.Row="3" 
-                    Orientation="Horizontal" 
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
                     Margin="0,0,0,12">
-            <Button x:Name="BtnSelectAll" 
-                    Content="Select All" 
-                    Width="110" 
-                    Margin="0,0,12,0"
-                    Style="{StaticResource SecondaryButton}"/>
-            <Button x:Name="BtnDeselectAll" 
-                    Content="Deselect All" 
+            <Button x:Name="BtnSelectAll"
+                    Content="Select All"
                     Width="110"
                     Margin="0,0,12,0"
                     Style="{StaticResource SecondaryButton}"/>
-            <Button x:Name="BtnSelectRecommended" 
-                    Content="Select Recommended" 
+            <Button x:Name="BtnDeselectAll"
+                    Content="Deselect All"
+                    Width="110"
+                    Margin="0,0,12,0"
+                    Style="{StaticResource SecondaryButton}"/>
+            <Button x:Name="BtnSelectRecommended"
+                    Content="Select Recommended"
                     Width="165"
                     Background="#243144"
                     Foreground="#f0f4f8"/>
         </StackPanel>
-        
-        <StackPanel Grid.Row="4" 
-                    Orientation="Horizontal" 
+
+        <StackPanel Grid.Row="4"
+                    Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button x:Name="BtnOK" Content="Start Debloat" Width="120" Margin="0,0,12,0" IsDefault="True"/>
             <Button x:Name="BtnCancel" Content="Cancel" Width="100" IsCancel="True"/>
@@ -565,37 +555,36 @@ function Show-AppSelectionDialog {
 
     $reader = New-Object System.Xml.XmlNodeReader $xaml
     $window = [Windows.Markup.XamlReader]::Load($reader)
-    
+
     $appsList = $window.FindName("AppsList")
     $btnSelectAll = $window.FindName("BtnSelectAll")
     $btnDeselectAll = $window.FindName("BtnDeselectAll")
     $btnSelectRecommended = $window.FindName("BtnSelectRecommended")
     $btnOK = $window.FindName("BtnOK")
     $btnCancel = $window.FindName("BtnCancel")
-    
-    # create observable collection for data binding
+
     $observableApps = New-Object System.Collections.ObjectModel.ObservableCollection[Object]
     foreach ($app in $apps) {
         $observableApps.Add((New-Object PSObject -Property $app))
     }
     $appsList.ItemsSource = $observableApps
-    
+
     $script:dialogResult = $null
-    
+
     $btnSelectAll.Add_Click({
             foreach ($item in $observableApps) {
                 $item.IsChecked = $true
             }
             $appsList.Items.Refresh()
         })
-    
+
     $btnDeselectAll.Add_Click({
             foreach ($item in $observableApps) {
                 $item.IsChecked = $false
             }
             $appsList.Items.Refresh()
         })
-    
+
     $btnSelectRecommended.Add_Click({
             foreach ($item in $observableApps) {
                 if ($recommendedApps -contains $item.Package) {
@@ -604,7 +593,7 @@ function Show-AppSelectionDialog {
             }
             $appsList.Items.Refresh()
         })
-    
+
     $btnOK.Add_Click({
             $script:dialogResult = @()
             foreach ($item in $observableApps) {
@@ -615,19 +604,19 @@ function Show-AppSelectionDialog {
             $window.DialogResult = $true
             $window.Close()
         })
-    
+
     $btnCancel.Add_Click({
             $script:dialogResult = $null
             $window.DialogResult = $false
             $window.Close()
         })
-    
+
     $window.Add_Closing({
             if ($null -eq $script:dialogResult) {
                 $script:dialogResult = $null
             }
         })
-    
+
     $result = $window.ShowDialog()
     if ($result -eq $false) {
         return $null
@@ -640,11 +629,10 @@ function Remove-SelectedApps {
 
     Write-Host "Starting K3d Tweaks debloat..." -ForegroundColor Green
 
-    # display friendly names in console output
     $removeNames = $AppsToRemove | ForEach-Object { Get-FriendlyName $_ }
     Write-Host "Apps that will be removed: $($removeNames -join ', ')" -ForegroundColor Yellow
     Write-Host "Number of apps to remove: $($AppsToRemove.Count)" -ForegroundColor Red
-    
+
     foreach ($app in $AppsToRemove) {
         try {
             $friendlyName = Get-FriendlyName $app
@@ -680,12 +668,11 @@ function Remove-SelectedApps {
 
 try {
     $script:appsWereRemoved = $false
-    
+
     Write-Host "Starting K3d Tweaks Debloat script..." -ForegroundColor Green
     Write-Host "Script Choice: '$ScriptChoice'" -ForegroundColor Yellow
     Write-Host "Apps to Remove Count: $($AppsToRemove.Count)" -ForegroundColor Yellow
-    
-    # get the ui params 
+
     if ($ScriptChoice -eq "raphire") {
         Write-Host "Running Raphire's Win11Debloat script..." -ForegroundColor Green
         & ([scriptblock]::Create((Invoke-RestMethod 'https://debloat.raphi.re/'))) -Silent -RemoveApps
@@ -706,27 +693,27 @@ try {
                 exit 0
             }
             $appsToRemove = Show-AppSelectionDialog
-            
+
             if ($null -eq $appsToRemove -or $appsToRemove.Count -eq 0) {
                 Write-Host "No apps selected for removal. Operation cancelled." -ForegroundColor Yellow
                 exit 0
             }
-            
+
             Remove-SelectedApps -AppsToRemove $appsToRemove
             $script:appsWereRemoved = $true
         }
     }
     elseif ($ScriptChoice -eq "" -or $null -eq $ScriptChoice) {
         Write-Host "No script choice provided, entering interactive mode..." -ForegroundColor Yellow
-        
+
         try {
             $choice = Show-ScriptSelectionDialog
-            
+
             if ($choice -eq "cancel") {
                 Write-Host "Operation cancelled by user." -ForegroundColor Yellow
                 exit 0
             }
-            
+
             if ($choice -eq "raphire") {
                 Write-Host "Running Raphire's Win11Debloat script..." -ForegroundColor Green
                 & ([scriptblock]::Create((Invoke-RestMethod 'https://debloat.raphi.re/'))) -Silent -RemoveApps
@@ -740,12 +727,12 @@ try {
                     exit 0
                 }
                 $appsToRemove = Show-AppSelectionDialog
-                
+
                 if ($null -eq $appsToRemove -or $appsToRemove.Count -eq 0) {
                     Write-Host "No apps selected for removal. Operation cancelled." -ForegroundColor Yellow
                     exit 0
                 }
-                
+
                 Remove-SelectedApps -AppsToRemove $appsToRemove
                 $script:appsWereRemoved = $true
             }
@@ -763,11 +750,11 @@ try {
 
     if ($script:appsWereRemoved -and -not (Get-Process -Name "K3d Tweaks" -ErrorAction SilentlyContinue)) {
         [xml]$xaml = @"
-<Window 
+<Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="K3d Tweaks Debloat" 
-    Height="200" 
+    Title="K3d Tweaks Debloat"
+    Height="200"
     Width="480"
     WindowStartupLocation="CenterScreen"
     Background="#0c121f"
@@ -783,7 +770,7 @@ try {
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
+                        <Border Background="{TemplateBinding Background}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="6"
                                 Padding="{TemplateBinding Padding}">
@@ -802,21 +789,21 @@ try {
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid Margin="30">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
+
         <StackPanel Grid.Row="0" VerticalAlignment="Center">
-            <TextBlock Text="Debloat Complete" 
+            <TextBlock Text="Debloat Complete"
                       FontSize="20"
                       FontWeight="SemiBold"
                       Foreground="#3db58a"
                       HorizontalAlignment="Center"
                       Margin="0,0,0,10"/>
-            <TextBlock Text="Your system has been successfully optimized." 
+            <TextBlock Text="Your system has been successfully optimized."
                       FontSize="14"
                       Foreground="#7e92a9"
                       HorizontalAlignment="Center"
@@ -824,10 +811,10 @@ try {
                       TextWrapping="Wrap"
                       Margin="0,0,0,5"/>
         </StackPanel>
-                  
-        <Button Grid.Row="1" 
-               x:Name="BtnOK" 
-               Content="Done" 
+
+        <Button Grid.Row="1"
+               x:Name="BtnOK"
+               Content="Done"
                Width="100"
                HorizontalAlignment="Center"/>
     </Grid>
@@ -836,10 +823,10 @@ try {
 
         $reader = New-Object System.Xml.XmlNodeReader $xaml
         $window = [Windows.Markup.XamlReader]::Load($reader)
-        
+
         $btnOK = $window.FindName("BtnOK")
         $btnOK.Add_Click({ $window.Close() })
-        
+
         $window.ShowDialog() | Out-Null
     }
 

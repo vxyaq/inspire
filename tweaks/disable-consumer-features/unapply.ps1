@@ -1,4 +1,3 @@
-# Credit to Chris Titus Tech
 
 $regPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent"
 $regName = "DisableWindowsConsumerFeatures"
