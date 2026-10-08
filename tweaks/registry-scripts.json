@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-08T19:20:09.894Z",
+  "version": "2026-10-08T19:22:51.601Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -604,6 +604,22 @@
       "scripts": {
         "apply": "Write-Host \"Optimizing OBS Studio...\"\nGet-Process -Name obs64, obs32 -ErrorAction SilentlyContinue | Stop-Process -Force\n$obsData = Join-Path $env:APPDATA \"obs-studio\"\nfunction Set-IniValue($file, $section, $key, $value) {\n    $content = [System.IO.File]::ReadAllText($file)\n    if ($content -match \"(?m)^$key=.*$\") {\n        $content = $content -replace \"(?m)^$key=.*$\", \"$key=$value\"\n    } elseif ($content -match \"(?m)^\\[$section\\]\") {\n        $content = $content -replace \"(?m)^\\[$section\\]\", \"[$section]`r`n$key=$value\"\n    } else {\n        $content = \"$content`r`n[$section]`r`n$key=$value\"\n    }\n    [System.IO.File]::WriteAllText($file, $content)\n}\n$globalIni = Join-Path $obsData \"global.ini\"\nif (Test-Path $globalIni) {\n    Set-IniValue $globalIni \"General\" \"ProcessPriority\" \"High\"\n}\n$profilesDir = Join-Path $obsData \"basic\\profiles\"\nif (Test-Path $profilesDir) {\n    Get-ChildItem -Path $profilesDir -Directory | ForEach-Object {\n        $basicIni = Join-Path $_.FullName \"basic.ini\"\n        if (Test-Path $basicIni) {\n            Set-IniValue $basicIni \"General\" \"PreviewEnabled\" \"false\"\n        }\n    }\n}\n$logsDir = Join-Path $obsData \"logs\"\nif (Test-Path $logsDir) {\n    Get-ChildItem -Path $logsDir -Filter \"*.log\" | Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-30) } | Remove-Item -Force -ErrorAction SilentlyContinue\n}\nWrite-Host \"OBS Studio optimized. Open OBS again when ready.\"\n",
         "unapply": "Write-Host \"Reverting OBS Studio optimization...\"\n$obsData = Join-Path $env:APPDATA \"obs-studio\"\nfunction Set-IniValue($file, $section, $key, $value) {\n    $content = [System.IO.File]::ReadAllText($file)\n    if ($content -match \"(?m)^$key=.*$\") {\n        $content = $content -replace \"(?m)^$key=.*$\", \"$key=$value\"\n    } elseif ($content -match \"(?m)^\\[$section\\]\") {\n        $content = $content -replace \"(?m)^\\[$section\\]\", \"[$section]`r`n$key=$value\"\n    } else {\n        $content = \"$content`r`n[$section]`r`n$key=$value\"\n    }\n    [System.IO.File]::WriteAllText($file, $content)\n}\n$globalIni = Join-Path $obsData \"global.ini\"\nif (Test-Path $globalIni) {\n    Set-IniValue $globalIni \"General\" \"ProcessPriority\" \"Normal\"\n}\n$profilesDir = Join-Path $obsData \"basic\\profiles\"\nif (Test-Path $profilesDir) {\n    Get-ChildItem -Path $profilesDir -Directory | ForEach-Object {\n        $basicIni = Join-Path $_.FullName \"basic.ini\"\n        if (Test-Path $basicIni) {\n            Set-IniValue $basicIni \"General\" \"PreviewEnabled\" \"true\"\n        }\n    }\n}\nWrite-Host \"OBS Studio optimization reverted.\"\n"
+      }
+    },
+    {
+      "id": "reboot-to-uefi",
+      "title": "Reboot to UEFI Firmware",
+      "description": "Restarts the PC straight into BIOS/UEFI setup to enable FPS settings like XMP, Resizable BAR",
+      "category": [
+        "BIOS"
+      ],
+      "recommended": false,
+      "reversible": false,
+      "docsurl": "https://docs.getk3d.net/tweaks/reboot-to-uefi",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/reboot-to-uefi/meta.json",
+      "scripts": {
+        "apply": "Write-Host \"Rebooting to UEFI firmware...\"\nshutdown /r /fw /t 0\nWrite-Host \"Reboot command sent.\"\n",
+        "unapply": null
       }
     },
     {

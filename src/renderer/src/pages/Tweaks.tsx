@@ -9,7 +9,6 @@ import {
   Network,
   Zap,
   Paintbrush,
-  Cpu,
 } from "lucide-react"
 import { toast } from "react-toastify"
 import RootDiv from "@/components/rootdiv"
@@ -295,7 +294,9 @@ function Tweaks() {
 
   const handleApplyRecommended = async () => {
     const preset = presets[0]
-    const presetTweaks = tweaks.filter((t) => preset.tweaks.includes(t.name))
+    const presetTweaks = tweaks.filter(
+      (t) => preset.tweaks.includes(t.name) && !tweakCategories(t).includes("BIOS"),
+    )
     setRecommendedTweaksToApply(presetTweaks)
     setSelectedRecommendedTweaks(new Set(presetTweaks.map((t) => t.name)))
     setIsRecommendedModalOpen(true)
@@ -395,7 +396,7 @@ function Tweaks() {
     Appearance: <Paintbrush className="w-4 h-4 text-k3d-primary" />,
     Gaming: <Gamepad className="w-4 h-4 text-k3d-primary" />,
     General: <Wrench className="w-4 h-4 text-k3d-primary" />,
-    BIOS: <Cpu className="w-4 h-4 text-k3d-primary" />,
+    BIOS: <span className="text-base leading-none">⚙️</span>,
   }
 
   const presets = [
@@ -413,7 +414,6 @@ function Tweaks() {
         "disable-lockscreen-tips",
         "optimize-network-settings",
         "set-services-to-manual",
-        "wpbt",
       ],
     },
   ]

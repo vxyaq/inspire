@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-08T19:20:09.894Z",
+  "version": "2026-10-08T19:22:51.601Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -465,6 +465,18 @@
       "reversible": true,
       "docsurl": "https://docs.getk3d.net/tweaks/optimize-obs",
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-obs/meta.json"
+    },
+    {
+      "id": "reboot-to-uefi",
+      "title": "Reboot to UEFI Firmware",
+      "description": "Restarts the PC straight into BIOS/UEFI setup to enable FPS settings like XMP, Resizable BAR",
+      "category": [
+        "BIOS"
+      ],
+      "recommended": false,
+      "reversible": false,
+      "docsurl": "https://docs.getk3d.net/tweaks/reboot-to-uefi",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/reboot-to-uefi/meta.json"
     },
     {
       "id": "remove-edge",

@@ -1,0 +1,11 @@
+{
+  "title": "Reboot to UEFI Firmware",
+  "name": "reboot-to-uefi",
+  "risk": "caution",
+  "modal": "WARNING: Your PC will restart IMMEDIATELY into the BIOS/UEFI setup. Save all work first. Only change settings you understand (XMP/EXPO, Resizable BAR). Wrong BIOS settings can prevent Windows from starting.",
+  "reversible": false,
+  "category": ["BIOS"],
+  "description": "Restarts the PC straight into BIOS/UEFI setup to enable FPS settings like XMP, Resizable BAR",
+  "deepDescription": "Windows cannot change BIOS settings directly, so this tweak restarts your PC straight into the UEFI firmware setup. Enable there for more FPS:\n\n- XMP/EXPO → On (full RAM speed)\n- Resizable BAR → On (more GPU frames)\n- C-States/Power saving → Off (stable clocks)\n\nWARNING: Do not change anything else. Wrong settings can stop Windows from booting.",
+  "warning": "PC restarts immediately. Save your work first."
+}
