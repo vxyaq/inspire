@@ -16,8 +16,8 @@ const maxRequestBytes = 16_384
 const rateWindowMs = 10 * 60 * 1000
 const stateTtlMs = 10 * 60 * 1000
 const ticketTtlMs = 60 * 1000
-const maxPendingStates = 1000
-const maxTickets = 1000
+const maxPendingStates = 50000
+const maxTickets = 50000
 
 function validatedUrl(value, fallback, allowed) {
   try {
