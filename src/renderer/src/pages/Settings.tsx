@@ -2,7 +2,6 @@ import RootDiv from "@/components/rootdiv"
 import { useEffect, useState } from "react"
 import { invoke } from "@/lib/electron"
 import Button from "@/components/ui/button"
-import ChangelogModal from "@/components/changelogModal"
 import Toggle from "@/components/ui/Toggle"
 import { toast } from "react-toastify"
 import Card from "@/components/ui/Card"
@@ -23,7 +22,6 @@ function Settings() {
   const [checking, setChecking] = useState(false)
   const [trayEnabled, setTrayEnabled] = useState(true)
   const [trayLoading, setTrayLoading] = useState(false)
-  const [changelogOpen, setChangelogOpen] = useState(false)
   const [gameRequest, setGameRequest] = useState("")
   const [requestSending, setRequestSending] = useState(false)
   const [isPro, setIsPro] = useState(false)
@@ -142,7 +140,6 @@ function Settings() {
 
   return (
     <>
-      <ChangelogModal open={changelogOpen} onClose={() => setChangelogOpen(false)} />
       <RootDiv>
         <div className="min-h-screen w-full pb-16 overflow-y-auto">
           <div className="space-y-8 ">
@@ -283,21 +280,6 @@ function Settings() {
                       {rpcEnabled ? "Enabled" : "Disabled"}
                     </span>
                   </div>
-                </div>
-              </SettingCard>
-              <SettingCard>
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <h3 className="text-base font-medium text-k3d-text mb-1">
-                      View Changelog
-                    </h3>
-                    <p className="text-sm text-k3d-text-secondary">
-                      Open the changelog modal.
-                    </p>
-                  </div>
-                  <Button variant="secondary" onClick={() => setChangelogOpen(true)}>
-                    Open Changelog
-                  </Button>
                 </div>
               </SettingCard>
             </SettingSection>

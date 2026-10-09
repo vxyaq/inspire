@@ -14,9 +14,7 @@ const Settings = lazy(() => import("./pages/Settings"))
 const Account = lazy(() => import("./pages/Account"))
 const Backup = lazy(() => import("./pages/Backup"))
 import UpdateManager from "./components/updatemanager"
-import ChangelogModal from "./components/changelogModal"
 import useOnlineStore from "./store/online"
-import { CURRENT_VERSION } from "./lib/version"
 
 import NoAdmin from "./components/noAdmin"
 import {
@@ -97,17 +95,6 @@ function App() {
     }
   }, [setOnline])
 
-  const [changelogOpen, setChangelogOpen] = useState(false)
-
-  useEffect(() => {
-    const lastSeen = localStorage.getItem("k3d:changelogSeenVersion")
-    if (lastSeen !== CURRENT_VERSION) {
-      const timer = setTimeout(() => setChangelogOpen(true), 500)
-      return () => clearTimeout(timer)
-    }
-    return undefined
-  }, [])
-
   useEffect(() => {
     window.electron.ipcRenderer.invoke("get-admin-status").then((isAdmin: boolean) => {
       setAdminStatus(isAdmin)
@@ -137,13 +124,6 @@ function App() {
           <TitleBar
             onToggleSidebar={toggleSidebar}
             sidebarCollapsed={sidebarCollapsed}
-          />
-          <ChangelogModal
-            open={changelogOpen}
-            onClose={() => {
-              localStorage.setItem("k3d:changelogSeenVersion", CURRENT_VERSION)
-              setChangelogOpen(false)
-            }}
           />
           <NoAdmin
             open={adminStatus === false && platformName === "win32"}
