@@ -138,7 +138,13 @@ async function exchangeCode(code) {
       redirect_uri: redirectUri,
     }),
   })
-  if (!response.ok) throw new Error(`Discord token exchange failed (${response.status}).`)
+  if (!response.ok) {
+    if (response.status === 429) {
+      const retryAfter = response.headers.get("retry-after") || "?";
+      throw new Error(`Discord rate limit (429). Try again in ${retryAfter} seconds.`);
+    }
+    throw new Error(`Discord token exchange failed (${response.status}).`);
+  }
   const token = await response.json()
   if (!token.access_token) throw new Error("Discord did not return an access token.")
   return token.access_token
