@@ -77,6 +77,12 @@ function ChangelogContent({ body }: { body: string }) {
 
 const LOCAL_CHANGELOG: Release[] = [
   {
+    tag_name: "v1.2.5",
+    name: "K3d Tweaks v1.2.5",
+    body: "## What's New\n\n- Login moved to the new auth server\n- Auth server address stays changeable in Settings\n",
+    published_at: new Date().toISOString(),
+  },
+  {
     tag_name: "v1.2.4",
     name: "K3d Tweaks v1.2.4",
     body: "## What's New\n\n- Games folder with CS2 mega FPS boost and Fortnite optimization\n- BIOS tab with hardware detection and risk confirmation\n- 8 Pro tweaks with locks, Pro-only backgrounds, Games and BIOS tabs\n- Request Game section with Discord notifications\n- Changeable login server address in Settings\n\n## Improvements\n\n- Discord Rich Presence reconnect and connection status\n- Faster startup, darker popup backgrounds, all English\n",

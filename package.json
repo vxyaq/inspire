@@ -1,6 +1,6 @@
 {
   "name": "k3d-tweaks",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "K3d Tweaks",
   "main": "./out/main/index.js",
   "author": "Parcoil",
