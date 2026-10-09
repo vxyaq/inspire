@@ -447,11 +447,7 @@ function Tweaks() {
   const categories = useMemo(() => {
     const all = [...new Set(tweaks.flatMap((t: any) => tweakCategories(t)))]
     const rest = all.filter((c) => c !== "BIOS" && c !== "Pro")
-    const ordered = [
-      ...(all.includes("Pro") ? ["Pro"] : []),
-      ...rest,
-      ...(all.includes("BIOS") ? ["BIOS"] : []),
-    ]
+    const ordered = [...rest, ...(all.includes("BIOS") ? ["BIOS"] : [])]
     return ["All", ...ordered.filter((c) => isPro || c !== "BIOS")]
   }, [tweaks, isPro])
 
