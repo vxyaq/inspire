@@ -8,7 +8,7 @@ const port = Number(process.env.PORT || 3000)
 const clientId = process.env.DISCORD_CLIENT_ID || "1540168677708795966"
 const clientSecret = process.env.DISCORD_CLIENT_SECRET
 const redirectUri =
-  process.env.DISCORD_REDIRECT_URI || "https://k3d.wisp.uno/auth/discord/callback"
+  process.env.DISCORD_REDIRECT_URI || "https://k3dauth.apps.bot-hosting.cloud/auth/discord/callback"
 const appReturnUri = process.env.APP_RETURN_URI || "http://127.0.0.1:43817/oauth/discord/callback"
 const licensePath = process.env.LICENSE_PATH || path.join(process.cwd(), "license.txt")
 

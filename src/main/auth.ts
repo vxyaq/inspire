@@ -24,7 +24,7 @@ const store = new Store<{
   authResetVersion?: number
   authServerUrl?: string
 }>()
-const DEFAULT_AUTH_SERVER_URL = "https://k3d.wisp.uno"
+const DEFAULT_AUTH_SERVER_URL = "https://k3dauth.apps.bot-hosting.cloud"
 
 function normalizeServerUrl(url: string): string | null {
   const trimmed = url.trim().replace(/\/+$/, "")
