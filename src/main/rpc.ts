@@ -1,6 +1,7 @@
-import { ipcMain } from "electron"
+import { ipcMain, app } from "electron"
+import fs from "fs"
+import path from "path"
 import { Client, PresenceBuilder, ActivityType } from "discord-rpc-new"
-import jsonData from "../../package.json"
 import log from "electron-log"
 import Store from "electron-store"
 
@@ -13,7 +14,23 @@ const RETRY_INTERVAL_MS = 30000
 
 let client: Client | null = null
 let retryTimer: NodeJS.Timeout | null = null
+let refreshTimer: NodeJS.Timeout | null = null
 let connected = false
+
+function startRefreshLoop(): void {
+  if (refreshTimer) return
+  refreshTimer = setInterval(() => {
+    void refreshActivity()
+  }, 60000)
+  refreshTimer.unref?.()
+}
+
+function stopRefreshLoop(): void {
+  if (refreshTimer) {
+    clearInterval(refreshTimer)
+    refreshTimer = null
+  }
+}
 
 function scheduleRetry(): void {
   if (retryTimer) return
@@ -32,15 +49,45 @@ function clearRetry(): void {
   }
 }
 
+function countActiveTweaks(): number {
+  try {
+    const data = fs.readFileSync(path.join(app.getPath("userData"), "tweakStates.json"), "utf8")
+    const parsed = JSON.parse(data)
+    return Object.keys(parsed).filter((key) => parsed[key]).length
+  } catch {
+    return 0
+  }
+}
+
+function accountName(): string {
+  try {
+    const account = (new Store() as any).get("account")
+    if (account?.displayName) return String(account.displayName)
+  } catch {
+    return "Someone"
+  }
+  return "Someone"
+}
+
 function buildActivity() {
+  const count = countActiveTweaks()
   return new PresenceBuilder()
     .setType(ActivityType.Playing)
-    .setDetails("Optimizing your PC")
-    .setState(`Running K3d Tweaks v${jsonData.version ?? "2"}`)
+    .setDetails(`${accountName()} is optimizing`)
+    .setState(`${count} ${count === 1 ? "tweak" : "tweaks"} enabled`)
     .setStartTimestamp(Date.now())
-    .addButton("Download K3d Tweaks", "https://dcd.gg/k3d-tweaks")
-    .addButton("Join Discord", "https://dcd.gg/k3d-tweaks")
+    .addButton("Download K3d Tweaks", "https://github.com/vxyaq/k3d-tweaks")
+    .addButton("Join Discord", "https://discord.com/invite/En5YJYWj3Z")
     .build()
+}
+
+async function refreshActivity(): Promise<void> {
+  if (!client || !connected) return
+  try {
+    await client.setActivity(buildActivity())
+  } catch {
+    return
+  }
 }
 
 async function startDiscordRPC(): Promise<boolean> {
@@ -54,6 +101,7 @@ async function startDiscordRPC(): Promise<boolean> {
   rpc.on("READY", async () => {
     log.log("(rpc) Discord RPC connected")
     connected = true
+    startRefreshLoop()
 
     try {
       await rpc.setActivity(buildActivity())
@@ -107,6 +155,7 @@ async function stopDiscordRPC(): Promise<boolean> {
   client = null
   connected = false
   clearRetry()
+  stopRefreshLoop()
 
   try {
     await current.destroy()
