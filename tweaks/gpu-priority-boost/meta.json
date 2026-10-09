@@ -1,0 +1,10 @@
+{
+  "title": "Boost GPU Priority for Games",
+  "name": "gpu-priority-boost",
+  "risk": "safe",
+  "modal": "This raises GPU and CPU scheduling priority for the Games multimedia profile.",
+  "reversible": true,
+  "category": ["Gaming", "Pro"],
+  "description": "Raises GPU and CPU priority for games in the Windows multimedia scheduler",
+  "deepDescription": "Windows schedules GPU time per profile. This maxes out the Games profile:\n\n- GPU Priority → 8\n- Priority → 6\n- Scheduling Category → High\n\nRevert restores the defaults."
+}

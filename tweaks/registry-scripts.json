@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-08T19:41:38.643Z",
+  "version": "2026-10-09T11:18:14.948Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -156,6 +156,23 @@
       }
     },
     {
+      "id": "disable-core-parking",
+      "title": "Disable CPU Core Parking",
+      "description": "Keeps all CPU cores unparked to kill stutters from cores waking up mid-game",
+      "category": [
+        "Performance",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-core-parking",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-core-parking/meta.json",
+      "scripts": {
+        "apply": "Write-Host \"Disabling CPU core parking...\"\npowercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 100\npowercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 100\npowercfg /setactive SCHEME_CURRENT\nWrite-Host \"CPU core parking disabled.\"\n",
+        "unapply": "Write-Host \"Restoring CPU core parking...\"\npowercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 10\npowercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 10\npowercfg /setactive SCHEME_CURRENT\nWrite-Host \"CPU core parking restored.\"\n"
+      }
+    },
+    {
       "id": "disable-defender-rtp",
       "title": "Disable Defender RTP",
       "description": "Disables Defender Real-time Protection",
@@ -286,6 +303,57 @@
       "scripts": {
         "apply": "Set-ItemProperty -Path \"HKCU:\\Control Panel\\Mouse\" -Name \"MouseSpeed\" -Value \"0\"\nSet-ItemProperty -Path \"HKCU:\\Control Panel\\Mouse\" -Name \"MouseThreshold1\" -Value \"0\"\nSet-ItemProperty -Path \"HKCU:\\Control Panel\\Mouse\" -Name \"MouseThreshold2\" -Value \"0\"\n",
         "unapply": "Set-ItemProperty -Path \"HKCU:\\Control Panel\\Mouse\" -Name \"MouseSpeed\" -Value \"1\"\nSet-ItemProperty -Path \"HKCU:\\Control Panel\\Mouse\" -Name \"MouseThreshold1\" -Value \"6\"\nSet-ItemProperty -Path \"HKCU:\\Control Panel\\Mouse\" -Name \"MouseThreshold2\" -Value \"10\"\n"
+      }
+    },
+    {
+      "id": "disable-mpo-overlay",
+      "title": "Disable MPO Overlay",
+      "description": "Disables driver multiplane overlay to fix stutter, flicker and tearing in games",
+      "category": [
+        "Performance",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-mpo-overlay",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-mpo-overlay/meta.json",
+      "scripts": {
+        "apply": "Write-Host \"Disabling MPO overlay...\"\nSet-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\DWM\" -Name \"OverlayTestMode\" -Value 5 -Type DWord -Force\nWrite-Host \"MPO overlay disabled. Restart recommended.\"\n",
+        "unapply": "Write-Host \"Restoring MPO overlay...\"\nRemove-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\DWM\" -Name \"OverlayTestMode\" -ErrorAction SilentlyContinue\nWrite-Host \"MPO overlay restored. Restart recommended.\"\n"
+      }
+    },
+    {
+      "id": "disable-nagle",
+      "title": "Disable Nagle TCP Delay",
+      "description": "Disables Nagle packet batching to cut network delay in online games",
+      "category": [
+        "Gaming",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-nagle",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-nagle/meta.json",
+      "scripts": {
+        "apply": "Write-Host \"Disabling Nagle TCP delay...\"\n$base = \"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\"\nGet-ChildItem -Path $base -ErrorAction SilentlyContinue | ForEach-Object {\n    Set-ItemProperty -Path $_.PSPath -Name \"TcpAckFrequency\" -Value 1 -Type DWord -Force\n    Set-ItemProperty -Path $_.PSPath -Name \"TCPNoDelay\" -Value 1 -Type DWord -Force\n}\nWrite-Host \"Nagle TCP delay disabled.\"\n",
+        "unapply": "Write-Host \"Restoring Nagle TCP delay...\"\n$base = \"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\"\nGet-ChildItem -Path $base -ErrorAction SilentlyContinue | ForEach-Object {\n    Remove-ItemProperty -Path $_.PSPath -Name \"TcpAckFrequency\" -ErrorAction SilentlyContinue\n    Remove-ItemProperty -Path $_.PSPath -Name \"TCPNoDelay\" -ErrorAction SilentlyContinue\n}\nWrite-Host \"Nagle TCP delay restored.\"\n"
+      }
+    },
+    {
+      "id": "disable-power-throttling",
+      "title": "Disable Power Throttling",
+      "description": "Stops Windows from throttling CPU and background apps for stable gaming clocks",
+      "category": [
+        "Performance",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-power-throttling",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-power-throttling/meta.json",
+      "scripts": {
+        "apply": "Write-Host \"Disabling power throttling...\"\nNew-Item -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\" -Force | Out-Null\nSet-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\" -Name \"PowerThrottlingOff\" -Value 1 -Type DWord -Force\nWrite-Host \"Power throttling disabled.\"\n",
+        "unapply": "Write-Host \"Restoring power throttling...\"\nSet-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\" -Name \"PowerThrottlingOff\" -Value 0 -Type DWord -Force\nWrite-Host \"Power throttling restored.\"\n"
       }
     },
     {
@@ -466,6 +534,40 @@
       }
     },
     {
+      "id": "fast-dns",
+      "title": "Fast Gaming DNS",
+      "description": "Switches to fast Cloudflare and Google DNS for quicker matchmaking and browsing",
+      "category": [
+        "Gaming",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/fast-dns",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/fast-dns/meta.json",
+      "scripts": {
+        "apply": "Write-Host \"Setting fast gaming DNS...\"\nGet-NetAdapter -ErrorAction SilentlyContinue | Where-Object { $_.Status -eq \"Up\" } | ForEach-Object {\n    netsh interface ip set dns name=\"$($_.Name)\" static 1.1.1.1\n    netsh interface ip add dns name=\"$($_.Name)\" 8.8.8.8 index=2\n}\nWrite-Host \"Fast gaming DNS set.\"\n",
+        "unapply": "Write-Host \"Restoring automatic DNS...\"\nGet-NetAdapter -ErrorAction SilentlyContinue | Where-Object { $_.Status -eq \"Up\" } | ForEach-Object {\n    netsh interface ip set dns name=\"$($_.Name)\" dhcp\n}\nWrite-Host \"Automatic DNS restored.\"\n"
+      }
+    },
+    {
+      "id": "gpu-priority-boost",
+      "title": "Boost GPU Priority for Games",
+      "description": "Raises GPU and CPU priority for games in the Windows multimedia scheduler",
+      "category": [
+        "Gaming",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/gpu-priority-boost",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/gpu-priority-boost/meta.json",
+      "scripts": {
+        "apply": "Write-Host \"Boosting GPU priority for games...\"\n$gamesPath = \"HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games\"\nNew-Item -Path $gamesPath -Force | Out-Null\nSet-ItemProperty -Path $gamesPath -Name \"GPU Priority\" -Value 8 -Type DWord -Force\nSet-ItemProperty -Path $gamesPath -Name \"Priority\" -Value 6 -Type DWord -Force\nSet-ItemProperty -Path $gamesPath -Name \"Scheduling Category\" -Value \"High\" -Type String -Force\nWrite-Host \"GPU priority boosted for games.\"\n",
+        "unapply": "Write-Host \"Restoring GPU priority for games...\"\n$gamesPath = \"HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games\"\nSet-ItemProperty -Path $gamesPath -Name \"GPU Priority\" -Value 2 -Type DWord -Force\nSet-ItemProperty -Path $gamesPath -Name \"Priority\" -Value 2 -Type DWord -Force\nSet-ItemProperty -Path $gamesPath -Name \"Scheduling Category\" -Value \"High\" -Type String -Force\nWrite-Host \"GPU priority restored for games.\"\n"
+      }
+    },
+    {
       "id": "hide-taskview-and-widgets",
       "title": "Hide Taskview and Widgets",
       "description": "Hides the Taskview and Widgets buttons on the taskbar.",
@@ -513,6 +615,23 @@
       "scripts": {
         "apply": "Set-ItemProperty -Path \"HKCU:\\Control Panel\\Desktop\" -Name \"MenuShowDelay\" -Type String -Value \"0\"\n",
         "unapply": "Set-ItemProperty -Path \"HKCU:\\Control Panel\\Desktop\" -Name \"MenuShowDelay\" -Type String -Value \"400\"\n"
+      }
+    },
+    {
+      "id": "network-throttling-off",
+      "title": "Disable Network Throttling",
+      "description": "Removes Windows network throughput cap for lower ping and faster packets in games",
+      "category": [
+        "Gaming",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/network-throttling-off",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/network-throttling-off/meta.json",
+      "scripts": {
+        "apply": "Write-Host \"Disabling network throttling...\"\nSet-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" -Name \"NetworkThrottlingIndex\" -Value 4294967295 -Type DWord -Force\nWrite-Host \"Network throttling disabled.\"\n",
+        "unapply": "Write-Host \"Restoring network throttling...\"\nSet-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" -Name \"NetworkThrottlingIndex\" -Value 10 -Type DWord -Force\nWrite-Host \"Network throttling restored.\"\n"
       }
     },
     {
@@ -853,6 +972,23 @@
       "scripts": {
         "apply": "Set-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" -Name \"ShowSecondsInSystemClock\" -Type DWord -Value 1\n\nStop-Process -Name explorer -Force\nStart-Process explorer\n",
         "unapply": "Set-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" -Name \"ShowSecondsInSystemClock\" -Type DWord -Value 0\n\nStop-Process -Name explorer -Force\nStart-Process explorer\n"
+      }
+    },
+    {
+      "id": "system-responsiveness",
+      "title": "Gaming System Responsiveness",
+      "description": "Reserves more CPU time for games instead of background tasks",
+      "category": [
+        "Gaming",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/system-responsiveness",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/system-responsiveness/meta.json",
+      "scripts": {
+        "apply": "Write-Host \"Setting gaming system responsiveness...\"\nSet-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" -Name \"SystemResponsiveness\" -Value 10 -Type DWord -Force\nWrite-Host \"System responsiveness set for gaming.\"\n",
+        "unapply": "Write-Host \"Restoring system responsiveness...\"\nSet-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" -Name \"SystemResponsiveness\" -Value 20 -Type DWord -Force\nWrite-Host \"System responsiveness restored.\"\n"
       }
     },
     {

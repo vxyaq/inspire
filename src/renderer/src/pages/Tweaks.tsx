@@ -10,6 +10,7 @@ import {
   Zap,
   Paintbrush,
   HardDrive,
+  Lock,
 } from "lucide-react"
 import { toast } from "react-toastify"
 import RootDiv from "@/components/rootdiv"
@@ -82,6 +83,10 @@ function Tweaks() {
       if (!systemInfo.isNvidia) {
         return { compatible: false, reason: "Requires an NVIDIA GPU" }
       }
+    }
+
+    if (tweakCategories(tweak).includes("Pro") && !isPro) {
+      return { compatible: false, reason: "Requires Pro plan" }
     }
 
     if (biosFacts) {
@@ -355,7 +360,10 @@ function Tweaks() {
   const handleApplyRecommended = async () => {
     const preset = presets[0]
     const presetTweaks = tweaks.filter(
-      (t) => preset.tweaks.includes(t.name) && !tweakCategories(t).includes("BIOS"),
+      (t) =>
+        preset.tweaks.includes(t.name) &&
+        !tweakCategories(t).includes("BIOS") &&
+        !tweakCategories(t).includes("Pro"),
     )
     setRecommendedTweaksToApply(presetTweaks)
     setSelectedRecommendedTweaks(new Set(presetTweaks.map((t) => t.name)))
@@ -438,8 +446,12 @@ function Tweaks() {
 
   const categories = useMemo(() => {
     const all = [...new Set(tweaks.flatMap((t: any) => tweakCategories(t)))]
-    const rest = all.filter((c) => c !== "BIOS")
-    const ordered = [...rest, ...(all.includes("BIOS") ? ["BIOS"] : [])]
+    const rest = all.filter((c) => c !== "BIOS" && c !== "Pro")
+    const ordered = [
+      ...(all.includes("Pro") ? ["Pro"] : []),
+      ...rest,
+      ...(all.includes("BIOS") ? ["BIOS"] : []),
+    ]
     return ["All", ...ordered.filter((c) => isPro || c !== "BIOS")]
   }, [tweaks, isPro])
 
@@ -460,6 +472,7 @@ function Tweaks() {
     Gaming: <Gamepad className="w-4 h-4 text-k3d-primary" />,
     General: <Wrench className="w-4 h-4 text-k3d-primary" />,
     BIOS: <HardDrive className="w-4 h-4 text-k3d-primary" />,
+    Pro: <Lock className="w-4 h-4 text-amber-400" />,
   }
 
   const presets = [
@@ -702,6 +715,13 @@ function Tweaks() {
                               </div>
                             </Tooltip>
                           ))}
+                          {tweakCategories(tweak).includes("Pro") && !isPro && (
+                            <Tooltip content="Requires Pro plan" delay={0.3} side="top">
+                              <div className="flex items-center gap-1 px-1.5 py-1 rounded-md bg-amber-400/15 text-amber-400 text-[10px] font-bold">
+                                <Lock className="w-3 h-3" /> PRO
+                              </div>
+                            </Tooltip>
+                          )}
                           {tweak.warning && (
                             <Tooltip content={tweak.warning} delay={0.3} side="top">
                               <div className="p-1 rounded-md bg-red-900/30 text-red-400 hover:bg-red-900/50 transition-colors">

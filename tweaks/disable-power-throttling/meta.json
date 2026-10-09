@@ -1,0 +1,10 @@
+{
+  "title": "Disable Power Throttling",
+  "name": "disable-power-throttling",
+  "risk": "safe",
+  "modal": "This stops Windows from slowing down your CPU and apps in the background to save power.",
+  "reversible": true,
+  "category": ["Performance", "Pro"],
+  "description": "Stops Windows from throttling CPU and background apps for stable gaming clocks",
+  "deepDescription": "Windows Power Throttling slows background work to save energy, but it also causes clock dips in games. This turns it off system-wide:\n\n- PowerThrottlingOff → On\n\nLaptops will use more battery."
+}

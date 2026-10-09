@@ -1,0 +1,10 @@
+{
+  "title": "Disable Network Throttling",
+  "name": "network-throttling-off",
+  "risk": "safe",
+  "modal": "This removes the Windows cap on network throughput for games and multimedia.",
+  "reversible": true,
+  "category": ["Gaming", "Pro"],
+  "description": "Removes Windows network throughput cap for lower ping and faster packets in games",
+  "deepDescription": "Windows throttles non-multimedia network traffic to 10 packets per millisecond. This removes the cap entirely:\n\n- NetworkThrottlingIndex → Unlimited\n\nRevert restores the default of 10."
+}

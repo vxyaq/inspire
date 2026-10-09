@@ -1,0 +1,10 @@
+{
+  "title": "Disable MPO Overlay",
+  "name": "disable-mpo-overlay",
+  "risk": "caution",
+  "modal": "This disables Multiplane Overlay in the display driver. It fixes stutter and flicker on many NVIDIA and AMD setups.",
+  "reversible": true,
+  "category": ["Performance", "Pro"],
+  "description": "Disables driver multiplane overlay to fix stutter, flicker and tearing in games",
+  "deepDescription": "Multiplane Overlay (MPO) offloads window composition to the display driver, but on many drivers it causes stutter, flicker and alt-tab issues. This disables it:\n\n- OverlayTestMode → 5 (MPO off)\n\nRevert deletes the value. Restart recommended."
+}

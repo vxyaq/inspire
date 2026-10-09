@@ -1,0 +1,10 @@
+{
+  "title": "Gaming System Responsiveness",
+  "name": "system-responsiveness",
+  "risk": "safe",
+  "modal": "This gives games priority over background tasks for CPU scheduling.",
+  "reversible": true,
+  "category": ["Gaming", "Pro"],
+  "description": "Reserves more CPU time for games instead of background tasks",
+  "deepDescription": "SystemResponsiveness decides how much CPU is reserved for low-priority background work. Lower means more for your game:\n\n- SystemResponsiveness → 10 (gaming)\n\nRevert restores the default of 20."
+}

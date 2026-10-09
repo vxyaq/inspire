@@ -1,0 +1,10 @@
+{
+  "title": "Disable Nagle TCP Delay",
+  "name": "disable-nagle",
+  "risk": "safe",
+  "modal": "This disables packet batching (Nagle) on all network adapters for lower latency.",
+  "reversible": true,
+  "category": ["Gaming", "Pro"],
+  "description": "Disables Nagle packet batching to cut network delay in online games",
+  "deepDescription": "Nagle's algorithm batches small packets together, adding delay to game traffic. This disables it on every adapter:\n\n- TcpAckFrequency → 1 (instant ACK)\n- TCPNoDelay → 1 (no batching)\n\nRevert removes both values. Slightly higher packet count."
+}

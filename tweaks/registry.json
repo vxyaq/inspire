@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-08T19:41:38.643Z",
+  "version": "2026-10-09T11:18:14.948Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -120,6 +120,19 @@
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-core-isolation/meta.json"
     },
     {
+      "id": "disable-core-parking",
+      "title": "Disable CPU Core Parking",
+      "description": "Keeps all CPU cores unparked to kill stutters from cores waking up mid-game",
+      "category": [
+        "Performance",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-core-parking",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-core-parking/meta.json"
+    },
+    {
       "id": "disable-defender-rtp",
       "title": "Disable Defender RTP",
       "description": "Disables Defender Real-time Protection",
@@ -219,6 +232,45 @@
       "reversible": true,
       "docsurl": "https://docs.getk3d.net/tweaks/disable-mouse-acceleration",
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-mouse-acceleration/meta.json"
+    },
+    {
+      "id": "disable-mpo-overlay",
+      "title": "Disable MPO Overlay",
+      "description": "Disables driver multiplane overlay to fix stutter, flicker and tearing in games",
+      "category": [
+        "Performance",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-mpo-overlay",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-mpo-overlay/meta.json"
+    },
+    {
+      "id": "disable-nagle",
+      "title": "Disable Nagle TCP Delay",
+      "description": "Disables Nagle packet batching to cut network delay in online games",
+      "category": [
+        "Gaming",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-nagle",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-nagle/meta.json"
+    },
+    {
+      "id": "disable-power-throttling",
+      "title": "Disable Power Throttling",
+      "description": "Stops Windows from throttling CPU and background apps for stable gaming clocks",
+      "category": [
+        "Performance",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/disable-power-throttling",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/disable-power-throttling/meta.json"
     },
     {
       "id": "disable-rdp-warnings",
@@ -358,6 +410,32 @@
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/enable-optimization-for-windowed-games/meta.json"
     },
     {
+      "id": "fast-dns",
+      "title": "Fast Gaming DNS",
+      "description": "Switches to fast Cloudflare and Google DNS for quicker matchmaking and browsing",
+      "category": [
+        "Gaming",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/fast-dns",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/fast-dns/meta.json"
+    },
+    {
+      "id": "gpu-priority-boost",
+      "title": "Boost GPU Priority for Games",
+      "description": "Raises GPU and CPU priority for games in the Windows multimedia scheduler",
+      "category": [
+        "Gaming",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/gpu-priority-boost",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/gpu-priority-boost/meta.json"
+    },
+    {
       "id": "hide-taskview-and-widgets",
       "title": "Hide Taskview and Widgets",
       "description": "Hides the Taskview and Widgets buttons on the taskbar.",
@@ -394,6 +472,19 @@
       "reversible": true,
       "docsurl": "https://docs.getk3d.net/tweaks/menu-show-delay-zero",
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/menu-show-delay-zero/meta.json"
+    },
+    {
+      "id": "network-throttling-off",
+      "title": "Disable Network Throttling",
+      "description": "Removes Windows network throughput cap for lower ping and faster packets in games",
+      "category": [
+        "Gaming",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/network-throttling-off",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/network-throttling-off/meta.json"
     },
     {
       "id": "optimize-amd-settings",
@@ -654,6 +745,19 @@
       "reversible": true,
       "docsurl": "https://docs.getk3d.net/tweaks/show-seconds-in-system-clock",
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/show-seconds-in-system-clock/meta.json"
+    },
+    {
+      "id": "system-responsiveness",
+      "title": "Gaming System Responsiveness",
+      "description": "Reserves more CPU time for games instead of background tasks",
+      "category": [
+        "Gaming",
+        "Pro"
+      ],
+      "recommended": false,
+      "reversible": true,
+      "docsurl": "https://docs.getk3d.net/tweaks/system-responsiveness",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/system-responsiveness/meta.json"
     },
     {
       "id": "uefi-csm",

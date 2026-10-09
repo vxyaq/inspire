@@ -2,6 +2,7 @@ import { ipcMain, app, IpcMainInvokeEvent } from "electron"
 import fs from "fs/promises"
 import fsSync from "fs"
 import path from "path"
+import Store from "electron-store"
 import { exec } from "child_process"
 import { logo } from "@main/windowState"
 import { executePowerShell } from "@main/powershell"
@@ -120,6 +121,14 @@ function isIntelTweak(tweak: Tweak): boolean {
   return tweak.name === "optimize-intel-settings"
 }
 
+function isProTweak(tweak: Tweak): boolean {
+  return !!(tweak.category && tweak.category.includes("Pro"))
+}
+
+function isBiosTweak(tweak: Tweak): boolean {
+  return !!(tweak.category && tweak.category.includes("BIOS"))
+}
+
 const EXPLORER_RESTART_TWEAKS = new Set([
   "align-taskbar-left",
   "hide-taskview-and-widgets",
@@ -183,6 +192,18 @@ export const setupTweaksHandlers = (): void => {
     const tweak = tweaks.find((t) => t.name === name)
     if (!tweak) {
       throw new Error(`No apply script found for tweak: ${name}`)
+    }
+
+    if (isProTweak(tweak) || isBiosTweak(tweak)) {
+      let plan: string | undefined
+      try {
+        plan = (new Store() as any).get("account")?.plan
+      } catch {
+        plan = undefined
+      }
+      if (plan !== "pro") {
+        throw new Error("This tweak requires a Pro plan.")
+      }
     }
 
     if (isGPUTweak(tweak)) {

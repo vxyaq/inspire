@@ -1,0 +1,10 @@
+{
+  "title": "Disable CPU Core Parking",
+  "name": "disable-core-parking",
+  "risk": "safe",
+  "modal": "This keeps all CPU cores awake. Idle power usage will be higher.",
+  "reversible": true,
+  "category": ["Performance", "Pro"],
+  "description": "Keeps all CPU cores unparked to kill stutters from cores waking up mid-game",
+  "deepDescription": "Parked CPU cores take time to wake, causing frame spikes when a game suddenly needs them. This forces 100% of cores to stay unparked:\n\n- Minimum unparked cores → 100%\n\nRevert restores the 10% default. Idle power usage is higher."
+}

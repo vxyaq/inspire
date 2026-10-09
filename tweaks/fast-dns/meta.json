@@ -1,0 +1,10 @@
+{
+  "title": "Fast Gaming DNS",
+  "name": "fast-dns",
+  "risk": "caution",
+  "modal": "This switches your DNS servers to Cloudflare (1.1.1.1) and Google (8.8.8.8) on all active adapters. Revert restores automatic DNS.",
+  "reversible": true,
+  "category": ["Gaming", "Pro"],
+  "description": "Switches to fast Cloudflare and Google DNS for quicker matchmaking and browsing",
+  "deepDescription": "Slow ISP DNS delays matchmaking, downloads and browsing. This sets fast public DNS on every active adapter:\n\n- Primary DNS → 1.1.1.1 (Cloudflare)\n- Secondary DNS → 8.8.8.8 (Google)\n\nRevert restores automatic (DHCP) DNS."
+}
