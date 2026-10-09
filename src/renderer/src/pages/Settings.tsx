@@ -26,8 +26,6 @@ function Settings() {
   const [changelogOpen, setChangelogOpen] = useState(false)
   const [gameRequest, setGameRequest] = useState("")
   const [requestSending, setRequestSending] = useState(false)
-  const [serverUrl, setServerUrl] = useState("")
-  const [serverSaving, setServerSaving] = useState(false)
   const [isPro, setIsPro] = useState(false)
   const [rpcEnabled, setRpcEnabled] = useState(true)
   const [rpcLoading, setRpcLoading] = useState(false)
@@ -114,26 +112,7 @@ function Settings() {
     return () => window.removeEventListener("auth:changed", loadPlan)
   }, [])
 
-  const saveServerUrl = async () => {
-    try {
-      setServerSaving(true)
-      const res = await invoke({ channel: "auth:set-server-url", payload: serverUrl })
-      if (res?.ok) {
-        toast.success("Auth server saved. Log out and in for full effect.")
-      } else {
-        toast.error(res?.error ?? "Unable to save URL")
-      }
-    } catch (e) {
-      toast.error(String(e))
-    } finally {
-      setServerSaving(false)
-    }
-  }
-
   useEffect(() => {
-    invoke({ channel: "auth:get-server-url" }).then((url) => {
-      if (typeof url === "string") setServerUrl(url)
-    })
     const checkRpc = () => {
       invoke({ channel: "rpc:status" })
         .then((status) => setRpcConnected(!!status?.connected))
@@ -217,30 +196,6 @@ function Settings() {
                   </div>
                   <Button onClick={checkForUpdates} disabled={checking}>
                     {checking ? "Checking..." : "Check for Updates"}
-                  </Button>
-                </div>
-              </SettingCard>
-            </SettingSection>
-
-            <SettingSection title="Auth Server">
-              <SettingCard>
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex-1">
-                    <h3 className="text-base font-medium text-k3d-text mb-1">
-                      Login server URL
-                    </h3>
-                    <p className="text-sm text-k3d-text-secondary mb-3">
-                      Address of the authentication server. Takes full effect after log out and in.
-                    </p>
-                    <Input
-                      value={serverUrl}
-                      onChange={(e) => setServerUrl(e.target.value)}
-                      placeholder="https://k3d.wisp.uno"
-                      maxLength={100}
-                    />
-                  </div>
-                  <Button onClick={saveServerUrl} disabled={serverSaving} className="shrink-0 self-end">
-                    {serverSaving ? "Saving..." : "Save"}
                   </Button>
                 </div>
               </SettingCard>
