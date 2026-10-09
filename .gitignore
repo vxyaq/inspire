@@ -27,3 +27,6 @@ docs/tweaks
 !packages/discord-rpc-new/dist/
 /target/
 /target/
+auth-server/target/
+license-cli/target/
+update-server/target/
