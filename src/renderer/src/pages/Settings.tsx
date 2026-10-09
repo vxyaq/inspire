@@ -26,6 +26,7 @@ function Settings() {
   const [changelogOpen, setChangelogOpen] = useState(false)
   const [gameRequest, setGameRequest] = useState("")
   const [requestSending, setRequestSending] = useState(false)
+  const [isPro, setIsPro] = useState(false)
   const [rpcEnabled, setRpcEnabled] = useState(true)
   const [rpcLoading, setRpcLoading] = useState(false)
   const [rpcConnected, setRpcConnected] = useState<boolean | null>(null)
@@ -93,6 +94,25 @@ function Settings() {
   }
 
   useEffect(() => {
+    const loadPlan = () => {
+      invoke({ channel: "auth:get-session" })
+        .then((account) => {
+          const pro = account?.plan === "pro"
+          setIsPro(pro)
+          if (!pro) {
+            setBackgroundStyleState("gray")
+            persistBackgroundStyle("gray")
+            applyPlainGray()
+          }
+        })
+        .catch(() => setIsPro(false))
+    }
+    loadPlan()
+    window.addEventListener("auth:changed", loadPlan)
+    return () => window.removeEventListener("auth:changed", loadPlan)
+  }, [])
+
+  useEffect(() => {
     invoke({ channel: "rpc-enabled:get" }).then((status) => setRpcEnabled(status))
     const checkRpc = () => {
       invoke({ channel: "rpc:status" })
@@ -156,9 +176,10 @@ function Settings() {
                     </p>
                   </div>
                   <Dropdown
-                    value={backgroundLabel(backgroundStyle)}
-                    options={["Blurred image", "Second image", "Plain gray"]}
+                    value={isPro ? backgroundLabel(backgroundStyle) : "Plain gray"}
+                    options={isPro ? ["Blurred image", "Second image", "Plain gray"] : ["Plain gray"]}
                     onChange={handleBackgroundChange}
+                    disabled={!isPro}
                   />
                 </div>
               </SettingCard>

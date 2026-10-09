@@ -103,7 +103,10 @@ export default function Games(): React.ReactElement {
                     const bg = game.background?.startsWith("http")
                       ? game.background
                       : BACKGROUNDS[game.background]
-                    return bg ? { backgroundImage: `url(${bg})` } : undefined
+                    return {
+                      borderRadius: "13px",
+                      ...(bg ? { backgroundImage: `url(${bg})` } : {}),
+                    }
                   })()
                 }
               >

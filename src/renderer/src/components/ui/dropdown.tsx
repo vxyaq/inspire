@@ -5,9 +5,10 @@ interface DropdownProps {
   options: string[]
   value: string
   onChange: (value: string) => void
+  disabled?: boolean
 }
 
-export function Dropdown({ options, value, onChange }: DropdownProps) {
+export function Dropdown({ options, value, onChange, disabled = false }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -24,8 +25,9 @@ export function Dropdown({ options, value, onChange }: DropdownProps) {
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="px-4 py-2 rounded-lg border border-k3d-border bg-k3d-bg text-k3d-text hover:border-k3d-primary transition-all duration-200 flex items-center gap-2 min-w-[180px] justify-between shadow-sm hover:shadow"
+        onClick={() => !disabled && setIsOpen(!isOpen)}
+        disabled={disabled}
+        className="px-4 py-2 rounded-lg border border-k3d-border bg-k3d-bg text-k3d-text hover:border-k3d-primary transition-all duration-200 flex items-center gap-2 min-w-[180px] justify-between shadow-sm hover:shadow disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span>{value}</span>
         <ChevronDown

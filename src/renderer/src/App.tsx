@@ -19,7 +19,11 @@ import useOnlineStore from "./store/online"
 import { CURRENT_VERSION } from "./lib/version"
 
 import NoAdmin from "./components/noAdmin"
-import { loadSavedBackground } from "./lib/background"
+import {
+  loadSavedBackground,
+  applyPlainGray,
+  setBackgroundStyle,
+} from "./lib/background"
 import { invoke } from "./lib/electron"
 import AuthScreen, { type AccountProfile } from "./components/authScreen"
 
@@ -50,9 +54,14 @@ function App() {
         if (session) {
           invoke({ channel: "auth:refresh-plan" })
             .then((refreshed) => {
+              const current = refreshed ?? session
               if (refreshed) {
                 setAccount(refreshed)
                 window.dispatchEvent(new Event("auth:changed"))
+              }
+              if (current?.plan !== "pro") {
+                setBackgroundStyle("gray")
+                applyPlainGray()
               }
             })
             .catch(() => {})
