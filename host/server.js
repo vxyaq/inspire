@@ -234,7 +234,8 @@ const server = createServer(async (request, response) => {
     return json(response, 404, { error: "Not found." })
   } catch (error) {
     console.error(error)
-    return json(response, 500, { error: "Authentication server error." })
+    const detail = error instanceof Error ? error.message : String(error)
+    return json(response, 500, { error: `Authentication server error: ${detail}` })
   }
 })
 
