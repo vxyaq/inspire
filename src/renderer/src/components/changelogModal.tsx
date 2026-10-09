@@ -77,6 +77,12 @@ function ChangelogContent({ body }: { body: string }) {
 
 const LOCAL_CHANGELOG: Release[] = [
   {
+    tag_name: "v1.2.3",
+    name: "K3d Tweaks v1.2.3",
+    body: "## What's New\n\n- Auth server address can now be changed in Settings\n",
+    published_at: new Date().toISOString(),
+  },
+  {
     tag_name: "v1.2.2",
     name: "K3d Tweaks v1.2.2",
     body: "## What's New\n\n- Log out button in the profile card\n- Request Game section in Settings with Discord notifications\n- Discord Rich Presence connection status and automatic reconnect\n\n## Improvements\n\n- Faster app startup\n",

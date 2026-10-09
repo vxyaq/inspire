@@ -19,8 +19,23 @@ type AuthResponse =
   | { ok: true; account: AccountProfile }
   | { ok: false; error: string }
 
-const store = new Store<{ account?: AccountProfile; authResetVersion?: number }>()
-const AUTH_SERVER_URL = "https://k3d.wisp.uno"
+const store = new Store<{
+  account?: AccountProfile
+  authResetVersion?: number
+  authServerUrl?: string
+}>()
+const DEFAULT_AUTH_SERVER_URL = "https://k3d.wisp.uno"
+
+function normalizeServerUrl(url: string): string | null {
+  const trimmed = url.trim().replace(/\/+$/, "")
+  if (!/^https:\/\/[^/]+\.[^/]+$/.test(trimmed)) return null
+  return trimmed
+}
+
+function getAuthServerUrl(): string {
+  const saved = store.get("authServerUrl")
+  return saved || DEFAULT_AUTH_SERVER_URL
+}
 const DISCORD_REDIRECT_URI = "http://127.0.0.1:43817/oauth/discord/callback"
 
 const AUTH_RESET_VERSION = 1
@@ -81,7 +96,7 @@ function waitForDiscordCallback(state: string): Promise<string> {
 
 async function loginWithDiscord(): Promise<AuthResponse> {
   const state = randomBytes(32).toString("hex")
-  const authorizationUrl = new URL(`${AUTH_SERVER_URL}/auth/discord`)
+  const authorizationUrl = new URL(`${getAuthServerUrl()}/auth/discord`)
   authorizationUrl.searchParams.set("state", state)
   const callback = waitForDiscordCallback(state)
   if (!authorizationUrl.protocol.startsWith("https")) {
@@ -96,7 +111,7 @@ async function loginWithDiscord(): Promise<AuthResponse> {
   } catch {
     hwid = ""
   }
-  const profileResponse = await fetch(`${AUTH_SERVER_URL}/auth/discord/consume`, {
+  const profileResponse = await fetch(`${getAuthServerUrl()}/auth/discord/consume`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ ticket, hwid }),
@@ -135,7 +150,7 @@ async function refreshAccountPlan(): Promise<AccountProfile | null> {
   if (!hwid) return account
   try {
     const planResponse = await fetch(
-      `${AUTH_SERVER_URL}/plan?hwid=${encodeURIComponent(hwid)}`,
+      `${getAuthServerUrl()}/plan?hwid=${encodeURIComponent(hwid)}`,
       { signal: AbortSignal.timeout(10_000) },
     )
     if (!planResponse.ok) return account
@@ -154,6 +169,18 @@ ipcMain.handle("auth:refresh-plan", refreshAccountPlan)
 
 ipcMain.handle("auth:logout", (): { ok: true } => {
   store.delete("account")
+  return { ok: true }
+})
+
+ipcMain.handle("auth:get-server-url", (): string => {
+  return getAuthServerUrl()
+})
+
+ipcMain.handle("auth:set-server-url", (_event, url: unknown): { ok: boolean; error?: string } => {
+  if (typeof url !== "string") return { ok: false, error: "Invalid URL." }
+  const normalized = normalizeServerUrl(url)
+  if (!normalized) return { ok: false, error: "Enter a valid https URL, e.g. https://k3d.wisp.uno" }
+  store.set("authServerUrl", normalized)
   return { ok: true }
 })
 
