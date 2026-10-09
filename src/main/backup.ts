@@ -44,6 +44,11 @@ interface BackupResult {
 let createInProgress: Promise<BackupResult> | null = null
 let lastCreatedAt = 0
 const CREATE_DEDUPE_MS = 60 * 1000
+let pointsCache: { at: number; points: any[] } | null = null
+const POINTS_TTL_MS = 60 * 1000
+const clearPointsCache = () => {
+  pointsCache = null
+}
 
 async function createPoint(label: string): Promise<BackupResult> {
   if (createInProgress) return createInProgress
@@ -57,6 +62,7 @@ async function createPoint(label: string): Promise<BackupResult> {
       ).catch(() => "")
       await runPowerShell(`Checkpoint-Computer -Description '${label}'`)
       lastCreatedAt = Date.now()
+      clearPointsCache()
       return { success: true, label }
     } catch (error: any) {
       console.error(error)
@@ -87,6 +93,7 @@ export const setupBackupHandlers = (): void => {
     async (_event: IpcMainInvokeEvent): Promise<BackupResult> => {
       try {
         await runPowerShell(`vssadmin delete shadows /all /quiet`)
+        clearPointsCache()
         return { success: true }
       } catch (error: any) {
         console.error("Error deleting all restore points:", error)
@@ -96,9 +103,11 @@ export const setupBackupHandlers = (): void => {
   )
 
   ipcMain.handle("get-restore-points", async (): Promise<BackupResult> => {
-
     if (!platform.windows) {
       return { success: true, points: [] }
+    }
+    if (pointsCache && Date.now() - pointsCache.at < POINTS_TTL_MS) {
+      return { success: true, points: pointsCache.points }
     }
 
     try {
@@ -113,6 +122,7 @@ export const setupBackupHandlers = (): void => {
       } catch {
         points = []
       }
+      pointsCache = { at: Date.now(), points }
       return { success: true, points }
     } catch (error: any) {
       console.error(error)
