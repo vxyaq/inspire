@@ -167,22 +167,23 @@ function Settings() {
                     }}
                   />                </div>
               </SettingCard>
-              <SettingCard>
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <h3 className="text-base font-medium text-k3d-text mb-1">Background</h3>
-                    <p className="text-sm text-k3d-text-secondary">
-                      Show the blurred background image or a plain gray background
-                    </p>
+              {isPro && (
+                <SettingCard>
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <h3 className="text-base font-medium text-k3d-text mb-1">Background</h3>
+                      <p className="text-sm text-k3d-text-secondary">
+                        Show the blurred background image or a plain gray background
+                      </p>
+                    </div>
+                    <Dropdown
+                      value={backgroundLabel(backgroundStyle)}
+                      options={["Blurred image", "Second image", "Plain gray"]}
+                      onChange={handleBackgroundChange}
+                    />
                   </div>
-                  <Dropdown
-                    value={isPro ? backgroundLabel(backgroundStyle) : "Plain gray"}
-                    options={isPro ? ["Blurred image", "Second image", "Plain gray"] : ["Plain gray"]}
-                    onChange={handleBackgroundChange}
-                    disabled={!isPro}
-                  />
-                </div>
-              </SettingCard>
+                </SettingCard>
+              )}
             </SettingSection>
 
             <SettingSection title="Updates">
