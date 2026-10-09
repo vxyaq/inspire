@@ -16,7 +16,9 @@
 
 body {
   font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-  background: var(--bg);
+  background:
+    linear-gradient(rgba(11, 14, 19, 0.82), rgba(11, 14, 19, 0.88)),
+    url("assets/background2.webp") center / cover fixed;
   color: var(--text);
   line-height: 1.6;
 }
