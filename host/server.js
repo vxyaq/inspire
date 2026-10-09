@@ -4,7 +4,7 @@ import fs from "node:fs"
 import path from "node:path"
 import readline from "node:readline"
 
-const port = Number(process.env.PORT || process.env.SERVER_PORT || 3000)
+const port = Number(process.env.SERVER_PORT || process.env.PORT || 3000)
 const clientId = process.env.DISCORD_CLIENT_ID || "1540168677708795966"
 const clientSecret = process.env.DISCORD_CLIENT_SECRET
 const redirectUri =
