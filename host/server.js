@@ -24,6 +24,24 @@ const pendingStates = new Map()
 const tickets = new Map()
 const stateTtlMs = 10 * 60 * 1000
 const ticketTtlMs = 60 * 1000
+const rateLimits = new Map()
+const RATE_WINDOW_MS = 10 * 60 * 1000
+const RATE_MAX = 10
+
+function clientIp(request) {
+  const fwd = request.headers["x-forwarded-for"]
+  if (typeof fwd === "string" && fwd) return fwd.split(",")[0].trim()
+  return (request.socket && request.socket.remoteAddress) || "unknown"
+}
+
+function isRateLimited(ip) {
+  const now = Date.now()
+  const hits = (rateLimits.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS)
+  if (hits.length >= RATE_MAX) return true
+  hits.push(now)
+  rateLimits.set(ip, hits)
+  return hits.length >= RATE_MAX
+}
 
 function loadLicenses() {
   const licenses = new Map()
@@ -117,6 +135,9 @@ function cleanup() {
   for (const [ticket, entry] of tickets) {
     if (now - entry.createdAt > ticketTtlMs) tickets.delete(ticket)
   }
+  for (const [ip, hits] of rateLimits) {
+    if (!hits.some((t) => now - t < RATE_WINDOW_MS)) rateLimits.delete(ip)
+  }
 }
 
 async function readJson(request) {
@@ -126,7 +147,7 @@ async function readJson(request) {
   return JSON.parse(body || "{}")
 }
 
-async function exchangeCode(code) {
+async function exchangeCode(code, retried) {
   const response = await fetch("https://discord.com/api/v10/oauth2/token", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -139,9 +160,13 @@ async function exchangeCode(code) {
     }),
   })
   if (!response.ok) {
+    if (response.status === 429 && !retried) {
+      const waitMs = Math.min(Number(response.headers.get("retry-after") || "2") * 1000, 8000)
+      await new Promise((r) => setTimeout(r, Number.isNaN(waitMs) ? 2000 : waitMs))
+      return exchangeCode(code, true)
+    }
     if (response.status === 429) {
-      const retryAfter = response.headers.get("retry-after") || "?";
-      throw new Error(`Discord rate limit (429). Try again in ${retryAfter} seconds.`);
+      throw new Error("Discord rate limit (429). Try again in a minute.");
     }
     throw new Error(`Discord token exchange failed (${response.status}).`);
   }
@@ -173,6 +198,9 @@ const server = createServer(async (request, response) => {
 
   try {
     if (request.method === "GET" && url.pathname === "/auth/discord") {
+      if (isRateLimited(clientIp(request))) {
+        return json(response, 429, { error: "Too many sign-in attempts. Try again in a few minutes." })
+      }
       const state = url.searchParams.get("state")
       if (!state || state.length > 256) return json(response, 400, { error: "Invalid state." })
       pendingStates.set(state, Date.now())
