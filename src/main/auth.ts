@@ -20,7 +20,7 @@ type AuthResponse =
   | { ok: false; error: string }
 
 const store = new Store<{ account?: AccountProfile; authResetVersion?: number }>()
-const AUTH_SERVER_URL = "https://inspire.wisp.uno"
+const AUTH_SERVER_URL = "https://k3d.wisp.uno"
 const DISCORD_REDIRECT_URI = "http://127.0.0.1:43817/oauth/discord/callback"
 
 const AUTH_RESET_VERSION = 1
