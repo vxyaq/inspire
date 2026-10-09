@@ -77,6 +77,12 @@ function ChangelogContent({ body }: { body: string }) {
 
 const LOCAL_CHANGELOG: Release[] = [
   {
+    tag_name: "v1.2.6",
+    name: "K3d Tweaks v1.2.6",
+    body: "## What's New\n\n- Discord Rich Presence reconnect and connection status\n- Request Game section with Discord notifications\n\n## Improvements\n\n- Faster startup and smaller download\n",
+    published_at: new Date().toISOString(),
+  },
+  {
     tag_name: "v1.2.5",
     name: "K3d Tweaks v1.2.5",
     body: "## What's New\n\n- New login server address\n",
