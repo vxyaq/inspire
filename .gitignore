@@ -26,3 +26,4 @@ site
 docs/tweaks
 !packages/discord-rpc-new/dist/
 /target/
+/target/
