@@ -1,0 +1,14 @@
+/home/ah1ks/Dokumenty/Default Project/Savio Tweaks/auth-server/target/release/deps/serde-828cdae4c4e0ac6a.d: /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs /home/ah1ks/Dokumenty/Default\ Project/Savio\ Tweaks/auth-server/target/release/build/serde-700f1826f0590dd4/out/private.rs
+
+/home/ah1ks/Dokumenty/Default Project/Savio Tweaks/auth-server/target/release/deps/libserde-828cdae4c4e0ac6a.rlib: /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs /home/ah1ks/Dokumenty/Default\ Project/Savio\ Tweaks/auth-server/target/release/build/serde-700f1826f0590dd4/out/private.rs
+
+/home/ah1ks/Dokumenty/Default Project/Savio Tweaks/auth-server/target/release/deps/libserde-828cdae4c4e0ac6a.rmeta: /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs /home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs /home/ah1ks/Dokumenty/Default\ Project/Savio\ Tweaks/auth-server/target/release/build/serde-700f1826f0590dd4/out/private.rs
+
+/home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/lib.rs:
+/home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/integer128.rs:
+/home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/mod.rs:
+/home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/de.rs:
+/home/ah1ks/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.229/src/private/ser.rs:
+/home/ah1ks/Dokumenty/Default\ Project/Savio\ Tweaks/auth-server/target/release/build/serde-700f1826f0590dd4/out/private.rs:
+
+# env-dep:OUT_DIR=/home/ah1ks/Dokumenty/Default Project/Savio Tweaks/auth-server/target/release/build/serde-700f1826f0590dd4/out
