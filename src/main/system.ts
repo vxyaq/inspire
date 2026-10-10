@@ -303,7 +303,7 @@ try { $fw = (Get-ComputerInfo -Property BiosFirmwareType).BiosFirmwareType } cat
   }
 }
 
-async function getSystemUuid(): Promise<string> {
+export async function getSystemUuid(): Promise<string> {
   try {
     const uuidData = await si.uuid()
     return uuidData.os || uuidData.hardware || "Unknown"

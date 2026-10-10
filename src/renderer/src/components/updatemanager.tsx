@@ -83,6 +83,11 @@ export default function UpdateManager(): React.ReactElement {
               : "A new version is available. Please update to ensure K3d Tweaks keeps working properly."}
         </p>
         <div className="flex justify-end gap-3">
+          {!isDownloading && (
+            <Button variant="secondary" onClick={() => setUpdateOpen(false)}>
+              Later
+            </Button>
+          )}
           <Button onClick={handleUpdateNow} disabled={isDownloading}>
             {isDownloaded ? "Restart and install" : isDownloading ? "Downloading…" : "Update now"}
           </Button>

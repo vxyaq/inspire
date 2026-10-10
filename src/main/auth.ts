@@ -2,7 +2,16 @@ import { ipcMain, shell } from "electron"
 import { createServer, type Server } from "node:http"
 import { randomBytes } from "node:crypto"
 import Store from "electron-store"
-import si from "systeminformation"
+import { getSystemUuid } from "@main/system"
+
+async function getHwid(): Promise<string> {
+  try {
+    const uuid = await getSystemUuid()
+    return uuid === "Unknown" ? "" : uuid
+  } catch {
+    return ""
+  }
+}
 
 export type AuthProvider = "discord" | "google"
 
@@ -62,7 +71,9 @@ function waitForDiscordCallback(state: string): Promise<string> {
       const returnedState = callbackUrl.searchParams.get("state")
       const error = callbackUrl.searchParams.get("error")
       const ticket = callbackUrl.searchParams.get("ticket")
-      clearTimeout(timeout)
+      if (ticket || error) {
+        clearTimeout(timeout)
+      }
 
       response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" })
       response.end(
@@ -104,13 +115,7 @@ async function loginWithDiscord(): Promise<AuthResponse> {
   }
   await shell.openExternal(authorizationUrl.toString())
   const ticket = await callback
-  let hwid = ""
-  try {
-    const uuidData = await si.uuid()
-    hwid = uuidData.os || uuidData.hardware || ""
-  } catch {
-    hwid = ""
-  }
+  const hwid = await getHwid()
   const profileResponse = await fetch(`${getAuthServerUrl()}/auth/discord/consume`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -140,13 +145,7 @@ ipcMain.handle("auth:get-session", (): AccountProfile | null => {
 async function refreshAccountPlan(): Promise<AccountProfile | null> {
   const account = store.get("account")
   if (!account) return null
-  let hwid = ""
-  try {
-    const uuidData = await si.uuid()
-    hwid = uuidData.os || uuidData.hardware || ""
-  } catch {
-    hwid = ""
-  }
+  const hwid = await getHwid()
   if (!hwid) return account
   try {
     const planResponse = await fetch(
@@ -179,7 +178,8 @@ ipcMain.handle("auth:get-server-url", (): string => {
 ipcMain.handle("auth:set-server-url", (_event, url: unknown): { ok: boolean; error?: string } => {
   if (typeof url !== "string") return { ok: false, error: "Invalid URL." }
   const normalized = normalizeServerUrl(url)
-  if (!normalized) return { ok: false, error: "Enter a valid https URL, e.g. https://k3d.wisp.uno" }
+  if (!normalized)
+    return { ok: false, error: "Enter a valid https URL, e.g. https://k3dauth.apps.bot-hosting.cloud" }
   store.set("authServerUrl", normalized)
   return { ok: true }
 })

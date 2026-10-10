@@ -12,11 +12,15 @@ export function createTray(mainWindow: BrowserWindow): Tray {
   tray.setToolTip("K3d Tweaks Optimizer")
   tray.setTitle("K3d Tweaks Optimizer")
   tray.setContextMenu(contextMenu)
-  tray.on("click", (): void => ToggleWindowState(mainWindow))
+  tray.on("click", (): void => toggleWindowState(mainWindow))
 
   return tray
 }
 
-function ToggleWindowState(mainWindow: BrowserWindow): void {
-  mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
+function toggleWindowState(mainWindow: BrowserWindow): void {
+  if (mainWindow.isVisible()) {
+    mainWindow.hide()
+  } else {
+    mainWindow.show()
+  }
 }

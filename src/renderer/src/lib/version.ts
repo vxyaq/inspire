@@ -1,6 +1,6 @@
 import { version as appVersion } from '../../../../package.json';
 
-const parseVersion = (version) => {
+const parseVersion = (version: string) => {
   const parts = version.replace(/[^0-9.]/g, '').split('.').map(Number);
   return {
     major: parts[0] || 0,
@@ -9,7 +9,7 @@ const parseVersion = (version) => {
   };
 };
 
-export const isNewInCurrentVersion = (tweakVersion, currentVersion) => {
+export const isNewInCurrentVersion = (tweakVersion: string | undefined, currentVersion: string) => {
   if (!tweakVersion) return false;
 
   const current = parseVersion(currentVersion);
@@ -19,7 +19,7 @@ export const isNewInCurrentVersion = (tweakVersion, currentVersion) => {
          current.minor === tweakVer.minor;
 };
 
-export const isUpdatedInCurrentVersion = (updatedVersion, currentVersion) => {
+export const isUpdatedInCurrentVersion = (updatedVersion: string | undefined, currentVersion: string) => {
   if (!updatedVersion) return false;
 
   const current = parseVersion(currentVersion);

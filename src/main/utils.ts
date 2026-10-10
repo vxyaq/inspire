@@ -2,7 +2,7 @@ import { app } from "electron"
 import path from "path"
 
 export const is = {
-  dev: app.isPackaged === false ? true : false,
+  dev: !app.isPackaged,
 }
 
 export const platform = {

@@ -15,7 +15,6 @@ interface ButtonProps {
   size?: ButtonSize
   className?: string
   disabled?: boolean
-  as?: React.ElementType
   [key: string]: any
 }
 
@@ -25,7 +24,6 @@ const Button: React.FC<ButtonProps> = ({
   size = "sm",
   className = "",
   disabled = false,
-  as = "button",
   ...props
 }) => {
   const base =
