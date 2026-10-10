@@ -28,12 +28,20 @@ export default function AuthScreen({ onAuthenticated }: AuthScreenProps): React.
     if (style === "image" || style === "image2") {
       void applyBackgroundImage(style)
     }
+    invoke({ channel: "get-system-info" }).catch(() => {})
+    invoke({ channel: "games:detect" }).catch(() => {})
+    invoke({ channel: "get-restore-points" }).catch(() => {})
   }, [])
 
   const handleLogin = async (provider: AccountProfile["provider"]) => {
     setLoadingProvider(provider)
     try {
-      const result = await invoke({ channel: "auth:login", payload: provider })
+      const result = await Promise.race([
+        invoke({ channel: "auth:login", payload: provider }),
+        new Promise<never>((_, reject) => {
+          setTimeout(() => reject(new Error("Login timed out. Try again.")), 90000)
+        }),
+      ])
       if (result?.ok && result.account) {
         onAuthenticated(result.account as AccountProfile)
       } else {
