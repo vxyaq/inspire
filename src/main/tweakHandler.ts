@@ -113,14 +113,6 @@ function isNvidiaTweak(tweak: Tweak): boolean {
   return tweak.name === "optimize-nvidia-settings"
 }
 
-function isAmdTweak(tweak: Tweak): boolean {
-  return tweak.name === "optimize-amd-settings"
-}
-
-function isIntelTweak(tweak: Tweak): boolean {
-  return tweak.name === "optimize-intel-settings"
-}
-
 function isProTweak(tweak: Tweak): boolean {
   return !!(tweak.category && tweak.category.includes("Pro"))
 }
@@ -219,14 +211,8 @@ export const setupTweaksHandlers = (): void => {
       if (isNvidiaTweak(tweak) && !gpuInfo.isNvidia) {
         throw new Error(`This tweak is only for NVIDIA GPUs, but no NVIDIA GPU was detected.`)
       }
-      if (isAmdTweak(tweak) && !gpuInfo.isAmd) {
-        throw new Error(`This tweak is only for AMD GPUs, but no AMD GPU was detected.`)
-      }
-      if (isIntelTweak(tweak) && !gpuInfo.isIntel) {
-        throw new Error(`This tweak is only for Intel GPUs, but no Intel GPU was detected.`)
-      }
 
-      if (gpuInfo.wglIssue && (isNvidiaTweak(tweak) || isIntelTweak(tweak))) {
+      if (gpuInfo.wglIssue && isNvidiaTweak(tweak)) {
         console.warn(`Warning: This GPU may have WGL compatibility issues. The tweak may not work correctly.`)
       }
     }
