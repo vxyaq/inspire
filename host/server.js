@@ -38,14 +38,6 @@ function normalizePlan(value) {
   return v
 }
 
-function parseExpiry(value) {
-  if (!value) return 0
-  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value).trim())
-  if (!match) return -1
-  const time = Date.parse(`${match[1]}-${match[2]}-${match[3]}T23:59:59Z`)
-  return Number.isNaN(time) ? -1 : time
-}
-
 function loadLicenses() {
   const map = new Map()
   let raw = ""
@@ -61,9 +53,8 @@ function loadLicenses() {
     if (parts.length < 2) continue
     const hwid = normalizeHwid(parts[0])
     const plan = normalizePlan(parts[1])
-    const expiry = parseExpiry(parts[2] || "")
-    if (!hwid || !plan || expiry === -1) continue
-    map.set(hwid, { plan, expiry })
+    if (!hwid || !plan) continue
+    map.set(hwid, plan)
   }
   return map
 }
@@ -71,10 +62,7 @@ function loadLicenses() {
 let licenseCache = loadLicenses()
 
 function planFor(hwid) {
-  const entry = licenseCache.get(hwid)
-  if (!entry) return "free"
-  if (entry.expiry > 0 && Date.now() > entry.expiry) return "free"
-  return entry.plan
+  return licenseCache.get(hwid) || "free"
 }
 
 function ensureLicenseFile() {
@@ -82,18 +70,16 @@ function ensureLicenseFile() {
     fs.accessSync(licensePath)
     return false
   } catch {
-    fs.writeFileSync(licensePath, "# hwid plan [expires YYYY-MM-DD]\n# 550e8400-e29b-41d4-a716-446655440000 pro\n", "utf8")
+    fs.writeFileSync(licensePath, "# hwid plan\n# 550e8400-e29b-41d4-a716-446655440000 pro\n", "utf8")
     return true
   }
 }
 
-function saveLicense(hwid, plan, expires) {
+function saveLicense(hwid, plan) {
   const target = normalizeHwid(hwid)
   const wanted = normalizePlan(plan)
-  const expiry = parseExpiry(expires || "")
   if (!target) throw new Error("Invalid HWID.")
   if (!wanted) throw new Error("Invalid plan. Use free or pro.")
-  if (expiry === -1) throw new Error("Invalid expiry. Use YYYY-MM-DD.")
   ensureLicenseFile()
   let raw = ""
   try {
@@ -109,7 +95,7 @@ function saveLicense(hwid, plan, expires) {
     const first = trimmed.split(/\s+/)[0] || ""
     if (trimmed && !trimmed.startsWith("#") && normalizeHwid(first) === target) {
       if (!updated) {
-        next.push(expiry > 0 ? `${target} ${wanted} ${expires}` : `${target} ${wanted}`)
+        next.push(`${target} ${wanted}`)
         updated = true
       }
       continue
@@ -117,10 +103,10 @@ function saveLicense(hwid, plan, expires) {
     next.push(line)
   }
   if (!updated) {
-    next.push(expiry > 0 ? `${target} ${wanted} ${expires}` : `${target} ${wanted}`)
+    next.push(`${target} ${wanted}`)
   }
   fs.writeFileSync(licensePath, next.join("\n"), "utf8")
-  licenseCache.set(target, { plan: wanted, expiry })
+  licenseCache.set(target, wanted)
 }
 
 function removeLicense(hwid) {
@@ -412,16 +398,16 @@ rl.on("line", (line) => {
     try {
       const created = ensureLicenseFile()
       console.log(`${created ? "Created" : "Already exists"}: ${licensePath}`)
-      console.log("Format: <hwid> <plan> [expires YYYY-MM-DD]")
-      console.log("Add directly: /license <hwid> <plan> [expires]")
+      console.log("Format: <hwid> <plan> (plan: free or pro, one per line)")
+      console.log("Add directly: /license <hwid> <plan>")
     } catch (error) {
       console.error("Unable to initialize license file:", error)
     }
     return
   }
-  if (parts[0] === "/license" && (parts.length === 3 || parts.length === 4)) {
+  if (parts[0] === "/license" && parts.length === 3) {
     try {
-      saveLicense(parts[1], parts[2], parts[3] || "")
+      saveLicense(parts[1], parts[2])
       console.log(`Saved ${parts[1].toLowerCase()} as ${parts[2].toLowerCase()}.`)
     } catch (error) {
       console.error(error instanceof Error ? error.message : "Unable to save license.")
@@ -433,10 +419,8 @@ rl.on("line", (line) => {
       console.log("No licenses.")
       return
     }
-    for (const [hwid, entry] of licenseCache) {
-      const status = entry.expiry > 0 && Date.now() > entry.expiry ? "expired" : entry.plan
-      const extra = entry.expiry > 0 ? ` until ${new Date(entry.expiry).toISOString().slice(0, 10)}` : ""
-      console.log(`${hwid} ${status}${extra}`)
+    for (const [hwid, plan] of licenseCache) {
+      console.log(`${hwid} ${plan}`)
     }
     return
   }
