@@ -20,7 +20,7 @@ interface StatCardProps {
 
 function StatCard({ icon: Icon, value, label, action, onAction }: StatCardProps) {
   return (
-    <Card className="p-5 bg-k3d-card backdrop-blur-xs rounded-xl border border-k3d-border hover:shadow-xs">
+    <Card className="p-5 bg-k3d-card rounded-xl border border-k3d-border hover:shadow-xs">
       <div className="flex items-start justify-between gap-3 mb-5">
         <div className="p-2.5 rounded-lg bg-k3d-accent ring-1 ring-inset ring-k3d-border">
           <Icon className="text-k3d-primary" size={20} />

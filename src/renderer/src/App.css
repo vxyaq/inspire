@@ -4,12 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@property --angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
 @theme {
   --color-k3d-old-primary: #01e5ff;
   --color-k3d-primary: var(--color-primary);
@@ -23,16 +17,6 @@
   --color-k3d-accent: var(--color-accent);
   --color-k3d-border-secondary: var(--color-border-secondary);
   --color-k3d-old-secondary: #005fff;
-  --animate-border-spin: border-spin 3s linear infinite;
-
-  @keyframes border-spin {
-    from {
-      --angle: 0deg;
-    }
-    to {
-      --angle: 360deg;
-    }
-  }
 }
 
 @layer base {
@@ -163,8 +147,9 @@ body.bg-image::before {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(3px) brightness(0.8) saturate(1.1);
-  transform: scale(1.02);
+  filter: blur(2px) brightness(0.85);
+  transform: translateZ(0) scale(1.02);
+  will-change: transform;
 }
 
 body.bg-image .bg-k3d-bg {

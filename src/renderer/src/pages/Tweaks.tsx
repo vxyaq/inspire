@@ -813,7 +813,7 @@ function Tweaks() {
                 return tweak.name === "debloat-windows" ? (
                   <div
                     key={originalIndex}
-                    className="animate-border-spin rounded-xl p-[1px]"
+                    className="rounded-xl p-[1px]"
                     style={{
                       background:
                         "linear-gradient(135deg, #16a34a 0%, #22c55e 55%, #15803d 100%)",
