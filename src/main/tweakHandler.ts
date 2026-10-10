@@ -187,7 +187,12 @@ export const setupTweaksHandlers = (): void => {
     return await loadTweaks()
   })
 
-  ipcMain.handle("tweak:apply", async (_: any, name: string): Promise<any> => {
+  ipcMain.handle("tweak:apply", async (_: any, payload: string | { name: string; ramGb?: number }): Promise<any> => {
+    const name = typeof payload === "string" ? payload : payload?.name
+    const ramGb =
+      typeof payload === "object" && payload && Number.isFinite(payload.ramGb)
+        ? Math.max(1, Math.min(512, Math.floor(payload.ramGb as number)))
+        : undefined
     const tweaks = await loadTweaks()
     const tweak = tweaks.find((t) => t.name === name)
     if (!tweak) {
@@ -230,7 +235,8 @@ export const setupTweaksHandlers = (): void => {
       console.log(logo, "Running Nvidia settings optimization...")
       await NvidiaProfileInspector()
     }
-    const result = await executePowerShell({ script: tweak.psapply, name })
+    const script = ramGb !== undefined ? `$k3dRamGb = ${ramGb}\n${tweak.psapply}` : tweak.psapply
+    const result = await executePowerShell({ script, name })
     if (EXPLORER_RESTART_TWEAKS.has(name)) {
       restartExplorer()
     }

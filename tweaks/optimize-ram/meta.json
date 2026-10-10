@@ -1,0 +1,9 @@
+{
+  "title": "Optimize RAM",
+  "name": "optimize-ram",
+  "risk": "safe",
+  "reversible": true,
+  "category": ["Performance", "Pro"],
+  "description": "Purges standby memory and tunes Windows memory management to your RAM size",
+  "deepDescription": "This frees wasted standby memory and tunes the memory manager:\n\n- Standby memory list → Purged instantly\n- Kernel paging → Disabled (kernel stays in RAM)\n- 8 GB or less → SysMain prefetch off (saves RAM)\n- 16 GB or more → SysMain on (faster launches)\n\nPick your installed RAM size when applying."
+}

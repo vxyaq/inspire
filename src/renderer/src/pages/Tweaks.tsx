@@ -55,6 +55,9 @@ function Tweaks() {
   const [selectedTweak, setSelectedTweak] = useState<Tweak | null>(null)
   const [biosAccepted, setBiosAccepted] = useState(false)
   const [isRecommendedModalOpen, setIsRecommendedModalOpen] = useState(false)
+  const [isRamModalOpen, setIsRamModalOpen] = useState(false)
+  const [ramGb, setRamGb] = useState(16)
+  const [ramAccepted, setRamAccepted] = useState(false)
   const [recommendedTweaksToApply, setRecommendedTweaksToApply] = useState<Tweak[]>([])
   const [selectedRecommendedTweaks, setSelectedRecommendedTweaks] = useState<Set<string>>(new Set())
   const [isApplyingRecommended, setIsApplyingRecommended] = useState(false)
@@ -224,7 +227,7 @@ function Tweaks() {
     }
   }
 
-  const applyTweak = async (tweak, _) => {
+  const applyTweak = async (tweak, _, ramSize?: number) => {
     toast.dismiss()
     const newState = !toggleStates[tweak.name]
     const newStates = {
@@ -244,7 +247,7 @@ function Tweaks() {
       if (newState) {
         const result = await invoke({
           channel: "tweak:apply",
-          payload: tweak.name,
+          payload: ramSize ? { name: tweak.name, ramGb: ramSize } : tweak.name,
         })
         if (result?.success === false) {
           throw new Error(result.error || `Failed to apply tweak: ${tweak.title}`)
@@ -307,6 +310,13 @@ function Tweaks() {
 
   const handleToggle = async (index) => {
     const tweak: any = tweaks[index]
+
+    if (tweak.name === "optimize-ram" && !toggleStates[tweak.name]) {
+      setRamGb(16)
+      setRamAccepted(false)
+      setIsRamModalOpen(true)
+      return
+    }
 
     if (tweak.modal && !toggleStates[tweak.name]) {
       setSelectedTweak(tweak)
@@ -554,6 +564,47 @@ function Tweaks() {
               {isApplyingRecommended
                 ? "Applying..."
                 : `Apply Selected (${selectedRecommendedTweaks.size})`}
+            </Button>
+          </div>
+        </div>
+      </Modal>
+      <Modal open={isRamModalOpen} onClose={() => setIsRamModalOpen(false)}>
+        <div className="bg-k3d-card border border-k3d-border rounded-2xl p-4 shadow-xl max-w-lg w-full mx-4">
+          <h3 className="text-xl font-semibold text-k3d-text mb-3">Optimize RAM</h3>
+          <p className="text-k3d-text-secondary text-sm leading-6 mb-4">
+            How much RAM is installed in this PC? The optimization adjusts to it.
+          </p>
+          <div className="grid grid-cols-4 gap-2 mb-4">
+            {[8, 16, 32, 64].map((size) => (
+              <Button
+                key={size}
+                variant={ramGb === size ? "primary" : "secondary"}
+                onClick={() => setRamGb(size)}
+              >
+                {size} GB
+              </Button>
+            ))}
+          </div>
+          <div className="mb-4 rounded-lg border border-red-500/40 bg-red-500/10 p-3">
+            <Checkbox
+              label="I understand the risks of changing memory settings"
+              checked={ramAccepted}
+              onChange={setRamAccepted}
+            />
+          </div>
+          <div className="flex justify-end gap-3">
+            <Button variant="secondary" onClick={() => setIsRamModalOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              disabled={!ramAccepted}
+              onClick={async () => {
+                setIsRamModalOpen(false)
+                const ramTweak = tweaks.find((t: any) => t.name === "optimize-ram")
+                if (ramTweak) await applyTweak(ramTweak, 0, ramGb)
+              }}
+            >
+              Apply
             </Button>
           </div>
         </div>

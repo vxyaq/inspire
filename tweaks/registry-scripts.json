@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-10T17:29:03.159Z",
+  "version": "2026-10-10T17:34:01.895Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -653,23 +653,6 @@
       }
     },
     {
-      "id": "optimize-discord",
-      "title": "Optimize Discord",
-      "description": "Disables Discord hardware acceleration and clears its bloated cache to stop FPS drops in games",
-      "category": [
-        "Performance",
-        "Gaming"
-      ],
-      "recommended": false,
-      "reversible": true,
-      "docsurl": "https://docs.getk3d.net/tweaks/optimize-discord",
-      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-discord/meta.json",
-      "scripts": {
-        "apply": "Write-Host \"Optimizing Discord...\"\nGet-Process -Name Discord -ErrorAction SilentlyContinue | Stop-Process -Force\n$discordData = Join-Path $env:APPDATA \"discord\"\n$settingsPath = Join-Path $discordData \"settings.json\"\nif (Test-Path $settingsPath) {\n    $settings = Get-Content $settingsPath -Raw | ConvertFrom-Json\n    $settings | Add-Member -NotePropertyName \"enableHardwareAcceleration\" -NotePropertyValue $false -Force\n    $settings | ConvertTo-Json -Depth 10 | Set-Content $settingsPath -Encoding UTF8\n}\n@(\"Cache\", \"Code Cache\", \"GPUCache\") | ForEach-Object {\n    $cachePath = Join-Path $discordData $_\n    if (Test-Path $cachePath) {\n        Remove-Item $cachePath -Recurse -Force -ErrorAction SilentlyContinue\n    }\n}\nWrite-Host \"Discord optimized. Open Discord again when ready.\"\n",
-        "unapply": "Write-Host \"Reverting Discord optimization...\"\n$settingsPath = Join-Path $env:APPDATA \"discord\\settings.json\"\nif (Test-Path $settingsPath) {\n    $settings = Get-Content $settingsPath -Raw | ConvertFrom-Json\n    $settings | Add-Member -NotePropertyName \"enableHardwareAcceleration\" -NotePropertyValue $true -Force\n    $settings | ConvertTo-Json -Depth 10 | Set-Content $settingsPath -Encoding UTF8\n}\nWrite-Host \"Discord optimization reverted.\"\n"
-      }
-    },
-    {
       "id": "optimize-intel-settings",
       "title": "Optimize Intel Settings",
       "description": "Changes Intel Graphics Command Center settings to improve performance",
@@ -685,23 +668,6 @@
       "scripts": {
         "apply": "Write-Host \"Applying Intel GPU optimization...\"\n$gmmPath = \"HKLM:\\SOFTWARE\\Intel\\GMM\"\nif (-not (Test-Path $gmmPath)) {\n    New-Item -Path $gmmPath -Force | Out-Null\n}\nSet-ItemProperty -Path $gmmPath -Name \"DedicatedSegmentSize\" -Value 512 -Type DWord -Force\n$gpu = Get-WmiObject Win32_VideoController -ErrorAction SilentlyContinue | Where-Object { $_.Name -match \"Intel\" -and $_.PNPDeviceID } | Select-Object -First 1\nif ($gpu) {\n    $msiPath = \"HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\$($gpu.PNPDeviceID)\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties\"\n    if (Test-Path $msiPath) {\n        Set-ItemProperty -Path $msiPath -Name \"MSISupported\" -Value 1 -Type DWord -Force\n    }\n}\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_FSEBehaviorMode\" -Value 2 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_HonorUserFSEBehaviorMode\" -Value 1 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_DXGIHonorFSEWindowsCompatible\" -Value 1 -Type DWord -Force\nWrite-Host \"Intel GPU optimization applied.\"\n",
         "unapply": "Write-Host \"Reverting Intel GPU optimization...\"\n$gmmPath = \"HKLM:\\SOFTWARE\\Intel\\GMM\"\nif (Test-Path $gmmPath) {\n    Remove-ItemProperty -Path $gmmPath -Name \"DedicatedSegmentSize\" -ErrorAction SilentlyContinue\n}\n$gpu = Get-WmiObject Win32_VideoController -ErrorAction SilentlyContinue | Where-Object { $_.Name -match \"Intel\" -and $_.PNPDeviceID } | Select-Object -First 1\nif ($gpu) {\n    $msiPath = \"HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\$($gpu.PNPDeviceID)\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties\"\n    if (Test-Path $msiPath) {\n        Set-ItemProperty -Path $msiPath -Name \"MSISupported\" -Value 0 -Type DWord -Force\n    }\n}\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_FSEBehaviorMode\" -Value 0 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_HonorUserFSEBehaviorMode\" -Value 0 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_DXGIHonorFSEWindowsCompatible\" -Value 0 -Type DWord -Force\nWrite-Host \"Intel GPU optimization reverted.\"\n"
-      }
-    },
-    {
-      "id": "optimize-medal",
-      "title": "Optimize Medal",
-      "description": "Clears Medal cache and whitelists it in Defender so background recording stops eating FPS",
-      "category": [
-        "Performance",
-        "Gaming"
-      ],
-      "recommended": false,
-      "reversible": true,
-      "docsurl": "https://docs.getk3d.net/tweaks/optimize-medal",
-      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-medal/meta.json",
-      "scripts": {
-        "apply": "Write-Host \"Optimizing Medal...\"\nGet-Process -Name Medal, MedalEncoder -ErrorAction SilentlyContinue | Stop-Process -Force\n$medalData = Join-Path $env:APPDATA \"Medal\"\n@(\"Cache\", \"Code Cache\", \"GPUCache\") | ForEach-Object {\n    $cachePath = Join-Path $medalData $_\n    if (Test-Path $cachePath) {\n        Remove-Item $cachePath -Recurse -Force -ErrorAction SilentlyContinue\n    }\n}\n$medalLocal = Join-Path $env:LOCALAPPDATA \"Medal\"\nif (Test-Path $medalLocal) {\n    Add-MpPreference -ExclusionPath $medalLocal -ErrorAction SilentlyContinue\n}\nWrite-Host \"Medal optimized. Open Medal again when ready.\"\n",
-        "unapply": "Write-Host \"Reverting Medal optimization...\"\n$medalLocal = Join-Path $env:LOCALAPPDATA \"Medal\"\nif (Test-Path $medalLocal) {\n    Remove-MpPreference -ExclusionPath $medalLocal -ErrorAction SilentlyContinue\n}\nWrite-Host \"Medal optimization reverted.\"\n"
       }
     },
     {
@@ -741,20 +707,20 @@
       }
     },
     {
-      "id": "optimize-obs",
-      "title": "Optimize OBS Studio",
-      "description": "Raises OBS process priority, disables preview rendering and clears old logs to stop encoding overload",
+      "id": "optimize-ram",
+      "title": "Optimize RAM",
+      "description": "Purges standby memory and tunes Windows memory management to your RAM size",
       "category": [
         "Performance",
-        "Gaming"
+        "Pro"
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getk3d.net/tweaks/optimize-obs",
-      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-obs/meta.json",
+      "docsurl": "https://docs.getk3d.net/tweaks/optimize-ram",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-ram/meta.json",
       "scripts": {
-        "apply": "Write-Host \"Optimizing OBS Studio...\"\nGet-Process -Name obs64, obs32 -ErrorAction SilentlyContinue | Stop-Process -Force\n$obsData = Join-Path $env:APPDATA \"obs-studio\"\nfunction Set-IniValue($file, $section, $key, $value) {\n    $content = [System.IO.File]::ReadAllText($file)\n    if ($content -match \"(?m)^$key=.*$\") {\n        $content = $content -replace \"(?m)^$key=.*$\", \"$key=$value\"\n    } elseif ($content -match \"(?m)^\\[$section\\]\") {\n        $content = $content -replace \"(?m)^\\[$section\\]\", \"[$section]`r`n$key=$value\"\n    } else {\n        $content = \"$content`r`n[$section]`r`n$key=$value\"\n    }\n    [System.IO.File]::WriteAllText($file, $content)\n}\n$globalIni = Join-Path $obsData \"global.ini\"\nif (Test-Path $globalIni) {\n    Set-IniValue $globalIni \"General\" \"ProcessPriority\" \"High\"\n}\n$profilesDir = Join-Path $obsData \"basic\\profiles\"\nif (Test-Path $profilesDir) {\n    Get-ChildItem -Path $profilesDir -Directory | ForEach-Object {\n        $basicIni = Join-Path $_.FullName \"basic.ini\"\n        if (Test-Path $basicIni) {\n            Set-IniValue $basicIni \"General\" \"PreviewEnabled\" \"false\"\n        }\n    }\n}\n$logsDir = Join-Path $obsData \"logs\"\nif (Test-Path $logsDir) {\n    Get-ChildItem -Path $logsDir -Filter \"*.log\" | Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-30) } | Remove-Item -Force -ErrorAction SilentlyContinue\n}\nWrite-Host \"OBS Studio optimized. Open OBS again when ready.\"\n",
-        "unapply": "Write-Host \"Reverting OBS Studio optimization...\"\n$obsData = Join-Path $env:APPDATA \"obs-studio\"\nfunction Set-IniValue($file, $section, $key, $value) {\n    $content = [System.IO.File]::ReadAllText($file)\n    if ($content -match \"(?m)^$key=.*$\") {\n        $content = $content -replace \"(?m)^$key=.*$\", \"$key=$value\"\n    } elseif ($content -match \"(?m)^\\[$section\\]\") {\n        $content = $content -replace \"(?m)^\\[$section\\]\", \"[$section]`r`n$key=$value\"\n    } else {\n        $content = \"$content`r`n[$section]`r`n$key=$value\"\n    }\n    [System.IO.File]::WriteAllText($file, $content)\n}\n$globalIni = Join-Path $obsData \"global.ini\"\nif (Test-Path $globalIni) {\n    Set-IniValue $globalIni \"General\" \"ProcessPriority\" \"Normal\"\n}\n$profilesDir = Join-Path $obsData \"basic\\profiles\"\nif (Test-Path $profilesDir) {\n    Get-ChildItem -Path $profilesDir -Directory | ForEach-Object {\n        $basicIni = Join-Path $_.FullName \"basic.ini\"\n        if (Test-Path $basicIni) {\n            Set-IniValue $basicIni \"General\" \"PreviewEnabled\" \"true\"\n        }\n    }\n}\nWrite-Host \"OBS Studio optimization reverted.\"\n"
+        "apply": "if (-not $k3dRamGb) { $k3dRamGb = 16 }\nWrite-Host \"Optimizing RAM ($k3dRamGb GB installed)...\"\n\n$memTools = Add-Type -MemberDefinition '[DllImport(\"ntdll.dll\")] public static extern int NtSetSystemInformation(int SystemInformationClass, System.IntPtr SystemInformation, int SystemInformationLength);' -Name \"K3dMemTools\" -Namespace \"K3dTweaks\" -PassThru\n$ptr = [System.Runtime.InteropServices.Marshal]::AllocHGlobal(4)\n[System.Runtime.InteropServices.Marshal]::WriteInt32($ptr, 4)\n[void]$memTools::NtSetSystemInformation(80, $ptr, 4)\n[System.Runtime.InteropServices.Marshal]::FreeHGlobal($ptr)\nWrite-Host \"Standby memory purged.\"\n\nNew-Item -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\" -Force | Out-Null\nSet-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\" -Name \"DisablePagingExecutive\" -Value 1 -Type DWord -Force\n\nif ($k3dRamGb -le 8) {\n    Stop-Service SysMain -Force -ErrorAction SilentlyContinue\n    Set-Service SysMain -StartupType Disabled -ErrorAction SilentlyContinue\n    Write-Host \"SysMain disabled to save RAM.\"\n} else {\n    Set-Service SysMain -StartupType Automatic -ErrorAction SilentlyContinue\n    Start-Service SysMain -ErrorAction SilentlyContinue\n    Write-Host \"SysMain kept on for faster launches.\"\n}\n\nWrite-Host \"RAM optimized.\"\n",
+        "unapply": "Write-Host \"Reverting RAM optimization...\"\nSet-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\" -Name \"DisablePagingExecutive\" -Value 0 -Type DWord -Force\nSet-Service SysMain -StartupType Automatic -ErrorAction SilentlyContinue\nWrite-Host \"RAM optimization reverted.\"\n"
       }
     },
     {

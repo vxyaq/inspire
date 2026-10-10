@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-10T17:29:03.159Z",
+  "version": "2026-10-10T17:34:01.895Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -501,19 +501,6 @@
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-amd-settings/meta.json"
     },
     {
-      "id": "optimize-discord",
-      "title": "Optimize Discord",
-      "description": "Disables Discord hardware acceleration and clears its bloated cache to stop FPS drops in games",
-      "category": [
-        "Performance",
-        "Gaming"
-      ],
-      "recommended": false,
-      "reversible": true,
-      "docsurl": "https://docs.getk3d.net/tweaks/optimize-discord",
-      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-discord/meta.json"
-    },
-    {
       "id": "optimize-intel-settings",
       "title": "Optimize Intel Settings",
       "description": "Changes Intel Graphics Command Center settings to improve performance",
@@ -526,19 +513,6 @@
       "reversible": true,
       "docsurl": "https://docs.getk3d.net/tweaks/optimize-intel-settings",
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-intel-settings/meta.json"
-    },
-    {
-      "id": "optimize-medal",
-      "title": "Optimize Medal",
-      "description": "Clears Medal cache and whitelists it in Defender so background recording stops eating FPS",
-      "category": [
-        "Performance",
-        "Gaming"
-      ],
-      "recommended": false,
-      "reversible": true,
-      "docsurl": "https://docs.getk3d.net/tweaks/optimize-medal",
-      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-medal/meta.json"
     },
     {
       "id": "optimize-network-settings",
@@ -569,17 +543,17 @@
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-nvidia-settings/meta.json"
     },
     {
-      "id": "optimize-obs",
-      "title": "Optimize OBS Studio",
-      "description": "Raises OBS process priority, disables preview rendering and clears old logs to stop encoding overload",
+      "id": "optimize-ram",
+      "title": "Optimize RAM",
+      "description": "Purges standby memory and tunes Windows memory management to your RAM size",
       "category": [
         "Performance",
-        "Gaming"
+        "Pro"
       ],
       "recommended": false,
       "reversible": true,
-      "docsurl": "https://docs.getk3d.net/tweaks/optimize-obs",
-      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-obs/meta.json"
+      "docsurl": "https://docs.getk3d.net/tweaks/optimize-ram",
+      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-ram/meta.json"
     },
     {
       "id": "pbo-ryzen",
