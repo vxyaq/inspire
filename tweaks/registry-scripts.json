@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-10T17:34:01.895Z",
+  "version": "2026-10-10T17:42:38.949Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -632,42 +632,6 @@
       "scripts": {
         "apply": "Write-Host \"Disabling network throttling...\"\nSet-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" -Name \"NetworkThrottlingIndex\" -Value 4294967295 -Type DWord -Force\nWrite-Host \"Network throttling disabled.\"\n",
         "unapply": "Write-Host \"Restoring network throttling...\"\nSet-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" -Name \"NetworkThrottlingIndex\" -Value 10 -Type DWord -Force\nWrite-Host \"Network throttling restored.\"\n"
-      }
-    },
-    {
-      "id": "optimize-amd-settings",
-      "title": "Optimize AMD Settings",
-      "description": "Changes AMD Radeon Control Panel settings to improve gaming performance",
-      "category": [
-        "Performance",
-        "GPU",
-        "Gaming"
-      ],
-      "recommended": false,
-      "reversible": true,
-      "docsurl": "https://docs.getk3d.net/tweaks/optimize-amd-settings",
-      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-amd-settings/meta.json",
-      "scripts": {
-        "apply": "Write-Host \"Applying AMD GPU optimization...\"\n$base = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\"\nGet-ChildItem -Path $base -ErrorAction SilentlyContinue | Where-Object { $_.PSChildName -match \"^000\\d$\" } | ForEach-Object {\n    Set-ItemProperty -Path $_.PSPath -Name \"DisableUlps\" -Value 1 -Type DWord -Force\n    Set-ItemProperty -Path $_.PSPath -Name \"DisableUlps_NA\" -Value 1 -Type DWord -Force\n    Set-ItemProperty -Path $_.PSPath -Name \"EnableUlps\" -Value 0 -Type DWord -Force\n}\n$gpu = Get-WmiObject Win32_VideoController -ErrorAction SilentlyContinue | Where-Object { $_.Name -match \"AMD\" -and $_.PNPDeviceID } | Select-Object -First 1\nif ($gpu) {\n    $msiPath = \"HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\$($gpu.PNPDeviceID)\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties\"\n    if (Test-Path $msiPath) {\n        Set-ItemProperty -Path $msiPath -Name \"MSISupported\" -Value 1 -Type DWord -Force\n    }\n}\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_FSEBehaviorMode\" -Value 2 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_HonorUserFSEBehaviorMode\" -Value 1 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_DXGIHonorFSEWindowsCompatible\" -Value 1 -Type DWord -Force\nWrite-Host \"AMD GPU optimization applied.\"\n",
-        "unapply": "Write-Host \"Reverting AMD GPU optimization...\"\n$base = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\"\nGet-ChildItem -Path $base -ErrorAction SilentlyContinue | Where-Object { $_.PSChildName -match \"^000\\d$\" } | ForEach-Object {\n    Set-ItemProperty -Path $_.PSPath -Name \"DisableUlps\" -Value 0 -Type DWord -Force\n    Set-ItemProperty -Path $_.PSPath -Name \"EnableUlps\" -Value 1 -Type DWord -Force\n    Remove-ItemProperty -Path $_.PSPath -Name \"DisableUlps_NA\" -ErrorAction SilentlyContinue\n}\n$gpu = Get-WmiObject Win32_VideoController -ErrorAction SilentlyContinue | Where-Object { $_.Name -match \"AMD\" -and $_.PNPDeviceID } | Select-Object -First 1\nif ($gpu) {\n    $msiPath = \"HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\$($gpu.PNPDeviceID)\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties\"\n    if (Test-Path $msiPath) {\n        Set-ItemProperty -Path $msiPath -Name \"MSISupported\" -Value 0 -Type DWord -Force\n    }\n}\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_FSEBehaviorMode\" -Value 0 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_HonorUserFSEBehaviorMode\" -Value 0 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_DXGIHonorFSEWindowsCompatible\" -Value 0 -Type DWord -Force\nWrite-Host \"AMD GPU optimization reverted.\"\n"
-      }
-    },
-    {
-      "id": "optimize-intel-settings",
-      "title": "Optimize Intel Settings",
-      "description": "Changes Intel Graphics Command Center settings to improve performance",
-      "category": [
-        "Performance",
-        "GPU",
-        "Gaming"
-      ],
-      "recommended": false,
-      "reversible": true,
-      "docsurl": "https://docs.getk3d.net/tweaks/optimize-intel-settings",
-      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-intel-settings/meta.json",
-      "scripts": {
-        "apply": "Write-Host \"Applying Intel GPU optimization...\"\n$gmmPath = \"HKLM:\\SOFTWARE\\Intel\\GMM\"\nif (-not (Test-Path $gmmPath)) {\n    New-Item -Path $gmmPath -Force | Out-Null\n}\nSet-ItemProperty -Path $gmmPath -Name \"DedicatedSegmentSize\" -Value 512 -Type DWord -Force\n$gpu = Get-WmiObject Win32_VideoController -ErrorAction SilentlyContinue | Where-Object { $_.Name -match \"Intel\" -and $_.PNPDeviceID } | Select-Object -First 1\nif ($gpu) {\n    $msiPath = \"HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\$($gpu.PNPDeviceID)\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties\"\n    if (Test-Path $msiPath) {\n        Set-ItemProperty -Path $msiPath -Name \"MSISupported\" -Value 1 -Type DWord -Force\n    }\n}\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_FSEBehaviorMode\" -Value 2 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_HonorUserFSEBehaviorMode\" -Value 1 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_DXGIHonorFSEWindowsCompatible\" -Value 1 -Type DWord -Force\nWrite-Host \"Intel GPU optimization applied.\"\n",
-        "unapply": "Write-Host \"Reverting Intel GPU optimization...\"\n$gmmPath = \"HKLM:\\SOFTWARE\\Intel\\GMM\"\nif (Test-Path $gmmPath) {\n    Remove-ItemProperty -Path $gmmPath -Name \"DedicatedSegmentSize\" -ErrorAction SilentlyContinue\n}\n$gpu = Get-WmiObject Win32_VideoController -ErrorAction SilentlyContinue | Where-Object { $_.Name -match \"Intel\" -and $_.PNPDeviceID } | Select-Object -First 1\nif ($gpu) {\n    $msiPath = \"HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\$($gpu.PNPDeviceID)\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties\"\n    if (Test-Path $msiPath) {\n        Set-ItemProperty -Path $msiPath -Name \"MSISupported\" -Value 0 -Type DWord -Force\n    }\n}\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_FSEBehaviorMode\" -Value 0 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_HonorUserFSEBehaviorMode\" -Value 0 -Type DWord -Force\nSet-ItemProperty -Path \"HKCU:\\System\\GameConfigStore\" -Name \"GameDVR_DXGIHonorFSEWindowsCompatible\" -Value 0 -Type DWord -Force\nWrite-Host \"Intel GPU optimization reverted.\"\n"
       }
     },
     {

@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-10T17:34:01.895Z",
+  "version": "2026-10-10T17:42:38.949Z",
   "tweaks": [
     {
       "id": "24-hour-clock",
@@ -485,34 +485,6 @@
       "reversible": true,
       "docsurl": "https://docs.getk3d.net/tweaks/network-throttling-off",
       "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/network-throttling-off/meta.json"
-    },
-    {
-      "id": "optimize-amd-settings",
-      "title": "Optimize AMD Settings",
-      "description": "Changes AMD Radeon Control Panel settings to improve gaming performance",
-      "category": [
-        "Performance",
-        "GPU",
-        "Gaming"
-      ],
-      "recommended": false,
-      "reversible": true,
-      "docsurl": "https://docs.getk3d.net/tweaks/optimize-amd-settings",
-      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-amd-settings/meta.json"
-    },
-    {
-      "id": "optimize-intel-settings",
-      "title": "Optimize Intel Settings",
-      "description": "Changes Intel Graphics Command Center settings to improve performance",
-      "category": [
-        "Performance",
-        "GPU",
-        "Gaming"
-      ],
-      "recommended": false,
-      "reversible": true,
-      "docsurl": "https://docs.getk3d.net/tweaks/optimize-intel-settings",
-      "source": "https://github.com/vxyaq/k3d-tweaks Tweaks/blob/v2/tweaks/optimize-intel-settings/meta.json"
     },
     {
       "id": "optimize-network-settings",
