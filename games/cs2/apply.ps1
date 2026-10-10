@@ -6,8 +6,53 @@ if (-not $processes) {
   exit 0
 }
 
-$processes | ForEach-Object {
-  try { $_.PriorityClass = "High" } catch { Write-Output "Could not set process priority for $($_.Id)" }
+if (-not ("ProcessTuning" -as [type])) {
+Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public class ProcessTuning
+{
+    [StructLayout(LayoutKind.Sequential)]
+    public struct PROCESS_POWER_THROTTLING_STATE
+    {
+        public uint Version;
+        public uint ControlMask;
+        public uint StateMask;
+    }
+    [DllImport("kernel32.dll", SetLastError = true)]
+    public static extern bool SetProcessInformation(IntPtr hProcess, int ProcessInformationClass, ref PROCESS_POWER_THROTTLING_STATE info, int size);
+}
+"@
+}
+
+$cores = [Environment]::ProcessorCount
+if ($cores -ge 64) {
+  $allCores = [UIntPtr]::MaxValue
+} else {
+  $allCores = [IntPtr]([long][math]::Pow(2, $cores) - 1)
+}
+foreach ($p in $processes) {
+  try {
+    $p.PriorityClass = "High"
+    $p.PriorityBoostEnabled = $true
+    try { $p.ProcessorAffinity = $allCores } catch { }
+  } catch { Write-Output "Could not set process priority for $($p.Id)" }
+
+  try {
+    $state = New-Object ProcessTuning+PROCESS_POWER_THROTTLING_STATE
+    $state.Version = 1
+    $state.ControlMask = 1
+    $state.StateMask = 0
+    [ProcessTuning]::SetProcessInformation($p.Handle, 4, [ref]$state, [System.Runtime.InteropServices.Marshal]::SizeOf($state)) | Out-Null
+  } catch { }
+}
+
+try {
+  $ifeoPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\cs2.exe"
+  New-Item -Path $ifeoPath -Force | Out-Null
+  New-ItemProperty -Path $ifeoPath -Name "CpuPriorityClass" -PropertyType DWord -Value 3 -Force | Out-Null
+} catch {
+  Write-Output "Could not set persistent process priority."
 }
 
 $gpuNames = @(Get-CimInstance Win32_VideoController -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name)
@@ -34,7 +79,7 @@ New-ItemProperty -Path $gameBarPath -Name "AppCaptureEnabled" -PropertyType DWor
 
 Write-Output "CS2_OPTIMIZED:$gpuVendor"
 
-$videoSettings = @{
+$videoSettings = [ordered]@{
     "setting.defaultres" = "1280"
     "setting.defaultresheight" = "960"
     "setting.aspectratiomode" = "0"
@@ -70,21 +115,22 @@ if (Test-Path $userdataDir) {
             Copy-Item $videoFile "$videoFile.k3d.bak" -Force -ErrorAction SilentlyContinue
             $content = [System.IO.File]::ReadAllText($videoFile)
             foreach ($key in $videoSettings.Keys) {
-                $pattern = '(?m)^"' + $key + '"\s+"[^"]*"$'
+                $pattern = '(?m)^"' + [regex]::Escape($key) + '"\s+"[^"]*"$'
                 $replacement = '"' + $key + '" "' + $videoSettings[$key] + '"'
                 if ($content -match $pattern) {
-                    $content = $content -replace $pattern, $replacement
+                    $content = [regex]::Replace($content, $pattern, $replacement)
                 } else {
-                    $content = $content -replace '(?m)^\}', $replacement + [Environment]::NewLine + "}"
+                    $content = [regex]::Replace($content, '(?m)^\}(?![\s\S]*^\})', $replacement + [Environment]::NewLine + "}", 1)
                 }
             }
             [System.IO.File]::WriteAllText($videoFile, $content)
             $videoUpdated = $true
             $configFile = Join-Path $cfgDir "config.cfg"
             if (Test-Path $configFile) {
+                Copy-Item $configFile "$configFile.k3d.bak" -Force -ErrorAction SilentlyContinue
                 $cfgContent = [System.IO.File]::ReadAllText($configFile)
-                if ($cfgContent -match '(?m)^r_player_visibility_mode\s+"[^"]*"$') {
-                    $cfgContent = $cfgContent -replace '(?m)^r_player_visibility_mode\s+"[^"]*"$', 'r_player_visibility_mode "1"'
+                if ($cfgContent -match '(?m)^r_player_visibility_mode\s+"[^"]*"') {
+                    $cfgContent = [regex]::Replace($cfgContent, '(?m)^r_player_visibility_mode\s+"[^"]*"', 'r_player_visibility_mode "1"')
                 } else {
                     $cfgContent = $cfgContent + [Environment]::NewLine + 'r_player_visibility_mode "1"'
                 }

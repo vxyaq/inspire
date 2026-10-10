@@ -2,7 +2,7 @@
   "id": "fortnite",
   "title": "Fortnite",
   "background": "fortnite-background.webp",
-  "description": "Optimization specifically designed for Fortnite, focused on maximizing FPS, lowering input delay, smoothing frame times and cutting system load for a smoother, more stable and consistent Battle Royale experience without stutters, hitches or late-loading builds.",
+  "description": "Optimization specifically designed for Fortnite, built to boost frame rates and cut down input lag during fast-paced build fights. Keeps your system running smoothly in the heat of battle and fine-tunes network settings for lower latency, fewer stutters, and a faster, more reliable, and distraction-free gameplay experience.",
   "notRunningMarker": "FORTNITE_NOT_RUNNING",
   "notRunningText": "Launch Fortnite and click the button again.",
   "missingMarker": "FORTNITE_CONFIG_MISSING",

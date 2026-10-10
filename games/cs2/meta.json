@@ -2,7 +2,7 @@
   "id": "cs2",
   "title": "Counter-Strike 2",
   "background": "cs2-background.webp",
-  "description": "Optimization specifically designed for Counter-Strike 2, focused on maximizing FPS, reducing input delay, improving system responsiveness, and optimizing network performance for a smoother, more stable, and consistent gaming experience.",
+  "description": "Optimization built specifically for Counter-Strike 2 — maximizes FPS, minimizes input lag, and reduces frame time stutter for peak aiming precision. Boosts system responsiveness during gameplay and fine-tunes network settings for lower ping, less jitter, and a consistently smooth, stable gaming experience.",
   "notRunningMarker": "CS2_NOT_RUNNING",
   "notRunningText": "Launch CS2 and click the button again.",
   "missingMarker": "CS2_VIDEO_MISSING",
